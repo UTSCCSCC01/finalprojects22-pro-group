@@ -1,3 +1,5 @@
+**Discord Chat/Server Invite :** https://discord.gg/E96UmhmyZK
+
 | Junheng Wang | wangj930 | 1006390031 | junheng.wang@mail.utoronto.ca | discord | w2001#9883 |
 
 | Zhitao Xu | xuzhitao | 1006668697 | zhitao.xu@mail.utoronto.ca | discord | Neverland#0323 |
