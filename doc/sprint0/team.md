@@ -8,7 +8,7 @@
 
 | Xiangyi Li | lixia155 | 1007452285｜ xxxxyyyy.li@mail.utoronto.ca | discord | Simon(Xiangyi) Li#4435 |
 
-| Zijian Fan | fanzijia | 1006739745 | zijian.fan@mail.utoronto.ca | discord | erryfan1312#0120 |
+| Zijian Fan | fanzijia | 1006739745 | zijian.fan@mail.utoronto.ca | discord | jerryfan1312#0120 |
 
 | Yuehai Zhou | zhouy134 | 1005859402 | yuehai.zhou@mail.utoronto.ca | discord | moonman#4547 |
 
