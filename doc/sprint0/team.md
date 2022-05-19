@@ -10,6 +10,4 @@
 
 | Zijian Fan | fanzijia | 1006739745 | zijian.fan@mail.utoronto.ca | discord | jerryfan1312#0120 |
 
-| Yuehai Zhou | zhouy134 | 1005859402 | yuehai.zhou@mail.utoronto.ca | discord | moonman#4547 |
-
 | Yuanhan Chen | chen1055 | 1006741705 | yuanhan.chen@mail.utoronto.ca | discord | Oscar178#2193 |
