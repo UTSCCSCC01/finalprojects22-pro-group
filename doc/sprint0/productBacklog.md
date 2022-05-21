@@ -12,9 +12,15 @@ Basic features:
 7. Personal revenue report 8 
 8.  Credit card confirm 8
 
-add-on features: 1. Create virtual account for practicing 2 2. Chat box
-with other users 2 3. Query and data download 2 4. Drawings panel 5 5.
-Personal watch list 5 6. Export chart data (or in other form) 3 7.
-Transaction History 5 8. Customize features 2 ( Sell or buy your stock
-when certain condition meet ) 9. Hotlists recommendation 3 10. Period
-revenue 3 11. Set the alarm 1 12. Watchlist 2 13. Formula 2
+add-on features:
+1. Create virtual account for practicing 2 
+2. Chat box with other users 2 
+3. Query and data download 2 
+4. Drawings panel 5 
+5. Personal watch list 5 
+6. Export chart data (or in other form) 3 
+7. Transaction History 5 
+8. Customize features 2 ( Sell or buy your stock when certain condition meet ) 
+9. Hotlists recommendation 3 
+10. Period revenue 3 
+11. Set the alarm 1 12. Watchlist 2 13. Formula 2
