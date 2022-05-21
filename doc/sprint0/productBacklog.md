@@ -23,4 +23,6 @@ add-on features:
 8. Customize features 2 ( Sell or buy your stock when certain condition meet ) 
 9. Hotlists recommendation 3 
 10. Period revenue 3 
-11. Set the alarm 1 12. Watchlist 2 13. Formula 2
+11. Set the alarm 1 
+12. Watchlist 2 
+13. Formula 2
