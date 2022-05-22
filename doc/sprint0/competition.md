@@ -1,0 +1,7 @@
+**Competition**
+
+Our product is a financial website which will provide lots of information and tools to help traders to analyse and make decisions. There are plenty of platforms that do similiar things, like [Tradingview](https://www.tradingview.com/), [Seeking Alpha](https://seekingalpha.com/), [Yahoo Finance](https://finance.yahoo.com/), [Thinkorswim](https://trade.thinkorswim.com/)... Some provide stock informations only, while some also shows data of cryptocurrencies.
+
+Our product would include both stocks and cryptocurrencies, and may add others, like future, if we have time to inplement. Most platfroms do not have features that allows us to draw on the charts and do different kinds of measuring. [Tradingview](https://www.tradingview.com/) has most of those feactures. So we would imitate a lot from [Tradingview](https://www.tradingview.com/).
+
+However, our product will be a very different platform from [Tradingview](https://www.tradingview.com/). That is because our platform includes a friend system which enables friends to share their decisions efficiently. And instead of trading real money, traders can play with paper trading on our platform which is something more relax. They will be able to share their stats with friends. With the sharing features, we can form a community where people are relax and can learn tading together, or have a little copetition with friends, or make bold decisions, like a trading game but with real world data. This is what makes our product unique.
