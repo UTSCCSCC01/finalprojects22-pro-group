@@ -1,8 +1,4 @@
-﻿
-
-● Short document (2-5 min read)
-
-● Reflect on how your team worked together.
+﻿﻿● Reflect on how your team worked together.
 
 Overall the team worked together well. Everyone did their job and we got all our tasks done on
 
@@ -11,8 +7,6 @@ time. In total we met 3 times collectively in person and 3 times collectively on
 touch on Discord. We made sure to do our own share of the work on time and made sure to ask
 
 the TA and each other for help whenever we needed anything that was unknown.
-
-● Here are a few questions that can guide you
 
 ● How did you organize the team? Which tools did you use, if any?
 
@@ -63,4 +57,3 @@ speak up and share our perspectives. We need to pool together our knowledge and 
 also Hold each other accountable in case one of us goes missing. Many people didn’t contribute
 
 as much so we needed to speak out on it.
-
