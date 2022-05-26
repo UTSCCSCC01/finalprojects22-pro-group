@@ -2,7 +2,8 @@ Product Backlog:
 
 (The importance do not represent the level of difficulty)
 
-As a <type of user> , I want <some goal> so that <some reason> （priority）
+Format:
+As a (type of user) , I want (some goal) so that (some reason)  (priority)
 
 1. As Rick and Kyle, I would like to be able to see a Website interface design so that I can see a given stock.              （high）
 2. As Rick and Kyle, I would like to be able to see a Realtime information update so that I can see a stock price without refreshing the page.       （high）
