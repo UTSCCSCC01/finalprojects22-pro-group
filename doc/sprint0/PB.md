@@ -26,3 +26,4 @@ add-on features:
 11. Set the alarm 1 
 12. Watchlist 2 
 13. Formula 2
+14. Following other users    5
