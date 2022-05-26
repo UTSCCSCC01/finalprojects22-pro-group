@@ -4,8 +4,8 @@ Product Backlog:
 
 As a <type of user> , I want <some goal> so that <some reason> （priority）
 
-1. As Rick and Kyle, I would like to be able to see a Website interface design so that I can see a given stock.               （high）
-2. As Rick and Kyle, I would like to be able to see a Realtime information update so that I can see a stock price without refreshing the page.         （high）
+1. As Rick and Kyle, I would like to be able to see a Website interface design so that I can see a given stock.              （high）
+2. As Rick and Kyle, I would like to be able to see a Realtime information update so that I can see a stock price without refreshing the page.       （high）
 3. As Rick and Kyle, I would like to be able to register an account, so that I can have an account on this website.    (high)
 4. As Rick and Kyle, I would like to be able to login, so that I can login and log out my account to access all features from the platform     (high)
 5. As Rick and Kyle, I would like to be able to search for a specific stock after logging in so that I can focus on specific stock.                (high)                    
