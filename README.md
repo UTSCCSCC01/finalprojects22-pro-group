@@ -34,4 +34,4 @@ We use the git-flow workflow for merging and managing code in the repository. Th
 4. sprint_4
 
 The features branches follow the following naming convention of {sprint_x}\_feature\_{name_of_feature_separated_by_underscores}. 
-We will use Jira for tracking issues and to merge a feature branch into the develop branch requires a pull request that needs to be approved by at least 2 group members.
+We will use Jira for tracking issues and to merge a feature branch into the develop branch requires a pull request that needs to be approved by at least 2 group members to merge into main branch.
