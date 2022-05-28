@@ -10,10 +10,13 @@ The web application is made using [react](https://reactjs.org/), so the prerequi
 
 ```
 # run install in each directory: finalprojects22-pro-group/, frontend/ and backend/
+# run command:
 npm install
+
 # to run front end: cd into the frontend directory of the project
 # run command:
 npm start
+
 # to run back end: cd into the backend directory of the project
 # run command:
 npm start
@@ -30,5 +33,5 @@ We use the git-flow workflow for merging and managing code in the repository. Th
 3. sprint_3
 4. sprint_4
 
-The features branches follow the following naming convention of {sprint_x}_feature\_{name_of_feature_separated_by_underscores}_. 
+The features branches follow the following naming convention of {sprint_x}\_feature\_{name_of_feature_separated_by_underscores}. 
 We will use Jira for tracking issues and to merge a feature branch into the develop branch requires a pull request that needs to be approved by at least 2 group members.
