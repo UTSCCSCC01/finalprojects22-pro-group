@@ -12,8 +12,6 @@ function Stock() {
 
   // let API_CALL = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${StockSymbol}&output_size=compact&apikey=${API_KEY}`;
 
-
-
   const getStockRequest = async (StockSymbol) => {
     const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${StockSymbol}&output_size=compact&apikey=${API_KEY}`;
 
@@ -21,28 +19,26 @@ function Stock() {
     await response.json().then((data) => {
       for (const key in data["Time Series (Daily)"]) {
         setStockChartXValues((stockChartXValues) => [
+          key,
           ...stockChartXValues,
-          key
         ]);
         setStockChartYValues((stockChartYValues) => [
           ...stockChartYValues,
+
           data["Time Series (Daily)"][key]["1. open"],
         ]);
       }
     });
-
   };
 
   useEffect(() => {
     getStockRequest(StockSymbol);
   }, []);
-  console.log("X", stockChartXValues);
-  console.log("Y", stockChartYValues);
-
+  console.log(stockChartXValues);
+  console.log(stockChartYValues);
 
   return (
     <div>
-      {/* ${stockChartXValues } */}
       <h1>FB</h1>
       <Plot
         data={[
