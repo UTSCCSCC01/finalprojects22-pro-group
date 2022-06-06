@@ -1,7 +1,7 @@
 import "./App.css";
 import React from "react";
 import Stock from "./Stock";
-
+import Stock_FB from "./Stock_FB";
 // import Coin from "./components/Coin.js";
 // import Navbars from "./components/Navbars.js";
 // import Crypto from "./components/Crypto.js";
@@ -14,7 +14,7 @@ function App() {
   return (
     <div className="App">
       <Stock></Stock>
-
+      <Stock_FB></Stock_FB>
       {/* <Navbars /> */}
       {/* <Login/> */}
       {/* <Clock /> */}
