@@ -3,7 +3,7 @@ const express = require("express");
 const database_connect = require("./db/connect");
 // const mongoose = require("mongoose");
 require("dotenv").config();
-const auth = require("./routes/auth");
+const authRouter = require("./routes/authRouter");
 const notFound = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
 
@@ -12,14 +12,17 @@ const app = express();
 app.use(express.json());
 
 // temp page
-
-app.use("/api/v1", auth);
 app.get('/', (req, res) => {
   res.send('<h1>Pro View</h1><a href="/api/v1/register">register</a>');
 });
 
+// routers 
+app.use("/api/v1", authRouter);
+
+// set up error
 app.use(notFound);
 app.use(errorHandlerMiddleware);
+
 // set up port
 const port = process.env.PORT || 5000;
 
