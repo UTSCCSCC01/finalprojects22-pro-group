@@ -35,10 +35,11 @@ function Stock() {
     getStockRequest(StockSymbol);
   }, []);
 
-  stockChartXValues.slice( -1);
+  stockChartXValues.slice(1);
 
   return (
     <>
+     
       <div>
         <h1>FB</h1>
         <Plot
