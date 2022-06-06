@@ -7,7 +7,7 @@ function Stock() {
 
   // const [StockSymbol, setStockSymbol] = useState("FB");
 
-  const StockSymbol = "FB";
+  const StockSymbol = "GOOG";
   const API_KEY = "THN5ITBH3LFSAWLV";
 
   // let API_CALL = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${StockSymbol}&output_size=compact&apikey=${API_KEY}`;
@@ -20,12 +20,12 @@ function Stock() {
       for (const key in data["Time Series (Daily)"]) {
         setStockChartXValues((stockChartXValues) => [
           key,
+
           ...stockChartXValues,
         ]);
         setStockChartYValues((stockChartYValues) => [
-          data["Time Series (Daily)"][key]["1. open"],
-
           ...stockChartYValues,
+          data["Time Series (Daily)"][key]["1. open"],
         ]);
       }
     });
@@ -34,31 +34,33 @@ function Stock() {
   useEffect(() => {
     getStockRequest(StockSymbol);
   }, []);
-  console.log(stockChartXValues);
-  console.log(stockChartYValues);
+
+  stockChartXValues.slice( -1);
 
   return (
-    <div>
-      <h1>FB</h1>
-      <Plot
-        data={[
-          {
-            x: stockChartXValues,
-            y: stockChartYValues,
-            type: "scatter",
-            mode: "lines+markers",
-            marker: { color: "blue" },
-          },
-        ]}
-        layout={{
-          width: 720,
-          height: 500,
-          title: "StockSymbol",
-          xaxis: { title: "TIME" },
-          yaxis: { title: "COST" },
-        }}
-      />
-    </div>
+    <>
+      <div>
+        <h1>FB</h1>
+        <Plot
+          data={[
+            {
+              x: stockChartXValues,
+              y: stockChartYValues,
+              type: "scatter",
+              mode: "lines+markers",
+              marker: { color: "blue" },
+            },
+          ]}
+          layout={{
+            width: 720,
+            height: 500,
+            title: "StockSymbol",
+            xaxis: { title: "TIME" },
+            yaxis: { title: "COST" },
+          }}
+        />
+      </div>
+    </>
   );
 }
 
