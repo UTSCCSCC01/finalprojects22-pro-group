@@ -23,9 +23,9 @@ function Stock() {
           ...stockChartXValues,
         ]);
         setStockChartYValues((stockChartYValues) => [
-          ...stockChartYValues,
-
           data["Time Series (Daily)"][key]["1. open"],
+
+          ...stockChartYValues,
         ]);
       }
     });
