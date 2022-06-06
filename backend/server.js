@@ -21,7 +21,7 @@ app.use("/api/v1", authRouter);
 
 // set up error
 app.use(notFound);
-app.use(errorHandlerMiddleware);
+// app.use(errorHandlerMiddleware);
 
 // set up port
 const port = process.env.PORT || 5000;
