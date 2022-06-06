@@ -1,5 +1,5 @@
 import "./App.css";
-import React from "react";
+import React, { useState } from "react";
 import Stock from "./Stock";
 import Stock_FB from "./Stock_FB";
 // import Coin from "./components/Coin.js";
@@ -11,6 +11,7 @@ import Stock_FB from "./Stock_FB";
 //THN5ITBH3LFSAWLV
 
 function App() {
+    const [StockSymbol, setStockSymbol] = useState("FB");
   return (
     <div className="App">
       <Stock></Stock>
