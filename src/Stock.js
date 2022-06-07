@@ -19,9 +19,8 @@ function Stock() {
     await response.json().then((data) => {
       for (const key in data["Time Series (Daily)"]) {
         setStockChartXValues((stockChartXValues) => [
-          key,
-
           ...stockChartXValues,
+          key,
         ]);
         setStockChartYValues((stockChartYValues) => [
           ...stockChartYValues,
@@ -35,11 +34,10 @@ function Stock() {
     getStockRequest(StockSymbol);
   }, []);
 
-  stockChartXValues.slice(1);
+  stockChartXValues.slice(-1);
 
   return (
     <>
-     
       <div>
         <h1>FB</h1>
         <Plot
