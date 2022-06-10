@@ -1,67 +1,71 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Plot from "react-plotly.js";
 
-function Stock() {
-  const [stockChartXValues, setStockChartXValues] = useState([]);
-  const [stockChartYValues, setStockChartYValues] = useState([]);
+class Stock extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      stockChartXValues: [],
+      stockChartYValues: [],
+    };
+  }
 
-  // const [StockSymbol, setStockSymbol] = useState("FB");
+  componentDidMount() {
+    this.fetchStock();
+  }
 
-  const StockSymbol = "GOOG";
-  const API_KEY2 = "pk_2f2f1ecce08045ba9fe8824d485939bb";
+  fetchStock() {
+    // const [StockSymbol, setStockSymbol] = useState("FB");
+    const StockSymbol = "AMZN";
+    // const StockSymbol_2= "FB";
+    const pointerToThis = this;
+    const API_KEY = "THN5ITBH3LFSAWLV";
 
-  const getStockRequest = async (StockSymbol) => {
-    const url2 = `https://cloud.iexapis.com/stable/stock/${StockSymbol}/chart/3m?token=${API_KEY2}`;
-    const url_volume =
-      "https://cloud.iexapis.com/stable/stock/aapl/book?token=pk_2f2f1ecce08045ba9fe8824d485939bb";
+    let API_CALL = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${StockSymbol}&output_size=compact&apikey=${API_KEY}`;
+    // let API_CALL_2 =  `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${StockSymbol_2}&output_size=compact&apikey=${API_KEY}`;
+    let stockChartXValuesFunction = [];
+    let stockChartYValuesFunction = [];
 
-    const response = await fetch(url2);
+    fetch(API_CALL)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        for (var key in data["Time Series (Daily)"]) {
+          stockChartXValuesFunction.push(key);
+          stockChartYValuesFunction.push(
+            data["Time Series (Daily)"][key]["1. open"]
+          );
+        }
+        pointerToThis.setState({
+          stockChartXValues: stockChartXValuesFunction,
+          stockChartYValues: stockChartYValuesFunction,
+        });
+      });
+  }
 
-    await response.json().then((data) => {
-      for (const key in data) {
-        console.log(data[key]["date"]);
-        setStockChartXValues((stockChartXValues) => [
-          ...stockChartXValues,
-          data[key]["date"],
-        ]);
-        setStockChartYValues((stockChartYValues) => [
-          ...stockChartYValues,
-          data[key]["close"],
-        ]);
-      }
-    });
-  };
-
-  useEffect(() => {
-    getStockRequest(StockSymbol);
-  }, []);
-
-  console.log(stockChartXValues);
-  return (
-    <>
+  render() {
+    return (
       <div>
-        <h1>Google</h1>
+        <h1>AMZN</h1>
         <Plot
           data={[
             {
-              x: stockChartXValues,
-              y: stockChartYValues,
+              x: this.state.stockChartXValues,
+              y: this.state.stockChartYValues,
               type: "scatter",
               mode: "lines+markers",
               marker: { color: "blue" },
             },
           ]}
-          layout={{
-            width: 720,
-            height: 500,
-            title: "StockSymbol",
-            xaxis: { title: "TIME" },
-            yaxis: { title: "COST" },
-          }}
+          layout={{ width: 720, height: 500, title: "StockSymbol" }}
         />
+        
+
       </div>
-    </>
-  );
+    );
+  }
 }
+
 
 export default Stock;
