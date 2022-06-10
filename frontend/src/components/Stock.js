@@ -5,6 +5,9 @@ function Stock() {
   const [stockChartXValues, setStockChartXValues] = useState([]);
   const [stockChartYValues, setStockChartYValues] = useState([]);
 
+  useEffect(() => {
+    getStockRequest(StockSymbol);
+  }, []);
   // const [StockSymbol, setStockSymbol] = useState("FB");
 
   const StockSymbol = "GOOG";
@@ -13,19 +16,31 @@ function Stock() {
   // let API_CALL = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${StockSymbol}&output_size=compact&apikey=${API_KEY}`;
 
   const getStockRequest = async (StockSymbol) => {
-    const check1 = localStorage.getItem("stockChartXValues");
-    const check2 = localStorage.getItem("stockChartYValues");
+    const check1 = localStorage.getItem("stockVals");
     if (check1) {
-      setStockChartXValues(JSON.parse(check1));
-    }
-    if (check2) {
-      setStockChartYValues(JSON.parse(check2));
+      for (const key in JSON.parse(check1)) {
+        setStockChartYValues((stockChartYValues) => [
+          ...stockChartYValues,
+          JSON.parse(check1)[key]["1. open"],
+        ]);
+
+        setStockChartXValues((stockChartXValues) => [
+          ...stockChartXValues,
+          key,
+        ]);
+      }
     } else {
       const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${StockSymbol}&output_size=compact&apikey=${API_KEY}`;
-
       const response = await fetch(url);
-      console.log(response);
-      await response.json().then((data) => {
+
+      const data = await response.json();
+
+      localStorage.setItem(
+        "stockVals",
+        JSON.stringify(data["Time Series (Daily)"])
+      );
+
+      data.then((data) => {
         for (const key in data["Time Series (Daily)"]) {
           setStockChartXValues((stockChartXValues) => [
             ...stockChartXValues,
@@ -36,22 +51,16 @@ function Stock() {
             data["Time Series (Daily)"][key]["1. open"],
           ]);
         }
-        localStorage.setItem("stockChartYValues", stockChartYValues);
-        localStorage.setItem("stockChartXValues", stockChartXValues);
       });
     }
   };
-
-  useEffect(() => {
-    getStockRequest(StockSymbol);
-  }, []);
 
   stockChartXValues.slice(-1);
 
   return (
     <>
       <div>
-        <h1>FB</h1>
+        <h1>Google</h1>
         <Plot
           data={[
             {

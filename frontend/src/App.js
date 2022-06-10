@@ -11,11 +11,11 @@ import Stock_FB from "./components/Stock_FB";
 //THN5ITBH3LFSAWLV
 
 function App() {
-    const [StockSymbol, setStockSymbol] = useState("FB");
+  const [StockSymbol, setStockSymbol] = useState("FB");
   return (
     <div className="App">
       <Stock></Stock>
-      <Stock_FB></Stock_FB>
+      {/* <Stock_FB></Stock_FB> */}
       {/* <Navbars /> */}
       {/* <Login/> */}
       {/* <Clock /> */}
