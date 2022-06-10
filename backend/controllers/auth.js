@@ -52,11 +52,33 @@ const login = async (req, res) => {
     ]);
 };
 
-const logout = async (req, res) => {};
+const logout = async (req, res) => {
+    const cookietoken = req.cookies["token"];
+    if (!cookietoken) {
+        // redirect to login page
+        return res.send("No auth");
+    }
+    const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
+    req.user = await User.findById(id);
+    res.clearCookie("token");
+    res.send([req.user, "Logout"]);
+};
+
+const profile = async (req, res) => {
+    const cookietoken = req.cookies["token"];
+    if (!cookietoken) {
+        // redirect to login page
+        return res.send("No auth");
+    }
+    const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
+    req.user = await User.findById(id);
+    res.send(req.user);
+};
 
 module.exports = {
     login,
     register,
     user_list,
     logout,
+    profile,
 };
