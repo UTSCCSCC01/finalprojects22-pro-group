@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { useState } from "react";
-import Stock from "./Stock";
-import Stock_FB from "./Stock_FB";
+import Stock from "./components/Stock";
+import Stock_FB from "./components/Stock_FB";
 // import Coin from "./components/Coin.js";
 // import Navbars from "./components/Navbars.js";
 // import Crypto from "./components/Crypto.js";
