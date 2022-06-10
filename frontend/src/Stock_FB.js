@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Plot from "react-plotly.js";
 
-class Stock extends React.Component {
+class Stock_FB extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,7 +16,7 @@ class Stock extends React.Component {
 
   fetchStock() {
     // const [StockSymbol, setStockSymbol] = useState("FB");
-    const StockSymbol = "AMZN";
+    const StockSymbol = "FB";
     // const StockSymbol_2= "FB";
     const pointerToThis = this;
     const API_KEY = "THN5ITBH3LFSAWLV";
@@ -47,7 +47,7 @@ class Stock extends React.Component {
   render() {
     return (
       <div>
-        <h1>AMZN</h1>
+        <h1>FB</h1>
         <Plot
           data={[
             {
@@ -68,4 +68,4 @@ class Stock extends React.Component {
 }
 
 
-export default Stock;
+export default Stock_FB;
