@@ -19,8 +19,8 @@ function App() {
         {/* <Stock />
         <Stock_FB /> */}
 
-        <Login />
-        {/*<Register/>*/}
+        {/* <Login /> */}
+        <Register/>
         {/* <Navbars /> */}
         {/* <Login/> */}
         {/* <Clock /> */}

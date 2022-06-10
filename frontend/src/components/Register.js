@@ -14,6 +14,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+import './Register.css'
 
 const theme = createTheme();
 
@@ -64,6 +65,7 @@ function Register() {
                     backgroundPosition: "center",
                 }}
             />
+            {/* <img src={hpi} alt="home_image" className="Login-img"/> */}
             <Grid
                 item
                 xs={12}
