@@ -12,6 +12,15 @@ const cookieParser = require("cookie-parser");
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3001");
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    res.header("Access-Control-Allow-Credentials", true);
+    next();
+});
 
 // routers
 app.use("/api/", authRouter);

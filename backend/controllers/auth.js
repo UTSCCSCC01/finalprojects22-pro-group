@@ -14,16 +14,16 @@ const user_list = async (req, res) => {
 const register = async (req, res) => {
     try {
         const user = await User.create({
-            name: req.body.name,
+            name: req.body.username,
             email: req.body.email,
             password: req.body.password,
         });
+        console.log("register success");
         const token = user.createJWT();
-        res.cookie("token", token, { maxAge: process.env.TOKEN_EXPIRY }).send([
-            user,
-            token,
-            "Register",
-        ]);
+        res.cookie("token", token, {
+            maxAge: process.env.TOKEN_EXPIRY,
+            httpOnly: false,
+        }).send(user);
     } catch (error) {
         console.log(error);
         res.send("Cannot Register!");
@@ -44,24 +44,26 @@ const login = async (req, res) => {
     if (!correctPswd) {
         return res.send("Wrong password");
     }
+    console.log("login success");
     const token = user.createJWT();
-    res.cookie("token", token, { maxAge: process.env.TOKEN_EXPIRY }).send([
-        user,
-        token,
-        "Login",
-    ]);
+    res.cookie("token", token, {
+        maxAge: process.env.TOKEN_EXPIRY,
+        httpOnly: false,
+    }).send(user);
 };
 
 const logout = async (req, res) => {
     const cookietoken = req.cookies["token"];
     if (!cookietoken) {
+        console.log("no cookie");
         // redirect to login page
         return res.send("No auth");
     }
     const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
     req.user = await User.findById(id);
     res.clearCookie("token");
-    res.send([req.user, "Logout"]);
+    console.log("logout success");
+    res.send(req.user);
 };
 
 const profile = async (req, res) => {
