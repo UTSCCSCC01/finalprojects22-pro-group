@@ -14,6 +14,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+import hpi from "./images/Homepage_image.jpg"
+import './Login.css'
 
 const theme = createTheme();
 
@@ -68,9 +70,9 @@ function Login() {
                 sm={4}
                 md={7}
                 sx={{
-                    backgroundImage:
-                        "url(https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg?cs=srgb&dl=pexels-energepiccom-159888.jpg&fm=jpg)",
-                    backgroundRepeat: "no-repeat",
+                    // backgroundImage:
+                    //     "url(https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg?cs=srgb&dl=pexels-energepiccom-159888.jpg&fm=jpg)",
+                    // backgroundRepeat: "no-repeat",
                     backgroundColor: (t) =>
                         t.palette.mode === "light"
                             ? t.palette.grey[50]
@@ -79,6 +81,7 @@ function Login() {
                     backgroundPosition: "center",
                 }}
             />
+            <img src={hpi} alt="home_image" className="Login-img"/>
             <Grid
                 item
                 xs={12}
