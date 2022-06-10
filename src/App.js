@@ -16,8 +16,8 @@ function App() {
   const [StockSymbol, setStockSymbol] = useState("FB");
   return (
     <div className="App">
-      {/* <Login /> */}
-      <Register/>
+      <Login />
+      {/* <Register/> */}
       {/* <Navbars /> */}
       {/* <Login/> */}
       {/* <Clock /> */}
