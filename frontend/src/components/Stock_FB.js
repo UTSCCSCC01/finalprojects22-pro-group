@@ -1,71 +1,87 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Plot from "react-plotly.js";
 
-class Stock_FB extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      stockChartXValues: [],
-      stockChartYValues: [],
-    };
-  }
+function Stock_FB() {
+  const [stockChartXValues, setStockChartXValues] = useState([]);
+  const [stockChartYValues, setStockChartYValues] = useState([]);
 
-  componentDidMount() {
-    this.fetchStock();
-  }
+  useEffect(() => {
+    getStockRequest(StockSymbol);
+  }, []);
+  // const [StockSymbol, setStockSymbol] = useState("FB");
 
-  fetchStock() {
-    // const [StockSymbol, setStockSymbol] = useState("FB");
-    const StockSymbol = "FB";
-    // const StockSymbol_2= "FB";
-    const pointerToThis = this;
-    const API_KEY = "THN5ITBH3LFSAWLV";
+  const StockSymbol = "FB";
+  const API_KEY = "THN5ITBH3LFSAWLV";
 
-    let API_CALL = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${StockSymbol}&output_size=compact&apikey=${API_KEY}`;
-    // let API_CALL_2 =  `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${StockSymbol_2}&output_size=compact&apikey=${API_KEY}`;
-    let stockChartXValuesFunction = [];
-    let stockChartYValuesFunction = [];
+  // let API_CALL = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${StockSymbol}&output_size=compact&apikey=${API_KEY}`;
 
-    fetch(API_CALL)
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
-        for (var key in data["Time Series (Daily)"]) {
-          stockChartXValuesFunction.push(key);
-          stockChartYValuesFunction.push(
-            data["Time Series (Daily)"][key]["1. open"]
-          );
+  const getStockRequest = async (StockSymbol) => {
+    const check1 = localStorage.getItem("stockVals");
+    if (check1) {
+      for (const key in JSON.parse(check1)) {
+        setStockChartYValues((stockChartYValues) => [
+          ...stockChartYValues,
+          JSON.parse(check1)[key]["1. open"],
+        ]);
+
+        setStockChartXValues((stockChartXValues) => [
+          ...stockChartXValues,
+          key,
+        ]);
+      }
+    } else {
+      const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${StockSymbol}&output_size=compact&apikey=${API_KEY}`;
+      const response = await fetch(url);
+
+      const data = await response.json();
+
+      localStorage.setItem(
+        "stockVals",
+        JSON.stringify(data["Time Series (Daily)"])
+      );
+
+      data.then((data) => {
+        for (const key in data["Time Series (Daily)"]) {
+          setStockChartXValues((stockChartXValues) => [
+            ...stockChartXValues,
+            key,
+          ]);
+          setStockChartYValues((stockChartYValues) => [
+            ...stockChartYValues,
+            data["Time Series (Daily)"][key]["1. open"],
+          ]);
         }
-        pointerToThis.setState({
-          stockChartXValues: stockChartXValuesFunction,
-          stockChartYValues: stockChartYValuesFunction,
-        });
       });
-  }
+    }
+  };
 
-  render() {
-    return (
+  stockChartXValues.slice(-1);
+
+  return (
+    <>
       <div>
-        <h1>FB</h1>
+        <h1>Facebook</h1>
         <Plot
           data={[
             {
-              x: this.state.stockChartXValues,
-              y: this.state.stockChartYValues,
+              x: stockChartXValues,
+              y: stockChartYValues,
               type: "scatter",
               mode: "lines+markers",
               marker: { color: "blue" },
             },
           ]}
-          layout={{ width: 720, height: 500, title: "StockSymbol" }}
+          layout={{
+            width: 720,
+            height: 500,
+            title: "StockSymbol",
+            xaxis: { title: "TIME" },
+            yaxis: { title: "COST" },
+          }}
         />
-        
-
       </div>
-    );
-  }
+    </>
+  );
 }
-
 
 export default Stock_FB;
