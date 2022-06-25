@@ -1,0 +1,36 @@
+.main {
+    display: flex;
+    height: 10%;
+    width: 100%;
+    align-items: flex-end;
+    padding-right: 10%;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.box{
+    align-items: center;
+}
+
+.button{
+    display: flex;
+    height: 10%;
+    width: 10%;
+    align-items: flex-end;
+
+}
+
+h1 {
+    margin: 10px;
+    font-size: 40px;
+    align-items: center;
+    color: rgb(1, 1, 59);
+}
+
+.search {
+    width: 30%;
+}
+
+ul li {
+    font-size: 20px;
+} 
