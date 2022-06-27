@@ -4,6 +4,7 @@ import "./Search_box.css"
 
 const SearchBar = () => (
     <div className="main">
+        <button type="submit" className="button">Search</button>
         <input className="box"
             type="text"
             id="header-search"
