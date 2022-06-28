@@ -1,12 +1,13 @@
 import { React, useState } from "react";
 import TextField from "@mui/material/TextField";
 import "./Search_page.css";
-// import List from "./components/List.js"
+import List_Stock from "./List_Stock";
+
 
 function Search_page() {
   return (
-    <div className="main">
-      <h1>React Search</h1>
+    <div>
+      <h1 className="center">React Search</h1>
       <div className="search">
         <TextField
           id="outlined-basic"
@@ -15,7 +16,8 @@ function Search_page() {
           label="Search"
         />
       </div>
-      {/* <List></List> */}
+      <List_Stock className="center"></List_Stock>
+
     </div>
   );
 }

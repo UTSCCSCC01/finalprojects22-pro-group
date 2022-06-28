@@ -1,5 +1,6 @@
 .main {
     display: flex;
+    flex: 1;
     height: 10%;
     width: 100%;
     align-items: flex-end;
