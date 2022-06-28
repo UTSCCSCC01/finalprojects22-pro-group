@@ -29,7 +29,7 @@ const register = async (req, res) => {
       .send(user);
   } catch (error) {
     console.log(error);
-    res.send("Cannot Register!");
+    res.status(400).send("Cannot Register!");
   }
 };
 
@@ -37,15 +37,15 @@ const login = async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return res.send("Please provide email and password!");
+    return res.status(400).send("Please provide email and password!");
   }
   const user = await User.findOne({ email });
   if (!user) {
-    return res.send("This user doesn't exist. Please use another email ~");
+    return res.status(400).send("This user doesn't exist. Please use another email ~");
   }
   const correctPswd = await user.pswdCorrect(password);
   if (!correctPswd) {
-    return res.send("Wrong password");
+    return res.status(400).send("Wrong password");
   }
   console.log("login success");
   const token = user.createJWT();

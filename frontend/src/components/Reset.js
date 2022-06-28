@@ -26,7 +26,7 @@ function Reset() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  fetch("http://localhost:5000/api/profile", {
+  fetch("http://localhost:3000/api/profile", {
     method: "GET",
     credentials: "include",
   })
@@ -43,25 +43,20 @@ function Reset() {
     });
 
   const reset_button = (e) => {
-    toast("here!!!!!!");
-    fetch("http://localhost:5000/api/reset", {
+    fetch("http://localhost:3000/api/reset", {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     })
       .then((response) => {
-        if (response.status == 200) {
-          toast("Wow so easy!");
-        }
         if (response.status == 400) {
-          toast("Wow so hard!");
+          toast("Please submit correct Email and Password!");
         }
         return response.json();
       })
       .then((data) => {
         if (data.name) {
-          toast("What?!");
           console.log("navigate to stock");
           navigate("/stock");
         }

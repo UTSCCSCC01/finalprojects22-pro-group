@@ -15,6 +15,8 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import hpi from "./images/Homepage_image.jpg"
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import './Login.css'
 
 const theme = createTheme();
@@ -24,7 +26,7 @@ function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    fetch("http://localhost:5000/api/profile", {
+    fetch("http://localhost:3000/api/profile", {
         method: "GET",
         credentials: "include",
     })
@@ -41,13 +43,16 @@ function Login() {
         });
 
     const loginbutton = (e) => {
-        fetch("http://localhost:5000/api/login", {
+        fetch("http://localhost:3000/api/login", {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password }),
         })
-            .then((response) => {
+            .then((response) => { 
+               if (response.status == 400) {
+                toast("Please submit correct Information!");
+              }
                 return response.json();
             })
             .then((data) => {
@@ -143,6 +148,7 @@ function Login() {
                         >
                             Login In
                         </Button>
+                        <ToastContainer />
                         <Button
                             type="button"
                             onClick={() => navigate("/reset")}

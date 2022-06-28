@@ -15,6 +15,8 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import hpi from "./images/Homepage_image.jpg"
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import './Register.css'
 
 const theme = createTheme();
@@ -26,13 +28,16 @@ function Register() {
     const [password, setPassword] = useState("");
 
     const registerbutton = (e) => {
-        fetch("http://localhost:5000/api/register", {
+        fetch("http://localhost:3000/api/register", {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, email, password }),
         })
             .then((response) => {
+                if (response.status == 400) {
+                    toast("Please submit correct Information!");
+                  }
                 return response.json();
             })
             .then((data) => {
@@ -138,6 +143,7 @@ function Register() {
                         >
                             Register
                         </Button>
+                        <ToastContainer />
                         <Button
                             type="button"
                             onClick={() => navigate("/login")}
