@@ -50,9 +50,18 @@ function Login() {
             body: JSON.stringify({ email, password }),
         })
             .then((response) => { 
-               if (response.status == 400) {
-                toast("Please submit correct Information!");
-              }
+                if (response.status === 400) {
+                    toast.error("Information is Invalid!", {
+                      position: "top-center",
+                      autoClose: 5000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      theme: "colored"
+                    });
+                  }
                 return response.json();
             })
             .then((data) => {
