@@ -34,7 +34,7 @@ function Stock() {
     };
 
     const logoutbutton = () => {
-        fetch("http://localhost:3000/api/logout", {
+        fetch("http://localhost:5000/api/logout", {
             method: "GET",
             credentials: "include",
         })

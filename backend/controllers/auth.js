@@ -89,15 +89,15 @@ const reset_password = async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return res.send("Please provide email and password!");
+    return res.status(400).send("Please provide email and password!");
   }
   const user = await User.findOne({ email });
   if (!user) {
-    return res.send("This user doesn't exist. Please use another email ~");
+    return res.status(400).send("This user doesn't exist. Please use another email ~");
   }
   const correctPswd = await user.pswdCorrect(password);
   if (correctPswd) {
-    return res.send("Cannot use the same password");
+    return res.status(400).send("Cannot use the same password");
   }
   const salt = await bcrypt.genSalt(10);
   var hash_pass = await bcrypt.hash(password, salt);
@@ -114,6 +114,7 @@ const reset_password = async (req, res) => {
       maxAge: process.env.TOKEN_EXPIRY,
       httpOnly: false,
     })
+    .status(200)
     .send(user);
 
   console.log("end");

@@ -26,7 +26,7 @@ function Register() {
     const [password, setPassword] = useState("");
 
     const registerbutton = (e) => {
-        fetch("http://localhost:3000/api/register", {
+        fetch("http://localhost:5000/api/register", {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },
@@ -145,7 +145,7 @@ function Register() {
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Back to Login
+                            Go to Login
                         </Button>
                     </Box>
                 </Box>

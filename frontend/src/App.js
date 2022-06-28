@@ -22,6 +22,7 @@ function App() {
         {/* <Login /> */}
         <Register/>
         {/* <Navbars /> */}
+        {/* <Reset/> */}
         {/* <Login/> */}
         {/* <Clock /> */}
         {/* <Crypto /> */}

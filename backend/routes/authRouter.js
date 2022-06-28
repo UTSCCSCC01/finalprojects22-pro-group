@@ -18,6 +18,6 @@ router.route("/logout").get(logout);
 router.route("/profile").get(profile);
 
 // sprint 2 apis
-router.route("/reset_password").post(reset_password);
+router.route("/reset").post(reset_password);
 
 module.exports = router;

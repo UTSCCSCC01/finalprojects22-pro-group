@@ -24,7 +24,7 @@ function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    fetch("http://localhost:3000/api/profile", {
+    fetch("http://localhost:5000/api/profile", {
         method: "GET",
         credentials: "include",
     })
@@ -41,7 +41,7 @@ function Login() {
         });
 
     const loginbutton = (e) => {
-        fetch("http://localhost:3000/api/login", {
+        fetch("http://localhost:5000/api/login", {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },
@@ -141,9 +141,17 @@ function Login() {
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Sign In
+                            Login In
                         </Button>
-
+                        <Button
+                            type="button"
+                            onClick={() => navigate("/reset")}
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                        >
+                            Reset Password
+                        </Button>
                         <Button
                             type="button"
                             onClick={(e) => navigate("/register")}

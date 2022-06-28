@@ -6,6 +6,7 @@ import Stock from "./components/Stock";
 //import Stock_FB from "./Stock_FB";
 import Login from "./components/Login.js";
 import Register from "./components/Register.js";
+import Reset from "./components/Reset.js";
 import {
     BrowserRouter as Router,
     Routes,
@@ -21,6 +22,7 @@ root.render(
             <Route path="/login" element={<Login />} />
             <Route path="/stock" element={<Stock />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/reset" element={<Reset />} />
         </Routes>
     </Router>
 );
