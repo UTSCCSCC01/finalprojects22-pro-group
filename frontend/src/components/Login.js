@@ -15,8 +15,8 @@ import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import hpi from "./images/Homepage_image.jpg"
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import TAlert from "./alert"
+import { ToastContainer } from "react-toastify";
 import './Login.css'
 
 const theme = createTheme();
@@ -25,24 +25,32 @@ function Login() {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
+    
     fetch("http://localhost:3000/api/profile", {
         method: "GET",
         credentials: "include",
     })
-        .then((response) => {
-            return response.json();
-        })
-        .then((data) => {
-            if (data.name) {
-                navigate("/stock");
-            }
-        })
-        .catch((error) => {
-            console.log("login needed");
+    .then((response) => {
+        return response.json();
+    })
+    .then((data) => {
+        if (data.name) {
+            navigate("/stock");
+        }
+    })
+    .catch((error) => {
+        console.log("login needed");
         });
 
-    const loginbutton = (e) => {
+        const loginbutton = (e) => {
+            if(email === ""){
+                TAlert("Please Input email");
+                return;
+            }
+            if(password === ""){
+                TAlert("Please Input password");
+                return;
+            }
         fetch("http://localhost:3000/api/login", {
             method: "POST",
             credentials: "include",
@@ -51,16 +59,7 @@ function Login() {
         })
             .then((response) => { 
                 if (response.status === 400) {
-                    toast.error("Information is Invalid!", {
-                      position: "top-center",
-                      autoClose: 5000,
-                      hideProgressBar: false,
-                      closeOnClick: true,
-                      pauseOnHover: true,
-                      draggable: true,
-                      progress: undefined,
-                      theme: "colored"
-                    });
+                    TAlert("Information is Invalid!");
                   }
                 return response.json();
             })
