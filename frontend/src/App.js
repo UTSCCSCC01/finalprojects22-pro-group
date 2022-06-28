@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useState } from "react";
-import Stock from "./components/Stock";
+import Stock from "./components/Stock.js";
 //import Stock_FB from "./components/Stock_FB";
 import Login from "./components/Login.js";
 import Register from "./components/Register.js";
@@ -16,11 +16,10 @@ function App() {
     const [StockSymbol, setStockSymbol] = useState("FB");
     return (
       <div className="App">
-        {/* <Stock />
-        <Stock_FB /> */}
+        {/* <Stock /> */}
 
-        {/* <Login /> */}
-        <Register/>
+        <Login />
+        {/* <Register/> */}
         {/* <Navbars /> */}
         {/* <Login/> */}
         {/* <Clock /> */}

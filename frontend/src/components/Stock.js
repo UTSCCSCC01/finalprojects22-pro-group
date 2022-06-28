@@ -2,6 +2,8 @@ import { Button } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import Plot from "react-plotly.js";
 import { useNavigate } from "react-router-dom";
+import Alarm from "./AlarmComp";
+// import "fdweb/fluent.css"
 
 function Stock() {
     const navigate = useNavigate();
@@ -61,6 +63,15 @@ function Stock() {
     return (
         <>
             <div>
+                <Button
+                    type="button"
+                    onClick={(e) => navigate("/alarmpage")}
+                    fullWidth
+                    variant="contained"
+                    sx={{mt:3, mb: 2}}
+                >
+                    Set Alarm
+                </Button>
                 <h1>FB</h1>
                 <Plot
                     data={[
@@ -96,6 +107,7 @@ function Stock() {
                 >
                     Logout
                 </Button>
+                
             </div>
         </>
     );

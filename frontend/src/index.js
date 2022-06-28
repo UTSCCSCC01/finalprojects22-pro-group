@@ -6,6 +6,10 @@ import Stock from "./components/Stock";
 //import Stock_FB from "./Stock_FB";
 import Login from "./components/Login.js";
 import Register from "./components/Register.js";
+import Alarmpage from "./components/Alarmpage.js";
+
+
+
 import {
     BrowserRouter as Router,
     Routes,
@@ -21,6 +25,7 @@ root.render(
             <Route path="/login" element={<Login />} />
             <Route path="/stock" element={<Stock />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/alarmpage" element={<Alarmpage />} />
         </Routes>
     </Router>
 );
