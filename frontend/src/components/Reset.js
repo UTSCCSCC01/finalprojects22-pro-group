@@ -59,7 +59,7 @@ function Reset() {
     })
       .then((response) => {
         if (response.status === 400) {
-          TAlert("Information is Invalid!");
+          TAlert("Please use correct information!");
         }
         return response.json();
       })
@@ -154,6 +154,15 @@ function Reset() {
               sx={{ mt: 3, mb: 2 }}
             >
               Back to Login
+            </Button>
+            <Button
+              type="button"
+              onClick={(e) => navigate("/register")}
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Back to Register
             </Button>
           </Box>
         </Box>

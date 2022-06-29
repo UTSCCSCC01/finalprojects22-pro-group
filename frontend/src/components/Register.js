@@ -49,8 +49,8 @@ function Register() {
         })
         .then((response) => {
             if (response.status === 400) {
-                TAlert("Register fail, check the information");
-                  }
+                TAlert("Please use correct information!");
+            }
                 return response.json();
             })
             .then((data) => {
@@ -154,7 +154,7 @@ function Register() {
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Register
+                            Register An Account
                         </Button>
                         <ToastContainer />
                         <Button

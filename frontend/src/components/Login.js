@@ -59,7 +59,7 @@ function Login() {
         })
             .then((response) => { 
                 if (response.status === 400) {
-                    TAlert("Information is Invalid!");
+                    TAlert("Please use correct information!");
                   }
                 return response.json();
             })
@@ -173,7 +173,7 @@ function Login() {
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Register
+                            Back to Register
                         </Button>
                     </Box>
                 </Box>
