@@ -14,11 +14,11 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-import TAlert from "./alert"
+import TAlert from "./alert";
 import { ToastContainer } from "react-toastify";
-import hpi from "./images/Homepage_image.jpg"
+import hpi from "./images/Homepage_image.jpg";
 
-import './Register.css'
+import "./Register.css";
 
 const theme = createTheme();
 
@@ -27,30 +27,30 @@ function Register() {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    
+
     const registerbutton = (e) => {
-        if(email === ""){
+        if (email === "") {
             TAlert("Please Input email");
             return;
         }
-        if(username === ""){
+        if (username === "") {
             TAlert("Please Input username");
             return;
         }
-        if(password === ""){
+        if (password === "") {
             TAlert("Please Input password");
             return;
         }
-        fetch("http://localhost:3000/api/register", {
+        fetch("http://localhost:5050/api/register", {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, email, password }),
         })
-        .then((response) => {
-            if (response.status === 400) {
-                TAlert("Please use correct information!");
-            }
+            .then((response) => {
+                if (response.status === 400) {
+                    TAlert("Please use correct information!");
+                }
                 return response.json();
             })
             .then((data) => {
@@ -84,7 +84,7 @@ function Register() {
                     backgroundPosition: "center",
                 }}
             />
-            <img src={hpi} alt="home_image" className="Login-img"/>
+            <img src={hpi} alt="home_image" className="Login-img" />
             <Grid
                 item
                 xs={12}

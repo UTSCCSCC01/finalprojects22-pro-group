@@ -34,7 +34,7 @@ function Stock() {
     };
 
     const logoutbutton = () => {
-        fetch("http://localhost:3000/api/logout", {
+        fetch("http://localhost:5050/api/logout", {
             method: "GET",
             credentials: "include",
         })
@@ -43,7 +43,6 @@ function Stock() {
             })
             .then((data) => {
                 if (data.name) {
-                    console.log("navigate to stock");
                     navigate("/login");
                 }
             })

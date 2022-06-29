@@ -14,10 +14,10 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-import hpi from "./images/Homepage_image.jpg"
-import TAlert from "./alert"
+import hpi from "./images/Homepage_image.jpg";
+import TAlert from "./alert";
 import { ToastContainer } from "react-toastify";
-import './Login.css'
+import "./Login.css";
 
 const theme = createTheme();
 
@@ -25,42 +25,42 @@ function Login() {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    
-    fetch("http://localhost:3000/api/profile", {
+
+    fetch("http://localhost:5050/api/profile", {
         method: "GET",
         credentials: "include",
     })
-    .then((response) => {
-        return response.json();
-    })
-    .then((data) => {
-        if (data.name) {
-            navigate("/stock");
-        }
-    })
-    .catch((error) => {
-        console.log("login needed");
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            if (data.name) {
+                navigate("/stock");
+            }
+        })
+        .catch((error) => {
+            console.log("login needed");
         });
 
-        const loginbutton = (e) => {
-            if(email === ""){
-                TAlert("Please Input email");
-                return;
-            }
-            if(password === ""){
-                TAlert("Please Input password");
-                return;
-            }
-        fetch("http://localhost:3000/api/login", {
+    const loginbutton = (e) => {
+        if (email === "") {
+            TAlert("Please Input email");
+            return;
+        }
+        if (password === "") {
+            TAlert("Please Input password");
+            return;
+        }
+        fetch("http://localhost:5050/api/login", {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password }),
         })
-            .then((response) => { 
+            .then((response) => {
                 if (response.status === 400) {
                     TAlert("Please use correct information!");
-                  }
+                }
                 return response.json();
             })
             .then((data) => {
@@ -94,7 +94,7 @@ function Login() {
                     backgroundPosition: "center",
                 }}
             />
-            <img src={hpi} alt="home_image" className="Login-img"/>
+            <img src={hpi} alt="home_image" className="Login-img" />
             <Grid
                 item
                 xs={12}

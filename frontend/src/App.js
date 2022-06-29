@@ -15,18 +15,18 @@ import Register from "./components/Register.js";
 function App() {
     const [StockSymbol, setStockSymbol] = useState("FB");
     return (
-      <div className="App">
-        {/* <Stock />
+        <div className="App">
+            {/* <Stock />
         <Stock_FB /> */}
 
-        {/* <Login /> */}
-        <Register/>
-        {/* <Navbars /> */}
-        {/* <Reset/> */}
-        {/* <Login/> */}
-        {/* <Clock /> */}
-        {/* <Crypto /> */}
-      </div>
+            <Login />
+            {/* <Register/> */}
+            {/* <Navbars /> */}
+            {/* <Reset/> */}
+            {/* <Login/> */}
+            {/* <Clock /> */}
+            {/* <Crypto /> */}
+        </div>
     );
 }
 
