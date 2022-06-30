@@ -168,7 +168,7 @@ function Login() {
                         </Button>
                         <Button
                             type="button"
-                            onClick={(e) => navigate("/register")}
+                            onClick={() => navigate("/register")}
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}

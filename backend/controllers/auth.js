@@ -86,9 +86,9 @@ const profile = async (req, res) => {
 // need email and password to change password
 // if the password is the same, don't change
 const reset_password = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, original_password, password } = req.body;
 
-  if (!email || !password) {
+  if (!email || !password || !original_password) {
     return res.status(400).send("Please provide email and password!");
   }
   const user = await User.findOne({ email });
@@ -96,8 +96,12 @@ const reset_password = async (req, res) => {
     return res.status(400).send("This user doesn't exist. Please use another email ~");
   }
   const correctPswd = await user.pswdCorrect(password);
+  const verify_Pswd = await user.pswdCorrect(original_password);
   if (correctPswd) {
     return res.status(400).send("Cannot use the same password");
+  }
+  if (!verify_Pswd) {
+    return res.status(400).send("Original Password is wrong.");
   }
   const salt = await bcrypt.genSalt(10);
   var hash_pass = await bcrypt.hash(password, salt);

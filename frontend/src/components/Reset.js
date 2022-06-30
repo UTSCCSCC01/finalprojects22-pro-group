@@ -24,8 +24,8 @@ const theme = createTheme();
 function Reset() {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
+    const [original_password, setOriPassword] = useState("");
     const [password, setPassword] = useState("");
-    const [oripassword, setOriPassword] = useState("");
 
     fetch("http://localhost:5050/api/profile", {
         method: "GET",
@@ -51,35 +51,12 @@ function Reset() {
         if (password === "") {
             TAlert("Please Input password");
             return;
-        }   
-        ///
-        fetch("http://localhost:5050/api/login", {
-            method: "POST",
-            credentials: "include",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, oripassword }),
-        })
-            .then((response) => {
-                if (response.status === 400) {
-                    TAlert("Please use correct original password!");
-                }
-                return response.json();
-            })
-            .then((data) => {
-                // if (data.name) {
-                //     console.log("navigate to stock");
-                //     navigate("/stock");
-                // }
-            })
-            .catch((error) => {
-                console.log("error occured in login fetch");
-            });
-        ///
+        }
         fetch("http://localhost:5050/api/reset", {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password }),
+            body: JSON.stringify({ email, original_password, password }),
         })
             .then((response) => {
                 if (response.status === 400) {
@@ -157,6 +134,18 @@ function Reset() {
                             autoFocus
                         />
                         <TextField
+                            value={original_password}
+                            onChange={(e) => setOriPassword(e.target.value)}
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="origin password"
+                            label="Origin Password"
+                            type="password"
+                            id="origin password"
+                            //autoComplete="current-password"
+                        />
+                        <TextField
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             margin="normal"
@@ -166,18 +155,6 @@ function Reset() {
                             label="New Password"
                             type="password"
                             id="password"
-                            //autoComplete="current-password"
-                        />
-                        <TextField
-                            value={oripassword}
-                            onChange={(e) => setOriPassword(e.target.value)}
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="origin password"
-                            label="Origin Password"
-                            type="origin password"
-                            id="origin password"
                             //autoComplete="current-password"
                         />
                         <Button
@@ -192,7 +169,7 @@ function Reset() {
                         <ToastContainer />
                         <Button
                             type="button"
-                            onClick={(e) => navigate("/login")}
+                            onClick={() => navigate("/login")}
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
@@ -201,7 +178,7 @@ function Reset() {
                         </Button>
                         <Button
                             type="button"
-                            onClick={(e) => navigate("/register")}
+                            onClick={() => navigate("/register")}
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
