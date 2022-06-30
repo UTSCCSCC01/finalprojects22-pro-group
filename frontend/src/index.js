@@ -6,21 +6,24 @@ import Stock from "./components/Stock";
 //import Stock_FB from "./Stock_FB";
 import Login from "./components/Login.js";
 import Register from "./components/Register.js";
+import StockList from "./components/StockList.js";
+
 import {
-    BrowserRouter as Router,
-    Routes,
-    Route,
-    Redirect,
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Redirect,
 } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <Router>
-        <Routes>
-            <Route path="/" element={<App />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/stock" element={<Stock />} />
-            <Route path="/register" element={<Register />} />
-        </Routes>
-    </Router>
+  <Router>
+    <Routes>
+      <Route path="/" element={<App />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/stock" element={<Stock />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/hotlist" element={<StockList />} />
+    </Routes>
+  </Router>
 );

@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Plot from "react-plotly.js";
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-function Stock_FB() {
+function Stock() {
+        const navigate = useNavigate();
+
   const [stockChartXValues, setStockChartXValues] = useState([]);
   const [stockChartYValues, setStockChartYValues] = useState([]);
 
@@ -60,6 +64,15 @@ function Stock_FB() {
   return (
     <>
       <div>
+        <Button
+          type="button"
+          onClick={(e) => navigate("/hotlist")}
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
+        >
+          Hotlist
+        </Button>
         <h1>Google</h1>
         <Plot
           data={[
@@ -84,4 +97,4 @@ function Stock_FB() {
   );
 }
 
-export default Stock_FB;
+export default Stock;
