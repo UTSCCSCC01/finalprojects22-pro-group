@@ -25,6 +25,7 @@ function Reset() {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [oripassword, setOriPassword] = useState("");
 
     fetch("http://localhost:5050/api/profile", {
         method: "GET",
@@ -50,7 +51,30 @@ function Reset() {
         if (password === "") {
             TAlert("Please Input password");
             return;
-        }
+        }   
+        ///
+        fetch("http://localhost:5050/api/login", {
+            method: "POST",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, oripassword }),
+        })
+            .then((response) => {
+                if (response.status === 400) {
+                    TAlert("Please use correct original password!");
+                }
+                return response.json();
+            })
+            .then((data) => {
+                // if (data.name) {
+                //     console.log("navigate to stock");
+                //     navigate("/stock");
+                // }
+            })
+            .catch((error) => {
+                console.log("error occured in login fetch");
+            });
+        ///
         fetch("http://localhost:5050/api/reset", {
             method: "POST",
             credentials: "include",
@@ -142,6 +166,18 @@ function Reset() {
                             label="New Password"
                             type="password"
                             id="password"
+                            //autoComplete="current-password"
+                        />
+                        <TextField
+                            value={oripassword}
+                            onChange={(e) => setOriPassword(e.target.value)}
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="origin password"
+                            label="Origin Password"
+                            type="origin password"
+                            id="origin password"
                             //autoComplete="current-password"
                         />
                         <Button
