@@ -41,7 +41,9 @@ function Friends() {
         <div className="friends">
             <Sidebar />
 
-            <FriendList className="frdList" />
+            <FriendList listtype="Friends" />
+            <FriendList listtype="Received requests" />
+            <FriendList listtype="Requests sent" />
 
             <div className="frdSearchBar">
                 <input
@@ -49,9 +51,9 @@ function Friends() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 ></input>
-                <button className="searchButton" onClick={searchUser}>
+                {/* <button className="searchButton" onClick={searchUser}>
                     Search
-                </button>
+                </button> */}
                 <FriendTag name={name} email={email_back} button="add" />
             </div>
         </div>

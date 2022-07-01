@@ -112,7 +112,6 @@ const find_friend_in = async (req, res) => {
     try {
         const cookietoken = req.cookies["token"];
         if (!cookietoken) {
-            // redirect to login page
             return res.status(400).send("No auth");
         }
         const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
@@ -176,7 +175,7 @@ const search_friend = async (req, res) => {
     try {
         const { email } = req.body;
         if (!email) {
-            return res.status(400).send("Please provide correct Information");
+            return res.status(200).send("Please provide correct Information");
         }
         const friend_user = await User.findOne({ email });
         if (!friend_user) {
@@ -203,17 +202,24 @@ const search_friend = async (req, res) => {
 
 const add_friends = async (req, res) => {
     try {
-        const { id, email } = req.body;
+        const cookietoken = req.cookies["token"];
+        if (!cookietoken) {
+            // redirect to login page
+            return res.status(400).send("No auth");
+        }
+        const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
+        const { email } = req.body;
         if (!id || !email) {
             return res.status(400).send("Please provide correct Information");
         }
         const friend_user = await User.findOne({ email });
+
         if (!friend_user) {
             return res.send(
                 "This user doesn't exist. Please use another email ~"
             );
         }
-        const my_id = await User.findOne({ id });
+        const my_id = await User.findById(id);
         if (!my_id) {
             return res.send(
                 "This user doesn't exist. Please use another email ~"
@@ -252,6 +258,7 @@ const add_friends = async (req, res) => {
             }
         );
         const result = await User.findOne({ id });
+
         return res.status(200).json(result);
     } catch (error) {
         console.log(error);
@@ -261,7 +268,13 @@ const add_friends = async (req, res) => {
 
 const accept_friend = async (req, res) => {
     try {
-        const { id, email } = req.body;
+        const cookietoken = req.cookies["token"];
+        if (!cookietoken) {
+            // redirect to login page
+            return res.status(400).send("No auth");
+        }
+        const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
+        const { email } = req.body;
         if (!id || !email) {
             return res.status(400).send("Please provide correct Information");
         }
