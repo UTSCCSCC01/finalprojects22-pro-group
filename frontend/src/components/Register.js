@@ -14,8 +14,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-import hpi from "./images/Homepage_image.jpg"
-import './Register.css'
+import hpi from "./images/Homepage_image.jpg";
+import "./Register.css";
 
 const theme = createTheme();
 
@@ -37,8 +37,7 @@ function Register() {
             })
             .then((data) => {
                 if (data.name) {
-                    console.log("navigate to stock");
-                    navigate("/stock");
+                    navigate("/home");
                 }
             })
             .catch((error) => {
@@ -66,7 +65,7 @@ function Register() {
                     backgroundPosition: "center",
                 }}
             />
-            <img src={hpi} alt="home_image" className="Login-img"/>
+            <img src={hpi} alt="home_image" className="Login-img" />
             <Grid
                 item
                 xs={12}

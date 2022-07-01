@@ -23,6 +23,15 @@ const UserSchema = new mongoose.Schema({
         required: [true, "Please provide password"],
         minlength: 6,
     },
+    friends: {
+        type: Array,
+    },
+    friend_out: {
+        type: Array,
+    },
+    friend_in: {
+        type: Array,
+    },
 });
 
 UserSchema.pre("save", async function () {
