@@ -1,0 +1,19 @@
+.sidebarOption {
+    border: 0;
+    background-color: white;
+    display: flex;
+    cursor: pointer;
+}
+
+.sidebarOption:hover {
+    background-color: aliceblue;
+    border-radius: 30px;
+    color: violet;
+    transition: color 200ms ease-out;
+}
+
+.sidebarOption > h2 {
+    font-weight: 800;
+    font-size: 20px;
+    margin-right: 20px;
+}

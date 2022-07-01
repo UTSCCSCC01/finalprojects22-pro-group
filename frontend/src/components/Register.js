@@ -14,6 +14,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+
 import TAlert from "./alert";
 import { ToastContainer } from "react-toastify";
 import hpi from "./images/Homepage_image.jpg";
@@ -55,8 +56,7 @@ function Register() {
             })
             .then((data) => {
                 if (data.name) {
-                    console.log("navigate to stock");
-                    navigate("/stock");
+                    navigate("/home");
                 }
             })
             .catch((error) => {

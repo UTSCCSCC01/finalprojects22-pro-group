@@ -4,6 +4,7 @@ import Stock from "./components/Stock";
 //import Stock_FB from "./components/Stock_FB";
 import Login from "./components/Login.js";
 import Register from "./components/Register.js";
+import StockList from "./components/StockList.js";
 
 // import Navbars from "./components/Navbars.js";
 // import Crypto from "./components/Crypto.js";
@@ -13,21 +14,21 @@ import Register from "./components/Register.js";
 //THN5ITBH3LFSAWLV
 
 function App() {
+
     const [StockSymbol, setStockSymbol] = useState("FB");
     return (
         <div className="App">
-            {/* <Stock />
-        <Stock_FB /> */}
 
             <Login />
             {/* <Register/> */}
             {/* <Navbars /> */}
-            {/* <Reset/> */}
+
             {/* <Login/> */}
             {/* <Clock /> */}
             {/* <Crypto /> */}
         </div>
     );
+
 }
 
 export default App;
