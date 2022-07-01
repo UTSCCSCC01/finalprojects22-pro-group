@@ -1,12 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
+
 import App from "./App";
 import Stock from "./components/Stock";
-//import Stock_FB from "./Stock_FB";
 import Login from "./components/Login.js";
 import Register from "./components/Register.js";
+
 import StockList from "./components/StockList.js";
+
+import Home from "./components/Home";
+import Friends from "./components/Friends";
+
 
 import {
   BrowserRouter as Router,
@@ -17,13 +22,17 @@ import {
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Router>
-    <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/stock" element={<Stock />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/hotlist" element={<StockList />} />
-    </Routes>
-  </Router>
+
+    <Router>
+        <Routes>
+            <Route path="/" element={<App />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/stock" element={<Stock />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/friends" element={<Friends />} />
+            <Route path="/hotlist" element={<StockList />} />
+        </Routes>
+    </Router>
+
 );

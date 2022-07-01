@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Plot from "react-plotly.js";
+import "./Stock.css";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-function Stock() {
+function Stock({ stockSymbol }) {
         const navigate = useNavigate();
 
   const [stockChartXValues, setStockChartXValues] = useState([]);
@@ -14,10 +15,11 @@ function Stock() {
   }, []);
   // const [StockSymbol, setStockSymbol] = useState("FB");
 
-  const StockSymbol = "GOOG";
+  //const StockSymbol = "GOOG";
   const API_KEY = "THN5ITBH3LFSAWLV";
 
   // let API_CALL = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${StockSymbol}&output_size=compact&apikey=${API_KEY}`;
+
 
   const getStockRequest = async (StockSymbol) => {
     const check1 = localStorage.getItem("stockVals");
@@ -28,6 +30,7 @@ function Stock() {
           JSON.parse(check1)[key]["1. open"],
         ]);
 
+
         setStockChartXValues((stockChartXValues) => [
           ...stockChartXValues,
           key,
@@ -37,7 +40,9 @@ function Stock() {
       const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${StockSymbol}&output_size=compact&apikey=${API_KEY}`;
       const response = await fetch(url);
 
+
       const data = await response.json();
+
 
       localStorage.setItem(
         "stockVals",
@@ -59,42 +64,35 @@ function Stock() {
     }
   };
 
+
   stockChartXValues.slice(-1);
 
-  return (
-    <>
-      <div>
-        <Button
-          type="button"
-          onClick={(e) => navigate("/hotlist")}
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
-        >
-          Hotlist
-        </Button>
-        <h1>Google</h1>
-        <Plot
-          data={[
-            {
-              x: stockChartXValues,
-              y: stockChartYValues,
-              type: "scatter",
-              mode: "lines+markers",
-              marker: { color: "blue" },
-            },
-          ]}
-          layout={{
-            width: 720,
-            height: 500,
-            title: "StockSymbol",
-            xaxis: { title: "TIME" },
-            yaxis: { title: "COST" },
-          }}
-        />
-      </div>
-    </>
-  );
+
+
+    return (
+        <div className="stock">
+            <Plot
+                className="stockPlot"
+                data={[
+                    {
+                        x: stockChartXValues,
+                        y: stockChartYValues,
+                        type: "scatter",
+                        mode: "lines+markers",
+                        marker: { color: "blue" },
+                    },
+                ]}
+                layout={{
+                    width: 720,
+                    height: 500,
+                    title: { stockSymbol },
+                    xaxis: { title: "TIME" },
+                    yaxis: { title: "COST" },
+                }}
+            />
+        </div>
+    );
+
 }
 
 export default Stock;

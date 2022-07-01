@@ -14,20 +14,19 @@ import StockList from "./components/StockList.js";
 //THN5ITBH3LFSAWLV
 
 function App() {
-  const [StockSymbol, setStockSymbol] = useState("FB");
-  return (
-    <div className="App">
-      {/* <StockList /> */}
-      <Stock />
 
-      {/* <Login /> */}
-      {/* <Register/> */}
-      {/* <Navbars /> */}
-      {/* <Login/> */}
-      {/* <Clock /> */}
-      {/* <Crypto /> */}
-    </div>
-  );
+    const [StockSymbol, setStockSymbol] = useState("FB");
+    return (
+        <div className="App">
+            <Login />
+            {/* <Register/> */}
+            {/* <Navbars /> */}
+            {/* <Login/> */}
+            {/* <Clock /> */}
+            {/* <Crypto /> */}
+        </div>
+    );
+
 }
 
 export default App;
