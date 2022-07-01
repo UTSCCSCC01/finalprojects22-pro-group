@@ -67,7 +67,7 @@ function Reset() {
             .then((data) => {
                 if (data.name) {
                     console.log("navigate to stock");
-                    navigate("/stock");
+                    navigate("/home");
                 }
             })
             .catch((error) => {

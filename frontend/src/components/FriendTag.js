@@ -15,7 +15,7 @@ function FriendTag({ name, email, button }) {
     };
 
     const acceptfrd = () => {
-        fetch("http://localhost:3000/api/acceptf", {
+        fetch("http://localhost:5050/api/acceptf", {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },
@@ -35,7 +35,7 @@ function FriendTag({ name, email, button }) {
     };
 
     const addfriend = () => {
-        fetch("http://localhost:3000/api/addf", {
+        fetch("http://localhost:5050/api/addf", {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },

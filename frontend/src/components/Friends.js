@@ -15,7 +15,7 @@ function Friends() {
     }, [email]);
 
     const searchUser = () => {
-        fetch("http://localhost:3000/api/searchf", {
+        fetch("http://localhost:5050/api/searchf", {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },

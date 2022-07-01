@@ -21,7 +21,7 @@ function FriendList({ listtype }) {
     }, []);
 
     const getFriends = () => {
-        fetch("http://localhost:3000/api/findf", {
+        fetch("http://localhost:5050/api/findf", {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },
@@ -41,7 +41,7 @@ function FriendList({ listtype }) {
     };
 
     const getFriendsIn = () => {
-        fetch("http://localhost:3000/api/findfin", {
+        fetch("http://localhost:5050/api/findfin", {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },
@@ -61,7 +61,7 @@ function FriendList({ listtype }) {
     };
 
     const getFriendsOut = () => {
-        fetch("http://localhost:3000/api/findfout", {
+        fetch("http://localhost:5050/api/findfout", {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },

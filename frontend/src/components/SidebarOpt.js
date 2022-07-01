@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 function SidebarOpt({ text, Icon, func }) {
     const navigate = useNavigate();
     const logout = () => {
-        fetch("http://localhost:3000/api/logout", {
+        fetch("http://localhost:5050/api/logout", {
             method: "GET",
             credentials: "include",
         })
@@ -29,6 +29,8 @@ function SidebarOpt({ text, Icon, func }) {
             navigate("/home");
         } else if (text == "Friends") {
             navigate("/friends");
+        } else if (text == "HotList") {
+            navigate("/hotlist");
         }
     };
 
