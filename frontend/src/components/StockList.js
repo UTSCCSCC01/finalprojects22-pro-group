@@ -20,14 +20,35 @@ function StockList() {
   const getStockHotlist = async () => {
     const check1 = localStorage.getItem("stockHotlist");
 
-    if (check1) {
+    // var axios = require("axios").default;
+
+    // var options = {
+    //   method: "GET",
+    //   url: "https://yfapi.net/v11/finance/quoteSummary/AAPL",
+    //   params: { modules: "defaultKeyStatistics,assetProfile" },
+    //   headers: {
+    //     "x-api-key": "RIFrduAEmH4ZWA5CdBpylaV31kKt8wUT2stzO3cs",
+    //   },
+    // };
+
+    // axios
+    //   .request(options)
+    //   .then(function (response) {
+    //     console.log(response.data);
+    //   })
+    //   .catch(function (error) {
+    //     console.error(error);
+    //   });
+
+    //--------------------------------------------//
+    if (check1 !== null) {
       for (const key in JSON.parse(check1)) {
         setStockHotlist((stockHotlist) => [
           ...stockHotlist,
           JSON.parse(check1)[key]["symbol"],
         ]);
       }
-      console.log(stockHotlist);
+
     } else {
       var axios = require("axios").default;
 
@@ -36,14 +57,16 @@ function StockList() {
         url: "https://yfapi.net/v1/finance/trending/us",
 
         headers: {
-          "x-api-key": "mqGwUbeB2K1t2FFNFFXaV8mXEPBry3hX7rGo1R0n",
+          // "x-api-key": "mqGwUbeB2K1t2FFNFFXaV8mXEPBry3hX7rGo1R0n",
+          "x-api-key": "RIFrduAEmH4ZWA5CdBpylaV31kKt8wUT2stzO3cs",
         },
       };
 
       axios
         .request(options)
         .then(function (response) {
-          // console.log(response.data["finance"]["result"][0]["quotes"]);
+          console.log(response.data["finance"]["result"][0]["quotes"]);
+          console.log(response.data);
 
           localStorage.setItem(
             "stockHotlist",
@@ -92,7 +115,7 @@ function StockList() {
           return (
             <div>
               {/* <li>"https://finance.yahoo.com/quote/{item}"</li> */}
-              <a href={"https://finance.yahoo.com/quote/"+item} >{item}</a>
+              <a href={"https://finance.yahoo.com/quote/" + item}>{item}</a>
 
               {/* <a href= "https://finance.yahoo.com/quote/">
                 link to {item}
