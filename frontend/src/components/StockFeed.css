@@ -1,0 +1,13 @@
+.feed {
+    flex: 0.8;
+    overflow-y: scroll;
+}
+
+.feedHeader {
+    position: sticky;
+    top: 10px;
+}
+
+/* .feed::-webkit-scrollbar {
+    display: none;
+} */
