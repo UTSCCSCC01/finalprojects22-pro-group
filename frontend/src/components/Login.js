@@ -4,18 +4,14 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-import hpi from "./images/Homepage_image.jpg"
-import './Login.css'
+import hpi from "./images/Homepage_image.jpg";
+import "./Login.css";
 
 const theme = createTheme();
 
@@ -33,7 +29,7 @@ function Login() {
         })
         .then((data) => {
             if (data.name) {
-                navigate("/stock");
+                navigate("/home");
             }
         })
         .catch((error) => {
@@ -53,7 +49,7 @@ function Login() {
             .then((data) => {
                 if (data.name) {
                     console.log("navigate to stock");
-                    navigate("/stock");
+                    navigate("/home");
                 }
             })
             .catch((error) => {
@@ -81,7 +77,7 @@ function Login() {
                     backgroundPosition: "center",
                 }}
             />
-            <img src={hpi} alt="home_image" className="Login-img"/>
+            <img src={hpi} alt="home_image" className="Login-img" />
             <Grid
                 item
                 xs={12}
@@ -103,12 +99,7 @@ function Login() {
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <Box
-                        component="form"
-                        //noValidate
-                        sx={{ mt: 1 }}
-                        //onSubmit={loginbutton}
-                    >
+                    <Box sx={{ mt: 1 }}>
                         <TextField
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}

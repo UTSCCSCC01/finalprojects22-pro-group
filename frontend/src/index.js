@@ -1,11 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
+
 import App from "./App";
 import Stock from "./components/Stock";
-//import Stock_FB from "./Stock_FB";
 import Login from "./components/Login.js";
 import Register from "./components/Register.js";
+import Home from "./components/Home";
+import Friends from "./components/Friends";
+
 import {
     BrowserRouter as Router,
     Routes,
@@ -21,6 +24,8 @@ root.render(
             <Route path="/login" element={<Login />} />
             <Route path="/stock" element={<Stock />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/friends" element={<Friends />} />
         </Routes>
     </Router>
 );
