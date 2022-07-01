@@ -77,10 +77,124 @@ const profile = async (req, res) => {
     res.send(req.user);
 };
 
+const find_friends = async (req, res) => {
+    try {
+        // const cookietoken = req.cookies["token"];
+        // if (!cookietoken) {
+        //     // redirect to login page
+        //     return res.send("No auth");
+        // }
+        // const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
+        const { id } = req.body;
+        console.log(id);
+        const user_data = await User.findById(id);
+        // console.log(user_data);
+        const friend_array = user_data.friends;
+        const result_array = [];
+        // friend_array.forEach(async (element) => {
+        //     //console.log(element);
+        //     var temp = await User.findById(element);
+        //     console.log(temp);
+        //     result_array.push(temp.email);
+        //     console.log(result_array);
+        // });
+
+        for (let i = 0; i < friend_array.length; i++) {
+            var temp = await User.findById(friend_array[i]);
+            console.log(temp);
+            let temp_array = [];
+            temp_array.push(temp.name);
+            temp_array.push(temp.email);
+            result_array.push(temp_array);
+            console.log(result_array);
+        }
+        console.log("123");
+        console.log(result_array);
+        return res.status(200).json({ list: result_array });
+    } catch (error) {
+        console.log(error);
+        res.status(400).send("Cannot add friend!");
+    }
+};
+
+const search_friend = async (req, res) => {
+    try {
+        const { email } = req.body;
+        if (!email) {
+            return res.status(400).send("Please provide correct Information");
+        }
+        const friend_user = await User.findOne({ email });
+        if (!friend_user) {
+            return res
+                .status(400)
+                .send("This user doesn't exist. Please use another email ~");
+        }
+        // find the email, return email and username
+        console.log(friend_user);
+
+        const email_result = email;
+        const name_result = friend_user.name;
+        const result_array = [];
+        result_array.push(name_result);
+        result_array.push(email_result);
+
+        console.log(result_array);
+        return res.status(200).json({ info: result_array });
+    } catch (error) {
+        console.log(error);
+        res.status(400).send("Cannot find friend!");
+    }
+};
+
+const add_friends = async (req, res) => {
+    try {
+        const { id, email } = req.body;
+        if (!id || !email) {
+            return res.status(400).send("Please provide correct Information");
+        }
+        const friend_user = await User.findOne({ email });
+        if (!friend_user) {
+            return res.send(
+                "This user doesn't exist. Please use another email ~"
+            );
+        }
+        const my_id = await User.findOne({ id });
+        if (!my_id) {
+            return res.send(
+                "This user doesn't exist. Please use another email ~"
+            );
+        }
+        const add_id = friend_user._id;
+        if (my_id.friends.includes(add_id)) {
+            return res.status(400).send("already in friend list");
+        }
+
+        User.findOneAndUpdate(
+            { _id: id },
+            { $push: { friends: add_id } },
+            function (error, success) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log(success);
+                }
+            }
+        );
+        const result = await User.findOne({ id });
+        return res.status(200).json(result);
+    } catch (error) {
+        console.log(error);
+        res.send("Cannot add friend!");
+    }
+};
+
 module.exports = {
     login,
     register,
     user_list,
     logout,
     profile,
+    find_friends,
+    search_friend,
+    add_friends,
 };
