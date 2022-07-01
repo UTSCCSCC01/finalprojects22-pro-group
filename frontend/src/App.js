@@ -6,7 +6,7 @@ import Stock_FB from "./components/Stock_FB";
 import Login from "./components/Login.js";
 import Register from "./components/Register.js";
 import Search_page from "./components/Search_page";
-import Button from "./components/Button.js"
+import Search_box from "./components/Search_box"
 
 
 // import Navbars from "./components/Navbars.js";
@@ -22,6 +22,7 @@ function App() {
       <div className="App">
         {/* <Stock />
         <Stock_FB /> */}
+        <Search_box></Search_box>
         <Search_page></Search_page>
 
         {/* <Login /> */}
