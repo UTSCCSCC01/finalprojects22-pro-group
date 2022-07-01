@@ -7,6 +7,9 @@ const {
     user_list,
     logout,
     profile,
+
+    reset_password,
+
     find_friends,
     find_friend_in,
     find_friend_out,
@@ -14,8 +17,10 @@ const {
     add_friends,
     accept_friend,
     reject_friend,
+
 } = require("../controllers/auth");
 
+// sprint 1 apis
 router.route("/").get(user_list);
 router.route("/register").post(register);
 router.route("/login").post(login);
@@ -28,5 +33,8 @@ router.route("/searchf").post(search_friend);
 router.route("/addf").post(add_friends);
 router.route("/acceptf").post(accept_friend);
 router.route("/rejectf").post(reject_friend);
+
+// sprint 2 apis
+router.route("/reset").post(reset_password);
 
 module.exports = router;

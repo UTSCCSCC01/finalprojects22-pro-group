@@ -4,6 +4,7 @@ import "./Stock.css";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
+
 function Stock({ stockSymbol }) {
         const navigate = useNavigate();
 
@@ -66,6 +67,7 @@ function Stock({ stockSymbol }) {
 
 
   stockChartXValues.slice(-1);
+
 
 
 

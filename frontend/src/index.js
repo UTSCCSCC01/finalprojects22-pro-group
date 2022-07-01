@@ -7,10 +7,12 @@ import Stock from "./components/Stock";
 import Login from "./components/Login.js";
 import Register from "./components/Register.js";
 
+import Reset from "./components/Reset.js";
 import StockList from "./components/StockList.js";
 
 import Home from "./components/Home";
 import Friends from "./components/Friends";
+
 
 
 import {
@@ -29,9 +31,13 @@ root.render(
             <Route path="/login" element={<Login />} />
             <Route path="/stock" element={<Stock />} />
             <Route path="/register" element={<Register />} />
+
+            <Route path="/reset" element={<Reset />} />
+
             <Route path="/home" element={<Home />} />
             <Route path="/friends" element={<Friends />} />
             <Route path="/hotlist" element={<StockList />} />
+
         </Routes>
     </Router>
 
