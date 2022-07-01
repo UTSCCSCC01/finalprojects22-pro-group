@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Plot from "react-plotly.js";
+
 import "./Stock.css";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -94,6 +95,7 @@ function Stock({ stockSymbol }) {
             />
         </div>
     );
+
 
 }
 
