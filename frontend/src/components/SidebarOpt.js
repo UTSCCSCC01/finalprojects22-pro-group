@@ -21,16 +21,18 @@ function SidebarOpt({ text, Icon, func }) {
     };
 
     const handleClick = () => {
-        if (text == "Logout") {
+        if (text === "Logout") {
             logout();
-        } else if (text == "BackToLogin") {
+        } else if (text === "BackToLogin") {
             navigate("/login");
-        } else if (text == "Home") {
+        } else if (text === "Home") {
             navigate("/home");
-        } else if (text == "Friends") {
+        } else if (text === "Friends") {
             navigate("/friends");
-        } else if (text == "HotList") {
+        } else if (text === "HotList") {
             navigate("/hotlist");
+        } else if (text === "Search") {
+            navigate("/search");
         }
     };
 

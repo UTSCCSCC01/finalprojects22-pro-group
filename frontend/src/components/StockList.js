@@ -114,15 +114,14 @@ function StockList() {
     stockChartXValues.slice(-1);
 
     return (
-        <div className="hotlist">
+        <div className="hotlist_container">
             <Sidebar />
-            <div className="data">
-                <h1>Hotlist</h1>
+            <div className="data_component">
+                <h1 className="title">Hotlist</h1>
                 <ul>
                     {stockHotlist.map((item) => {
                         return (
                             <div>
-                                {/* <li>"https://finance.yahoo.com/quote/{item}"</li> */}
                                 <a
                                     href={
                                         "https://finance.yahoo.com/quote/" +
@@ -131,10 +130,6 @@ function StockList() {
                                 >
                                     {item}
                                 </a>
-
-                                {/* <a href= "https://finance.yahoo.com/quote/">
-                link to {item}
-              </a> */}
                             </div>
                         );
                     })}

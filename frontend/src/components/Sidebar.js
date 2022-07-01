@@ -7,7 +7,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import SidebarOpt from "./SidebarOpt";
 import PeopleIcon from "@mui/icons-material/People";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
-// import PersonSearchIcon from '@mui/icons-material/PersonSearch';
+import PersonSearchIcon from "@mui/icons-material/PersonSearch";
 import "./Sidebar.css";
 
 function Sidebar() {
@@ -18,9 +18,9 @@ function Sidebar() {
             <SidebarOpt Icon={PersonIcon} text="Profile" />
             <SidebarOpt Icon={LogoutIcon} text="Logout" />
             <SidebarOpt Icon={ExitToAppIcon} text="BackToLogin" />
-            {/* <SidebarOpt Icon={PersonSearchIcon} text="Search" /> */}
             <SidebarOpt Icon={PeopleIcon} text="Friends" />
             <SidebarOpt Icon={LocalFireDepartmentIcon} text="HotList" />
+            <SidebarOpt Icon={PersonSearchIcon} text="Search" />
         </div>
     );
 }

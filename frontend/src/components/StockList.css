@@ -1,4 +1,8 @@
-.hotlist {
+.hotlist_container {
     display: flex;
     height: 100vh;
+}
+
+.data_component {
+    flex: 0.8;
 }

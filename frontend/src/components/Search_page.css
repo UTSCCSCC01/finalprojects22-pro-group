@@ -1,3 +1,12 @@
+.flex_container {
+    display: flex;
+    height: 100vh;
+}
+
+.search_component {
+    flex: 0.8;
+}
+
 .main {
     display: flex;
     height: 100%;
@@ -7,13 +16,13 @@
     row-gap: 20px;
 }
 
-.center{
+.center {
     align-items: center;
     display: flex;
     flex-direction: column;
 }
 
-.list{
+.list {
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -37,4 +46,4 @@ h1 {
 
 ul li {
     font-size: 20px;
-} 
+}
