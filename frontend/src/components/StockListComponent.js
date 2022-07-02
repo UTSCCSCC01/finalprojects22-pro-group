@@ -121,14 +121,12 @@ function StockListComponent() {
             <div className="grid-container">
                 {stockHotlist.map((item) => {
                     return (
-                        <span>
-                            <a
-                                target="_blank"
-                                href={"https://finance.yahoo.com/quote/" + item}
-                            >
-                                {item}
-                            </a>
-                        </span>
+                        <a
+                            target="_blank"
+                            href={"https://finance.yahoo.com/quote/" + item}
+                        >
+                            <span>{item}</span>
+                        </a>
                     );
                 })}
             </div>
