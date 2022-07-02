@@ -33,6 +33,8 @@ function SidebarOpt({ text, Icon, func }) {
             navigate("/hotlist");
         } else if (text === "Search") {
             navigate("/search");
+        } else if (text === "Alarm") {
+            navigate("/alarmpage");
         }
     };
 

@@ -12,8 +12,8 @@ function StockFeed() {
             </div>
             {/* <SearchBox/> */}
             <div>
-                {stocks.map((stcokSymbol) => (
-                    <Stock StockSymbol="GOOG" />
+                {stocks.map((stockSymbol) => (
+                    <Stock stockSymbol={stockSymbol} />
                 ))}
             </div>
         </div>

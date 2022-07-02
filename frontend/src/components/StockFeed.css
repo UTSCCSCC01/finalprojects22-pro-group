@@ -4,6 +4,7 @@
 }
 
 .feedHeader {
+    background-color: violet;
     position: sticky;
     top: 10px;
 }

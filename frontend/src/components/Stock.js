@@ -14,6 +14,7 @@ function Stock({ stockSymbol }) {
     const [stockChartYValues, setStockChartYValues] = useState([]);
 
     useEffect(() => {
+        console.log(stockSymbol);
         getStockRequest(stockSymbol);
     }, []);
     // const [StockSymbol, setStockSymbol] = useState("FB");
@@ -24,43 +25,60 @@ function Stock({ stockSymbol }) {
     // let API_CALL = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${StockSymbol}&output_size=compact&apikey=${API_KEY}`;
 
     const getStockRequest = async (stockSymbol) => {
-        const check1 = localStorage.getItem("stockVals");
-        if (check1) {
-            for (const key in JSON.parse(check1)) {
-                setStockChartYValues((stockChartYValues) => [
-                    ...stockChartYValues,
-                    JSON.parse(check1)[key]["1. open"],
-                ]);
+        const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&output_size=compact&apikey=${API_KEY}`;
 
+        const response = await fetch(url);
+        await response.json().then((data) => {
+            for (const key in data["Time Series (Daily)"]) {
                 setStockChartXValues((stockChartXValues) => [
                     ...stockChartXValues,
                     key,
                 ]);
+                setStockChartYValues((stockChartYValues) => [
+                    ...stockChartYValues,
+                    data["Time Series (Daily)"][key]["1. open"],
+                ]);
             }
-        } else {
-            const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&output_size=compact&apikey=${API_KEY}`;
-            const response = await fetch(url);
+        });
+        //const check1 = localStorage.getItem("stockVals");
 
-            const data = await response.json();
+        // if (check1) {
+        //     console.log("blahhhh");
+        //     for (const key in JSON.parse(check1)) {
+        //         setStockChartYValues((stockChartYValues) => [
+        //             ...stockChartYValues,
+        //             JSON.parse(check1)[key]["1. open"],
+        //         ]);
 
-            localStorage.setItem(
-                "stockVals",
-                JSON.stringify(data["Time Series (Daily)"])
-            );
+        //         setStockChartXValues((stockChartXValues) => [
+        //             ...stockChartXValues,
+        //             key,
+        //         ]);
+        //     }
+        // } else {
+        // const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&output_size=compact&apikey=${API_KEY}`;
+        // const response = await fetch(url);
 
-            data.then((data) => {
-                for (const key in data["Time Series (Daily)"]) {
-                    setStockChartXValues((stockChartXValues) => [
-                        ...stockChartXValues,
-                        key,
-                    ]);
-                    setStockChartYValues((stockChartYValues) => [
-                        ...stockChartYValues,
-                        data["Time Series (Daily)"][key]["1. open"],
-                    ]);
-                }
-            });
-        }
+        // const data = await response.json();
+
+        // localStorage.setItem(
+        //     "stockVals",
+        //     JSON.stringify(data["Time Series (Daily)"])
+        // );
+
+        // data.then((data) => {
+        //     for (const key in data["Time Series (Daily)"]) {
+        //         setStockChartXValues((stockChartXValues) => [
+        //             ...stockChartXValues,
+        //             key,
+        //         ]);
+        //         setStockChartYValues((stockChartYValues) => [
+        //             ...stockChartYValues,
+        //             data["Time Series (Daily)"][key]["1. open"],
+        //         ]);
+        //     }
+        // });
+        //}
     };
 
     stockChartXValues.slice(-1);
@@ -68,6 +86,7 @@ function Stock({ stockSymbol }) {
     return (
 
         <div className="stock">
+            <h4>{stockSymbol}</h4>
             <Plot
                 className="stockPlot"
                 data={[
