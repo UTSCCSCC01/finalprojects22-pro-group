@@ -12,19 +12,20 @@ import AlarmIcon from "@mui/icons-material/Alarm";
 import "./Sidebar.css";
 
 function Sidebar() {
-    return (
-        <div className="sidebar">
-            <CandlestickChartIcon className="sidebarIcon" />
-            <SidebarOpt Icon={HomeIcon} text="Home" />
-            <SidebarOpt Icon={PersonIcon} text="Profile" />
-            <SidebarOpt Icon={LogoutIcon} text="Logout" />
-            <SidebarOpt Icon={ExitToAppIcon} text="BackToLogin" />
-            <SidebarOpt Icon={PeopleIcon} text="Friends" />
-            <SidebarOpt Icon={LocalFireDepartmentIcon} text="HotList" />
-            <SidebarOpt Icon={PersonSearchIcon} text="Search" />
-            <SidebarOpt Icon={AlarmIcon} text="Alarm" />
-        </div>
-    );
+  return (
+    <div className="sidebar">
+      <CandlestickChartIcon className="sidebarIcon" />
+      <div className="logo"> Proview</div>
+      <SidebarOpt Icon={HomeIcon} text="Home" />
+      <SidebarOpt Icon={PersonIcon} text="Profile" />
+      <SidebarOpt Icon={LogoutIcon} text="Logout" />
+      <SidebarOpt Icon={ExitToAppIcon} text="BackToLogin" />
+      <SidebarOpt Icon={PeopleIcon} text="Friends" />
+      <SidebarOpt Icon={LocalFireDepartmentIcon} text="HotList" />
+      <SidebarOpt Icon={PersonSearchIcon} text="Search" />
+      <SidebarOpt Icon={AlarmIcon} text="Alarm" />
+    </div>
+  );
 }
 
 export default Sidebar;
