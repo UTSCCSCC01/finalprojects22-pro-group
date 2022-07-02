@@ -84,7 +84,6 @@ function Stock({ stockSymbol }) {
     stockChartXValues.slice(-1);
 
     return (
-
         <div className="stock">
             <h4>{stockSymbol}</h4>
             <Plot
@@ -107,7 +106,6 @@ function Stock({ stockSymbol }) {
                 }}
             />
         </div>
-
     );
 }
 

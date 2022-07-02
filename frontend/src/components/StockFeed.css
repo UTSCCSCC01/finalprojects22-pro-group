@@ -4,9 +4,10 @@
 }
 
 .feedHeader {
-    background-color: violet;
+    background-color: rgb(252, 172, 147);
     position: sticky;
     top: 10px;
+    z-index: 99;
 }
 
 /* .feed::-webkit-scrollbar {

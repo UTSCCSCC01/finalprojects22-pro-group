@@ -3,13 +3,15 @@
     /* flex-flow: column wrap; */
     height: 100vh;
 }
-
+.friendlist {
+    border: 4px;
+}
 .frdList {
     border-right: 2px solid #9e83fa;
 }
 
 .frdSearchBar {
-    border-left: 2px solid #9e83fa;
+    border-left: 2px;
     position: sticky;
     top: 10px;
     /* display: flex; */

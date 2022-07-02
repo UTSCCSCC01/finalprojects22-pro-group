@@ -40,11 +40,11 @@ function Friends() {
     return (
         <div className="friends">
             <Sidebar />
-
-            <FriendList listtype="Friends" />
-            <FriendList listtype="Received requests" />
-            <FriendList listtype="Requests sent" />
-
+            <div className="friendlist">
+                <FriendList listtype="Friends" />
+                <FriendList listtype="Received requests" />
+                <FriendList listtype="Requests sent" />
+            </div>
             <div className="frdSearchBar">
                 <input
                     className="inputfield"
@@ -54,7 +54,11 @@ function Friends() {
                 {/* <button className="searchButton" onClick={searchUser}>
                     Search
                 </button> */}
-                <FriendTag name={name} email={email_back} button="add" />
+                <FriendTag
+                    name={name}
+                    email={email_back}
+                    button="add a friend"
+                />
             </div>
         </div>
     );
