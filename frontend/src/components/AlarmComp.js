@@ -1,14 +1,58 @@
-import React, {Fragment, fragment} from "react";
+import React, {Fragment, useEffect, useState} from "react";
+import audio1 from "./audio1.mp3"
 
 const Alarm = ()=>{
-    return(
+    const [AlarmHours, setAH] = useState("");
+    const [AlarmMinutes, setAM] = useState("");
+    const [Stopper, StopAlarm] = useState("");
 
+    const setAlarm = () =>{
+        var ah = document.querySelector(".hours").value;
+        var am = document.querySelector(".minutes").value;
+        setAH(ah);
+        setAM(am);
+        checkAlarm();
+    }
+
+    const stopAlarm = () => {
+        document.querySelector(".audio1").pause();
+        document.querySelector(".audio1").currentTime=0;
+        StopAlarm("True");
+        checkAlarm();
+    }
+
+    const checkAlarm = () =>{
+        var checker = setInterval(function(){
+
+            var time = new Date();
+            var curr_hr = time.getHours();
+            var curr_mt = time.getMinutes();
+            var curr_ss = time.getSeconds();
+
+            // console.log(curr_hr + ":" + curr_mt);
+            // console.log(AlarmHours + ":" + Alarm Minutes);
+            
+            if(AlarmHours == curr_hr && AlarmMinutes == curr_mt && curr_ss < 12){
+                if(Stopper == "True"){
+                    clearInterval(checker);
+                }
+                document.querySelector(".audio1").play();
+                // console.log("It's trading time now!");
+            }
+        }, 5000);
+    }
+
+    useEffect(()=>{
+        checkAlarm();
+    })
+
+    return(
         <Fragment>
-            <div className="column large6 medium9 small12 primaru_inverted center">
+            <div className="column large6 medium9 small12 primary_inverted center wrapper">
                 <h1>Alarm</h1>
                 <div className="alarm_time">
                     <h3>Set an Alarm</h3>
-                        <select className="hours">
+                    <select className="hours">
                             <option>00</option>
                             <option>01</option>
                             <option>02</option>
@@ -33,8 +77,8 @@ const Alarm = ()=>{
                             <option>21</option>
                             <option>22</option>
                             <option>23</option>
-                        </select>
-                        <select className="minutes">
+                    </select>
+                    <select className="minutes">
                             <option>00</option>
                             <option>01</option>
                             <option>02</option>
@@ -95,14 +139,19 @@ const Alarm = ()=>{
                             <option>57</option>
                             <option>58</option>
                             <option>59</option>
-                        </select>
-                        <button className="large">Set Alarm</button>
+                    </select>
+                    <br/>
+                    <button className="small" onClick={setAlarm}>Set Alarm</button>
+                    <button className="small" onClick={stopAlarm}>Stop Alarm</button>
                 </div>
-            </div>
+                <div className="playback">
+                    <audio className="audio1">
+                        <source src={audio1} type="audio/mp3" />
+                    </audio>
+                </div>
+            </div>  
         </Fragment>
     );
-
-
-};
+}
 
 export default Alarm;
