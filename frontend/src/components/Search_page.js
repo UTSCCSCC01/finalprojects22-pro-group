@@ -25,7 +25,6 @@ function Search_page() {
                 <div className="searchHeader">
                     <h2> Search</h2>
                 </div>
-                <br />
                 <div className="search">
                     <div className="input">
                         <TextField
@@ -51,7 +50,6 @@ function Search_page() {
                         </Button>
                         <ToastContainer />
                     </div>
-                    <br />
                     <Stock stockSymbol={search} />
                 </div>
             </div>

@@ -1,7 +1,8 @@
 .stock {
+    min-width: fit-content;
     background: #f3f4f6;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-left: 70px;
     margin-right: 70px;
     margin-bottom: 40px;
