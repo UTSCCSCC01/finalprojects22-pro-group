@@ -14,9 +14,11 @@ function Stock({ stockSymbol }) {
     const [stockChartYValues, setStockChartYValues] = useState([]);
 
     useEffect(() => {
+        setStockChartXValues([]);
+        setStockChartYValues([]);
         console.log(stockSymbol);
         getStockRequest(stockSymbol);
-    }, []);
+    }, [stockSymbol]);
     // const [StockSymbol, setStockSymbol] = useState("FB");
 
     //const StockSymbol = "GOOG";
