@@ -8,6 +8,7 @@ import SidebarOpt from "./SidebarOpt";
 import PeopleIcon from "@mui/icons-material/People";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
+import AlarmIcon from "@mui/icons-material/Alarm";
 import "./Sidebar.css";
 
 function Sidebar() {
@@ -21,6 +22,7 @@ function Sidebar() {
             <SidebarOpt Icon={PeopleIcon} text="Friends" />
             <SidebarOpt Icon={LocalFireDepartmentIcon} text="HotList" />
             <SidebarOpt Icon={PersonSearchIcon} text="Search" />
+            <SidebarOpt Icon={AlarmIcon} text="Alarm" />
         </div>
     );
 }
