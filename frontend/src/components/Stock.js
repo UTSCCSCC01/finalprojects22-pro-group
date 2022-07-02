@@ -4,6 +4,8 @@ import Plot from "react-plotly.js";
 import "./Stock.css";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import Alarm from "./AlarmComp";
+// import "fdweb/fluent.css"
 
 function Stock({ stockSymbol }) {
     const navigate = useNavigate();
@@ -64,6 +66,7 @@ function Stock({ stockSymbol }) {
     stockChartXValues.slice(-1);
 
     return (
+
         <div className="stock">
             <Plot
                 className="stockPlot"
@@ -85,6 +88,7 @@ function Stock({ stockSymbol }) {
                 }}
             />
         </div>
+
     );
 }
 
