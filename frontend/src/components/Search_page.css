@@ -35,5 +35,6 @@
 }
 
 .searchButton {
+    color: black !important;
     background: rgb(195, 232, 186) !important;
 }
