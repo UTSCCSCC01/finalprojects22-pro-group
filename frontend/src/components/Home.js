@@ -7,7 +7,7 @@ function Home() {
     return (
         <div className="home">
             <Sidebar />
-            <StockFeed />
+            <StockFeed className="Stocks" />
         </div>
     );
 }

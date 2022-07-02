@@ -6,7 +6,7 @@ function FriendTag({ name, email, button }) {
     const navigate = useNavigate();
 
     const handleButton = () => {
-        if (button == "add") {
+        if (button == "add a friend") {
             addfriend();
         } else if (button == "accept") {
             acceptfrd();
@@ -56,7 +56,7 @@ function FriendTag({ name, email, button }) {
 
     return (
         <div className="friendTag">
-            <h4>{name}</h4>
+            <h4>{name}:</h4>
             <h4>{email}</h4>
             <button onClick={handleButton}>{button}</button>
         </div>

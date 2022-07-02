@@ -1,9 +1,8 @@
 .hotlist_container {
     display: flex;
-    flex-flow: column wrap;
     height: 100vh;
 }
 
-.data_component {
-    flex: 0.8;
+.StockList {
+    align-items: center;
 }
