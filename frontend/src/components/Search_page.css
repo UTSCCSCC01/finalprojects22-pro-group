@@ -5,45 +5,31 @@
 
 .search_component {
     flex: 0.8;
+    margin-top: 30px;
 }
 
-.main {
-    display: flex;
-    height: 100%;
+.searchHeader {
+    background-color: rgb(195, 232, 186);
+    text-align: center;
+    position: sticky;
+    top: 0px;
+    z-index: 99;
     width: 100%;
-    align-items: flex-start;
-    flex-direction: column;
-    row-gap: 20px;
-}
-
-.center {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-}
-
-.list {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    margin-top: 2%;
-    font-size: large;
-}
-
-h1 {
-    flex: 2;
-    margin: 10px;
-    font-size: 40px;
-    color: rgb(1, 1, 59);
 }
 
 .search {
+    text-align: center;
+    /* align-items: center; */
+    width: 100% !important;
+}
+.input {
+    text-align: center;
     align-items: center;
-    display: flex;
-    flex-direction: column;
-    margin-left: 35%;
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-ul li {
-    font-size: 20px;
+.search_component Stock {
+    width: 100%;
 }

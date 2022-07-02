@@ -15,7 +15,7 @@ function FriendList({ listtype }) {
             setButton("accept");
             getFriendsIn();
         } else if (listtype == "Requests sent") {
-            setButton("");
+            setButton("waiting");
             getFriendsOut();
         }
     }, []);
@@ -83,9 +83,9 @@ function FriendList({ listtype }) {
     return (
         <div className="frds">
             <div className="frdsHeader">
-                <h2>{listtype}</h2>
+                <h3>{listtype}</h3>
             </div>
-            <div>
+            <div className="frdlist">
                 {friendlist.map((info) => (
                     <FriendTag name={info[0]} email={info[1]} button={button} />
                 ))}

@@ -73,7 +73,7 @@ const profile = async (req, res) => {
     const cookietoken = req.cookies["token"];
     if (!cookietoken) {
         // redirect to login page
-        return res.send("No auth");
+        return res.status(400).send("No auth");
     }
     const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
     req.user = await User.findById(id);

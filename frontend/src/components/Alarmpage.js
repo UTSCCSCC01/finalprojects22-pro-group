@@ -10,7 +10,11 @@ const Alarmpage = () => {
     return (
         <div className="alarmpage">
             <Sidebar />
+
             <div className="alarm">
+                <div className="alarmHeader">
+                    <h2> Alarm</h2>
+                </div>
                 <Alarm />
             </div>
         </div>

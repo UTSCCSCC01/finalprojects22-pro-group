@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import Plot from "react-plotly.js";
 import { useNavigate } from "react-router-dom";
+import "./StockListComponent.css";
 
 function StockListComponent() {
     const navigate = useNavigate();
@@ -113,19 +114,24 @@ function StockListComponent() {
     stockChartXValues.slice(-1);
 
     return (
-        <div>
-            <h1 className="title">Hotlist</h1>
-            <ul>
+        <div className="whole">
+            <div className="hotHeader">
+                <h2> HotLists</h2>
+            </div>
+            <div className="grid-container">
                 {stockHotlist.map((item) => {
                     return (
-                        <div>
-                            <a href={"https://finance.yahoo.com/quote/" + item}>
+                        <span>
+                            <a
+                                target="_blank"
+                                href={"https://finance.yahoo.com/quote/" + item}
+                            >
                                 {item}
                             </a>
-                        </div>
+                        </span>
                     );
                 })}
-            </ul>
+            </div>
         </div>
     );
 }

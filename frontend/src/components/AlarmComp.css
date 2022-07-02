@@ -1,0 +1,25 @@
+.setAlarm {
+    background-color: aliceblue;
+    border: 0;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.setAlarm:hover {
+    transform: scale(110%);
+}
+
+.stopAlarm {
+    background-color: aquamarine;
+    border: 0;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.stopAlarm:hover {
+    transform: scale(110%);
+}
+
+.alarm_time {
+    padding: 20px;
+}

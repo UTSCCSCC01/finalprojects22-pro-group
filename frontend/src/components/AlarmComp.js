@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import audio1 from "./audio1.mp3";
+import "./AlarmComp.css";
 
 const Alarm = () => {
     const [AlarmHours, setAH] = useState("");
@@ -51,7 +52,6 @@ const Alarm = () => {
 
     return (
         <div className="wrapper">
-            <h1>Alarm</h1>
             <div className="alarm_time">
                 <h3>Set an Alarm</h3>
                 <select className="hours">
@@ -143,10 +143,10 @@ const Alarm = () => {
                     <option>59</option>
                 </select>
                 <br />
-                <button className="small" onClick={setAlarm}>
+                <button className="setAlarm" onClick={setAlarm}>
                     Set Alarm
                 </button>
-                <button className="small" onClick={stopAlarm}>
+                <button className="stopAlarm" onClick={stopAlarm}>
                     Stop Alarm
                 </button>
             </div>

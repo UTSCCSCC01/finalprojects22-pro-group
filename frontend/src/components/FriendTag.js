@@ -56,9 +56,14 @@ function FriendTag({ name, email, button }) {
 
     return (
         <div className="friendTag">
-            <h4>{name}:</h4>
-            <h4>{email}</h4>
-            <button onClick={handleButton}>{button}</button>
+            <div className="info">
+                <span>Username: {name}</span>
+                <br />
+                <span>Email: {email}</span>
+            </div>
+            <button className="button_div" onClick={handleButton}>
+                {button}
+            </button>
         </div>
     );
 }

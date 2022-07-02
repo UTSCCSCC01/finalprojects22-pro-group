@@ -3,7 +3,8 @@ import Stock from "./Stock";
 import "./StockFeed.css";
 
 function StockFeed() {
-    const stocks = ["META", "GOOG", "AAPL", "ABNB", "TSLA", "MSFT"];
+    // const stocks = ["META", "GOOG", "AAPL", "ABNB", "TSLA", "MSFT"];
+    const stocks = ["META", "GOOG", "AAPL"];
 
     return (
         <div className="feed">

@@ -4,7 +4,6 @@ import Sidebar from "./Sidebar";
 import FriendList from "./FriendList";
 import { useEffect, useState } from "react";
 import FriendTag from "./FriendTag";
-
 function Friends() {
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
@@ -40,25 +39,39 @@ function Friends() {
     return (
         <div className="friends">
             <Sidebar />
-            <div className="friendlist">
-                <FriendList listtype="Friends" />
-                <FriendList listtype="Received requests" />
-                <FriendList listtype="Requests sent" />
-            </div>
-            <div className="frdSearchBar">
-                <input
-                    className="inputfield"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                ></input>
-                {/* <button className="searchButton" onClick={searchUser}>
+            <div className="friends_container">
+                <div className="friendsHeader">
+                    <h2> Friends</h2>
+                </div>
+                <div className="part">
+                    <div className="friendlist">
+                        <FriendList listtype="Friends" />
+                    </div>
+                    <div className="friendlist_2">
+                        <div className="div_1">
+                            <FriendList listtype="Received requests" />
+                        </div>
+                        <div className="div_1">
+                            <FriendList listtype="Requests sent" />
+                        </div>
+                    </div>
+                    <div className="frdSearchBar">
+                        <h3>Search Friend</h3>
+                        <input
+                            className="inputfield"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        ></input>
+                        {/* <button className="searchButton" onClick={searchUser}>
                     Search
                 </button> */}
-                <FriendTag
-                    name={name}
-                    email={email_back}
-                    button="add a friend"
-                />
+                        <FriendTag
+                            name={name}
+                            email={email_back}
+                            button="add a friend"
+                        />
+                    </div>
+                </div>
             </div>
         </div>
     );

@@ -9,9 +9,11 @@ import Alarm from "./AlarmComp";
 
 function Stock({ stockSymbol }) {
     const navigate = useNavigate();
+    // const KEYS = ["THN5ITBH3LFSAWLV", "V59N2LFKMSXQWONN"];
 
     const [stockChartXValues, setStockChartXValues] = useState([]);
     const [stockChartYValues, setStockChartYValues] = useState([]);
+    // const [index, setIndex] = useState([]);
 
     useEffect(() => {
         setStockChartXValues([]);
@@ -22,66 +24,46 @@ function Stock({ stockSymbol }) {
     // const [StockSymbol, setStockSymbol] = useState("FB");
 
     //const StockSymbol = "GOOG";
-    const API_KEY = "THN5ITBH3LFSAWLV";
+    const API_KEY = "V59N2LFKMSXQWONN";
+    const sandboxToken = "Tpk_245594011ed142fca35e0d76758e1d33";
+    const realToken = "pk_0e6314b0afd047f3bb2da2517debc3a0";
+    //url = `https://sandbox.iexapis.com/stable/stock/AAPL/time-series/?token=Tpk_245594011ed142fca35e0d76758e1d33`
 
     // let API_CALL = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${StockSymbol}&output_size=compact&apikey=${API_KEY}`;
 
     const getStockRequest = async (stockSymbol) => {
-        const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&output_size=compact&apikey=${API_KEY}`;
-
-        const response = await fetch(url);
+        const real = `https://cloud.iexapis.com/stable/stock/${stockSymbol}/chart/3m?token=${realToken}`;
+        const sandbox = `https://sandbox.iexapis.com/stable/stock/${stockSymbol}/chart/3m?token=${sandboxToken}`;
+        const response = await fetch(sandbox);
         await response.json().then((data) => {
-            for (const key in data["Time Series (Daily)"]) {
+            for (const key in data) {
+                //console.log(data[key]["date"]);
                 setStockChartXValues((stockChartXValues) => [
                     ...stockChartXValues,
-                    key,
+                    data[key]["date"],
                 ]);
                 setStockChartYValues((stockChartYValues) => [
                     ...stockChartYValues,
-                    data["Time Series (Daily)"][key]["1. open"],
+                    data[key]["close"],
                 ]);
             }
         });
-        //const check1 = localStorage.getItem("stockVals");
-
-        // if (check1) {
-        //     console.log("blahhhh");
-        //     for (const key in JSON.parse(check1)) {
-        //         setStockChartYValues((stockChartYValues) => [
-        //             ...stockChartYValues,
-        //             JSON.parse(check1)[key]["1. open"],
-        //         ]);
-
-        //         setStockChartXValues((stockChartXValues) => [
-        //             ...stockChartXValues,
-        //             key,
-        //         ]);
-        //     }
-        // } else {
-        // const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&output_size=compact&apikey=${API_KEY}`;
-        // const response = await fetch(url);
-
-        // const data = await response.json();
-
-        // localStorage.setItem(
-        //     "stockVals",
-        //     JSON.stringify(data["Time Series (Daily)"])
-        // );
-
-        // data.then((data) => {
-        //     for (const key in data["Time Series (Daily)"]) {
-        //         setStockChartXValues((stockChartXValues) => [
-        //             ...stockChartXValues,
-        //             key,
-        //         ]);
-        //         setStockChartYValues((stockChartYValues) => [
-        //             ...stockChartYValues,
-        //             data["Time Series (Daily)"][key]["1. open"],
-        //         ]);
-        //     }
-        // });
-        //}
     };
+    // const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&output_size=compact&apikey=${API_KEY}`;
+
+    // const response = await fetch(url);
+    // await response.json().then((data) => {
+    //     for (const key in data["Time Series (Daily)"]) {
+    //         setStockChartXValues((stockChartXValues) => [
+    //             ...stockChartXValues,
+    //             key,
+    //         ]);
+    //         setStockChartYValues((stockChartYValues) => [
+    //             ...stockChartYValues,
+    //             data["Time Series (Daily)"][key]["1. open"],
+    //         ]);
+    //     }
+    // });
 
     stockChartXValues.slice(-1);
 

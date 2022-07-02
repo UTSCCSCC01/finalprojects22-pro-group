@@ -10,11 +10,14 @@ function SidebarOpt({ text, Icon, func }) {
             credentials: "include",
         })
             .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
+                // if (response.status === 400) {
                 navigate("/login");
+                // }
+                // return response.json();
             })
+            // .then((data) => {
+            //     navigate("/login");
+            // })
             .catch((error) => {
                 console.log("error occured in logout fetch");
             });
@@ -23,8 +26,6 @@ function SidebarOpt({ text, Icon, func }) {
     const handleClick = () => {
         if (text === "Logout") {
             logout();
-        } else if (text === "BackToLogin") {
-            navigate("/login");
         } else if (text === "Home") {
             navigate("/home");
         } else if (text === "Friends") {

@@ -1,15 +1,20 @@
 import { React, useState } from "react";
-import TextField from "@mui/material/TextField";
+import { TextField, Button } from "@mui/material";
 import "./Search_page.css";
 import List_Stock from "./List_Stock";
 import Sidebar from "./Sidebar";
 import Stock from "./Stock";
-
+import TAlert from "./alert";
+import { ToastContainer } from "react-toastify";
 function Search_page() {
     const [input, setInput] = useState("");
     const [search, setSearch] = useState("");
 
     const handleSearch = () => {
+        if (input === "") {
+            TAlert("Input is invalid!");
+            return;
+        }
         setSearch(input);
     };
 
@@ -17,19 +22,38 @@ function Search_page() {
         <div className="flex_container">
             <Sidebar />
             <div className="search_component">
-                <h1 className="center">React Search</h1>
-                <div className="search">
-                    <TextField
-                        id="outlined-basic"
-                        variant="outlined"
-                        fullWidth
-                        label="Search"
-                        onChange={(e) => setInput(e.target.value)}
-                    />
+                <div className="searchHeader">
+                    <h2> Search</h2>
                 </div>
-                <button onClick={handleSearch}>Search</button>
+                <br />
+                <div className="search">
+                    <div className="input">
+                        <TextField
+                            id="outlined-basic"
+                            variant="outlined"
+                            fullWidth
+                            label="Please type a Stock Name!"
+                            sx={{
+                                width: "100%",
+                                alignItems: "center",
+                            }}
+                            onChange={(e) => setInput(e.target.value)}
+                        />
+                        <Button
+                            type="button"
+                            onClick={handleSearch}
+                            variant="contained"
+                            fullWidth
+                            // sx={{ mt: 3, mb: 2 }}
+                        >
+                            Search
+                        </Button>
+                        <ToastContainer />
+                    </div>
+                    <br />
+                    <Stock stockSymbol={search} />
+                </div>
             </div>
-            <Stock stockSymbol={search} />
         </div>
     );
 }
