@@ -14,39 +14,49 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-
+import hpi from "./images/Homepage_image.jpg";
 import TAlert from "./alert";
 import { ToastContainer } from "react-toastify";
-import hpi from "./images/Homepage_image.jpg";
-
-import "./Register.css";
+import "./Login.css";
 
 const theme = createTheme();
 
-function Register() {
+function Reset() {
     const navigate = useNavigate();
-    const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
+    const [original_password, setOriPassword] = useState("");
     const [password, setPassword] = useState("");
 
-    const registerbutton = (e) => {
+    fetch("http://localhost:5050/api/profile", {
+        method: "GET",
+        credentials: "include",
+    })
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            if (data.name) {
+                navigate("/stock");
+            }
+        })
+        .catch((error) => {
+            console.log("login needed");
+        });
+
+    const reset_button = (e) => {
         if (email === "") {
             TAlert("Please Input email");
-            return;
-        }
-        if (username === "") {
-            TAlert("Please Input username");
             return;
         }
         if (password === "") {
             TAlert("Please Input password");
             return;
         }
-        fetch("http://localhost:5050/api/register", {
+        fetch("http://localhost:5050/api/reset", {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username, email, password }),
+            body: JSON.stringify({ email, original_password, password }),
         })
             .then((response) => {
                 if (response.status === 400) {
@@ -56,11 +66,12 @@ function Register() {
             })
             .then((data) => {
                 if (data.name) {
+                    console.log("navigate to stock");
                     navigate("/home");
                 }
             })
             .catch((error) => {
-                console.log("error occured in fetch");
+                console.log("error occured in login fetch");
             });
     };
 
@@ -73,9 +84,6 @@ function Register() {
                 sm={4}
                 md={7}
                 sx={{
-                    // backgroundImage:
-                    //     "url(https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg?cs=srgb&dl=pexels-energepiccom-159888.jpg&fm=jpg)",
-                    // backgroundRepeat: "no-repeat",
                     backgroundColor: (t) =>
                         t.palette.mode === "light"
                             ? t.palette.grey[50]
@@ -104,36 +112,38 @@ function Register() {
                     }}
                 >
                     <Typography component="h1" variant="h5">
-                        Register
+                        Reset Password
                     </Typography>
                     <Box
                         component="form"
-                        noValidate
+                        //noValidate
                         sx={{ mt: 1 }}
-                        //onSubmit={registerbutton}
+                        //onSubmit={reset_button}
                     >
-                        <TextField
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="username"
-                            label="Name"
-                            name="name"
-                            autoComplete="name"
-                            autoFocus
-                        />
                         <TextField
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            //onChange={(e) => setEmail(e.target.value)}
                             margin="normal"
                             required
                             fullWidth
                             id="email"
                             label="Email Address"
                             name="email"
-                            autoComplete="email"
+                            //autoComplete="email"
+                            autoFocus
+                        />
+                        <TextField
+                            value={original_password}
+                            onChange={(e) => setOriPassword(e.target.value)}
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="origin password"
+                            label="Origin Password"
+                            type="password"
+                            id="origin password"
+                            //autoComplete="current-password"
                         />
                         <TextField
                             value={password}
@@ -142,19 +152,19 @@ function Register() {
                             required
                             fullWidth
                             name="password"
-                            label="Password"
+                            label="New Password"
                             type="password"
                             id="password"
-                            autoComplete="current-password"
+                            //autoComplete="current-password"
                         />
                         <Button
                             type="button"
-                            onClick={registerbutton}
+                            onClick={reset_button}
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Register An Account
+                            Reset Password
                         </Button>
                         <ToastContainer />
                         <Button
@@ -164,7 +174,16 @@ function Register() {
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Go to Login
+                            Back to Login
+                        </Button>
+                        <Button
+                            type="button"
+                            onClick={() => navigate("/register")}
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                        >
+                            Back to Register
                         </Button>
                     </Box>
                 </Box>
@@ -173,4 +192,4 @@ function Register() {
     );
 }
 
-export default Register;
+export default Reset;

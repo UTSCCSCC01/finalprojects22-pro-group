@@ -11,6 +11,7 @@
     - 0 marks = not at all
 
     Your mark: 1 Feedback: Vague description. More details needed on the features. What's a friend system? Wouldn't sharing stock market decisions be controversial as it leads to inflation or deflation of certain stocks?
+    Remark: No changes here. 
 
   - Key users have been identified clearly (max 2 marks) 
     - 2 marks = clearly
@@ -18,6 +19,7 @@
     - 0 marks = not at all
 
     Your mark: 1 Feedback: More than 2 key users needed 
+    Remark: Updated Mark: 2 Feedback: It is good to have atleast 3 personas.  
 
   - Scenarios have been described clearly (max 2 marks)    
     - 2 marks = clearly
@@ -33,7 +35,7 @@
 
     Your mark: 2
     
-  summary.md Total Mark: 6 / 8
+  summary.md Total Mark: 7 / 8
 
 ---
 ## competition.md (Max 2 marks)
@@ -97,6 +99,8 @@
     Your mark: 0
    
   Setup Total Mark: 1 / 3
+  Remark Feedback: If you did not have a set up complete, that was fine. But You needed to talk about what Backend frameworks or Database were you going to use.
+  So No change in the mark here.
 
 ---
 ## Documentation: README.md (max 3 marks)
@@ -119,6 +123,8 @@
     Your mark: 0 Feedback: If I'm an external user (developer) how do I contribute to your project via GitHub? Cloning, pulling, pushing details needed.   
    
   README.md Total Mark: 1 / 3
+  
+  Remark: No changes in the mark for this section. TA feedback is quite clear.
 
 ---
 ## Definition of done: done.md (max 2 marks)
@@ -145,7 +151,8 @@
     - 0 marks = No personas provided
 
 	  Your mark: 3 Feedback: More than 2 personas needed to get 4, but good details in both. Persona from developer side would have been beneficial.
-
+	  Remark: Updated Mark: 4
+	  
   - Relevance to the system  (max 2 marks)
     - 2 marks = Personas are highly relevant to the system 
     - 1 mark  = Personas are somewhat relevant
@@ -160,7 +167,7 @@
 
     Your mark: 2
 	
-  Personas.pdf Total Mark: 7 / 8
+  Personas.pdf Total Mark: 8 / 8
 	
 ---
 ## Process: process.md (max 10 marks)
@@ -209,7 +216,8 @@
     - 0 marks = Missing or not related
 
     Your mark: 1 Feedback: What about the messaging system? Personal watchlist? Registration window (what info is needed?)
-
+    
+    
   - Graphic representation is clear and represents well indended user interface elements (max 2 marks)
     - 2 marks = Clear and well done
     - 1 mark  = Not very clear, 
@@ -218,8 +226,10 @@
     Your mark: 1 Feedback: What are function 1 - 20? Several feature ideas are missing in the graphical representation.
    
   User experience Total Mark: 2 / 4
+  
+  Remark: No update in the marks for this section. Please check the TA feedback carefully
    
 ---
 ## Total Mark  
-Sprint 0 Total Mark : 35 / 48
+Sprint 0 Total Mark : 37 / 48
 	
