@@ -78,13 +78,15 @@ function Stock({ stockSymbol }) {
                         y: stockChartYValues,
                         type: "scatter",
                         mode: "lines+markers",
-                        marker: { color: "blue" },
+                        marker: { color: "#00ac14" },
                     },
                 ]}
                 layout={{
                     width: 720,
                     height: 500,
                     title: { stockSymbol },
+                    plot_bgcolor: "#f3f4f6",
+                    paper_bgcolor: "#f3f4f6",
                     xaxis: { title: "TIME" },
                     yaxis: { title: "COST" },
                 }}

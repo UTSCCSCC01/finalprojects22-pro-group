@@ -33,3 +33,7 @@
 .search_component Stock {
     width: 100%;
 }
+
+.searchButton {
+    background: rgb(195, 232, 186) !important;
+}

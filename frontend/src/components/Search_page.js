@@ -40,6 +40,7 @@ function Search_page() {
                             onChange={(e) => setInput(e.target.value)}
                         />
                         <Button
+                            className="searchButton"
                             type="button"
                             onClick={handleSearch}
                             variant="contained"
