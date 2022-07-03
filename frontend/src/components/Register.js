@@ -14,8 +14,12 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-import hpi from "./images/Homepage_image.jpg"
-import './Register.css'
+
+import TAlert from "./alert";
+import { ToastContainer } from "react-toastify";
+import hpi from "./images/Homepage_image.jpg";
+
+import "./Register.css";
 
 const theme = createTheme();
 
@@ -26,19 +30,33 @@ function Register() {
     const [password, setPassword] = useState("");
 
     const registerbutton = (e) => {
-        fetch("http://localhost:3000/api/register", {
+        if (email === "") {
+            TAlert("Please Input email");
+            return;
+        }
+        if (username === "") {
+            TAlert("Please Input username");
+            return;
+        }
+        if (password === "") {
+            TAlert("Please Input password");
+            return;
+        }
+        fetch("http://localhost:5050/api/register", {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, email, password }),
         })
             .then((response) => {
+                if (response.status === 400) {
+                    TAlert("Please use correct information!");
+                }
                 return response.json();
             })
             .then((data) => {
                 if (data.name) {
-                    console.log("navigate to stock");
-                    navigate("/stock");
+                    navigate("/home");
                 }
             })
             .catch((error) => {
@@ -66,7 +84,7 @@ function Register() {
                     backgroundPosition: "center",
                 }}
             />
-            <img src={hpi} alt="home_image" className="Login-img"/>
+            <img src={hpi} alt="home_image" className="Login-img" />
             <Grid
                 item
                 xs={12}
@@ -136,8 +154,9 @@ function Register() {
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Register
+                            Register An Account
                         </Button>
+                        <ToastContainer />
                         <Button
                             type="button"
                             onClick={() => navigate("/login")}
@@ -145,7 +164,7 @@ function Register() {
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Back to Login
+                            Go to Login
                         </Button>
                     </Box>
                 </Box>

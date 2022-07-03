@@ -1,103 +1,97 @@
-import { Button } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import Plot from "react-plotly.js";
-import { useNavigate } from "react-router-dom";
 
-function Stock() {
+import "./Stock.css";
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import Alarm from "./AlarmComp";
+// import "fdweb/fluent.css"
+
+function Stock({ stockSymbol }) {
     const navigate = useNavigate();
+    // const KEYS = ["THN5ITBH3LFSAWLV", "V59N2LFKMSXQWONN"];
+
     const [stockChartXValues, setStockChartXValues] = useState([]);
     const [stockChartYValues, setStockChartYValues] = useState([]);
+    // const [index, setIndex] = useState([]);
 
+    useEffect(() => {
+        setStockChartXValues([]);
+        setStockChartYValues([]);
+        console.log(stockSymbol);
+        getStockRequest(stockSymbol);
+    }, [stockSymbol]);
     // const [StockSymbol, setStockSymbol] = useState("FB");
 
-    const StockSymbol = "GOOG";
-    const API_KEY = "THN5ITBH3LFSAWLV";
+    //const StockSymbol = "GOOG";
+    const API_KEY = "V59N2LFKMSXQWONN";
+    const sandboxToken = "Tpk_245594011ed142fca35e0d76758e1d33";
+    const realToken = "pk_0e6314b0afd047f3bb2da2517debc3a0";
+    //url = `https://sandbox.iexapis.com/stable/stock/AAPL/time-series/?token=Tpk_245594011ed142fca35e0d76758e1d33`
 
     // let API_CALL = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${StockSymbol}&output_size=compact&apikey=${API_KEY}`;
 
-    const getStockRequest = async (StockSymbol) => {
-        const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${StockSymbol}&output_size=compact&apikey=${API_KEY}`;
-
-        const response = await fetch(url);
+    const getStockRequest = async (stockSymbol) => {
+        const real = `https://cloud.iexapis.com/stable/stock/${stockSymbol}/chart/3m?token=${realToken}`;
+        const sandbox = `https://sandbox.iexapis.com/stable/stock/${stockSymbol}/chart/3m?token=${sandboxToken}`;
+        const response = await fetch(sandbox);
         await response.json().then((data) => {
-            for (const key in data["Time Series (Daily)"]) {
+            for (const key in data) {
+                //console.log(data[key]["date"]);
                 setStockChartXValues((stockChartXValues) => [
                     ...stockChartXValues,
-                    key,
+                    data[key]["date"],
                 ]);
                 setStockChartYValues((stockChartYValues) => [
                     ...stockChartYValues,
-                    data["Time Series (Daily)"][key]["1. open"],
+                    data[key]["close"],
                 ]);
             }
         });
     };
+    // const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&output_size=compact&apikey=${API_KEY}`;
 
-    const logoutbutton = () => {
-        fetch("http://localhost:3000/api/logout", {
-            method: "GET",
-            credentials: "include",
-        })
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                if (data.name) {
-                    console.log("navigate to stock");
-                    navigate("/login");
-                }
-            })
-            .catch((error) => {
-                console.log("error occured in logout fetch");
-            });
-    };
-
-    useEffect(() => {
-        getStockRequest(StockSymbol);
-    }, []);
+    // const response = await fetch(url);
+    // await response.json().then((data) => {
+    //     for (const key in data["Time Series (Daily)"]) {
+    //         setStockChartXValues((stockChartXValues) => [
+    //             ...stockChartXValues,
+    //             key,
+    //         ]);
+    //         setStockChartYValues((stockChartYValues) => [
+    //             ...stockChartYValues,
+    //             data["Time Series (Daily)"][key]["1. open"],
+    //         ]);
+    //     }
+    // });
 
     stockChartXValues.slice(-1);
 
     return (
-        <>
-            <div>
-                <h1>FB</h1>
-                <Plot
-                    data={[
-                        {
-                            x: stockChartXValues,
-                            y: stockChartYValues,
-                            type: "scatter",
-                            mode: "lines+markers",
-                            marker: { color: "blue" },
-                        },
-                    ]}
-                    layout={{
-                        width: 720,
-                        height: 500,
-                        title: "StockSymbol",
-                        xaxis: { title: "TIME" },
-                        yaxis: { title: "COST" },
-                    }}
-                />
-                <Button
-                    type="button"
-                    onClick={() => navigate("/login")}
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
-                >
-                    Back to Login
-                </Button>
-                <Button
-                    type="button"
-                    onClick={logoutbutton}
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
-                >
-                    Logout
-                </Button>
-            </div>
-        </>
+        <div className="stock">
+            <h4>{stockSymbol}</h4>
+            <Plot
+                className="stockPlot"
+                data={[
+                    {
+                        x: stockChartXValues,
+                        y: stockChartYValues,
+                        type: "scatter",
+                        mode: "lines+markers",
+                        marker: { color: "#00ac14" },
+                    },
+                ]}
+                layout={{
+                    width: 720,
+                    height: 500,
+                    title: { stockSymbol },
+                    plot_bgcolor: "#f3f4f6",
+                    paper_bgcolor: "#f3f4f6",
+                    xaxis: { title: "TIME" },
+                    yaxis: { title: "COST" },
+                }}
+            />
+        </div>
     );
 }
 
