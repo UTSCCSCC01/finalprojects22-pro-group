@@ -1,0 +1,23 @@
+.friendTag {
+    background-color: rgba(182, 252, 210, 0.798);
+    border-radius: 10px;
+    margin-top: 4px;
+    padding-left: 10px;
+    text-align: left;
+    display: flex;
+}
+
+.friendTag:hover {
+    transform: scale(104%);
+}
+
+.info {
+    flex: 0.8;
+}
+
+.button_div {
+    flex: 0.2;
+    background-color: rgb(66, 203, 173);
+    border: 0;
+    border-radius: 20%;
+}
