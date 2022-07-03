@@ -1,7 +1,7 @@
 import { React, useState } from "react";
 import { TextField, Button } from "@mui/material";
 import "./Search_page.css";
-import List_Stock from "./List_Stock";
+
 import Sidebar from "./Sidebar";
 import Stock from "./Stock";
 import TAlert from "./alert";
