@@ -457,6 +457,49 @@ const reject_friend = async (req, res) => {
     }
 };
 
+const add_to_personal_watchlist = async (req, res) => {
+
+    try {
+    
+
+        const cookietoken = req.cookies["token"];
+            if (!cookietoken) {
+                return res.status(400).send("No auth");
+            }
+        const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
+        const{ stockname } = req.body;
+
+        if (!id || !stockname) {
+            return res.status(400).send("Please provide correct Information");
+        }
+
+        const my_id = await User.findById(id);
+        if (
+            my_id.watchList.includes(stockname)
+        ) {
+            return res.status(400).send("already in watch list");
+        }
+
+        User.findOneAndUpdate(
+            { _id: id },
+            { $push: { watchList: stockname } },
+            function (error, success) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log(success); 
+                }
+            }
+        );
+
+        return res.status(200).send("add successful")
+    } catch (error) {
+        
+        return res.status(400).send("can't add to watchlist")
+    }
+    
+
+};
 module.exports = {
     login,
     register,
@@ -471,4 +514,5 @@ module.exports = {
     accept_friend,
     reject_friend,
     reset_password,
+    add_to_personal_watchlist,
 };
