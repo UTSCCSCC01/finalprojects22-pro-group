@@ -131,22 +131,22 @@ const find_friends = async (req, res) => {
         }
         const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
         // const { id } = req.body;
-        console.log(id);
+        // console.log(id);
         const user_data = await User.findById(id);
         const friend_array = user_data.friends;
         const result_array = [];
 
         for (let i = 0; i < friend_array.length; i++) {
             var temp = await User.findById(friend_array[i]);
-            console.log(temp);
+            // console.log(temp);
             let temp_array = [];
             temp_array.push(temp.name);
             temp_array.push(temp.email);
             result_array.push(temp_array);
-            console.log(result_array);
+            // console.log(result_array);
         }
-        console.log("123");
-        console.log(result_array);
+        // console.log("123");
+        // console.log(result_array);
         return res.status(200).json({ list: result_array });
     } catch (error) {
         console.log(error);
@@ -161,7 +161,7 @@ const find_friend_in = async (req, res) => {
             return res.status(400).send("No auth");
         }
         const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
-        console.log(id);
+        // console.log(id);
         const user_data = await User.findById(id);
         // console.log(user_data);
         const friend_array = user_data.friend_in;
@@ -169,15 +169,15 @@ const find_friend_in = async (req, res) => {
 
         for (let i = 0; i < friend_array.length; i++) {
             var temp = await User.findById(friend_array[i]);
-            console.log(temp);
+            // console.log(temp);
             let temp_array = [];
             temp_array.push(temp.name);
             temp_array.push(temp.email);
             result_array.push(temp_array);
-            console.log(result_array);
+            // console.log(result_array);
         }
-        console.log("123");
-        console.log(result_array);
+        // console.log("123");
+        // console.log(result_array);
         return res.status(200).json({ list: result_array });
     } catch (error) {
         console.log(error);
@@ -193,7 +193,7 @@ const find_friend_out = async (req, res) => {
             return res.status(400).send("No auth");
         }
         const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
-        console.log(id);
+        // console.log(id);
         const user_data = await User.findById(id);
         // console.log(user_data);
         const friend_array = user_data.friend_out;
@@ -201,15 +201,15 @@ const find_friend_out = async (req, res) => {
 
         for (let i = 0; i < friend_array.length; i++) {
             var temp = await User.findById(friend_array[i]);
-            console.log(temp);
+            // console.log(temp);
             let temp_array = [];
             temp_array.push(temp.name);
             temp_array.push(temp.email);
             result_array.push(temp_array);
-            console.log(result_array);
+            // console.log(result_array);
         }
-        console.log("123");
-        console.log(result_array);
+        // console.log("123");
+        // console.log(result_array);
         return res.status(200).json({ list: result_array });
     } catch (error) {
         console.log(error);
@@ -230,7 +230,7 @@ const search_friend = async (req, res) => {
                 .send("This user doesn't exist. Please use another email ~");
         }
         // find the email, return email and username
-        console.log(friend_user);
+        // console.log(friend_user);
 
         const email_result = email;
         const name_result = friend_user.name;
@@ -238,7 +238,7 @@ const search_friend = async (req, res) => {
         result_array.push(name_result);
         result_array.push(email_result);
 
-        console.log(result_array);
+        // console.log(result_array);
         return res.status(200).json({ info: result_array });
     } catch (error) {
         console.log(error);
@@ -391,8 +391,8 @@ const accept_friend = async (req, res) => {
 
         const result = await User.findOne({ my_id });
         const result_2 = await User.findOne({ email_id });
-        console.log(result);
-        console.log(result_2);
+        // console.log(result);
+        // console.log(result_2);
         return res.status(200).json(result);
     } catch (error) {
         console.log(error);
@@ -448,8 +448,6 @@ const reject_friend = async (req, res) => {
 
         const result = await User.findOne({ my_id });
         const result_2 = await User.findOne({ email_id });
-        console.log(result);
-        console.log(result_2);
         return res.status(200).json(result);
     } catch (error) {
         console.log(error);

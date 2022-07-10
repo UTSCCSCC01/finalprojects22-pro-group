@@ -21,6 +21,7 @@ function Sidebar() {
             <SidebarOpt Icon={AlarmIcon} text="Alarm" />
             <SidebarOpt Icon={PeopleIcon} text="Friends" />
             <SidebarOpt Icon={LogoutIcon} text="Logout" />
+            <SidebarOpt Icon={PeopleIcon} text="Chat" />
         </div>
     );
 }

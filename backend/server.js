@@ -7,20 +7,34 @@ const authRouter = require("./routes/authRouter");
 const notFound = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
 const cookieParser = require("cookie-parser");
+const socketIO = require("socket.io");
+const http = require("http");
+const cors = require("cors");
+const { instrument } = require("@socket.io/admin-ui");
+
+// set up port
+const port = process.env.PORT;
 
 // set up app
 const app = express();
+
+server = http.createServer(app);
+
+var io = socketIO(server, {
+    cors: {
+        origin: ["http://localhost:3000", "https://admin.socket.io"],
+        credentials: true,
+    },
+});
+
 app.use(express.json());
 app.use(cookieParser());
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-    res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type, Accept"
-    );
-    res.header("Access-Control-Allow-Credentials", true);
-    next();
-});
+app.use(
+    cors({
+        origin: ["http://localhost:3000", "https://admin.socket.io"],
+        credentials: true,
+    })
+);
 
 // routers
 app.use("/api/", authRouter);
@@ -29,20 +43,42 @@ app.use("/api/", authRouter);
 app.use(notFound);
 // app.use(errorHandlerMiddleware);
 
-// set up port
-const port = process.env.PORT;
-
 // set up server
 const start = async () => {
     try {
         // connect mongodb database
         await database_connect(process.env.PRO_VIEW_URI);
-        app.listen(port, () =>
+
+        // io.on("connection", (socket) => {
+        //     console.log("9");
+        //     console.log(socket.id);
+        // });
+
+        instrument(io, { auth: false });
+
+        server.listen(port, () =>
             console.log(`Server is listening port ${port}...`)
         );
+
+        // app.listen(port, () =>
+        //     console.log(`Server is listening port ${port}...`)
+        // );
     } catch (error) {
         console.log(error);
     }
 };
 
 start();
+
+io.on("connection", (socket) => {
+    console.log(socket.id);
+    socket.on("message", (value) => {
+        const msg = {
+            id: "blah",
+            // user: "blah",
+            value,
+            time: Date.now(),
+        };
+        socket.emit("message", { msg });
+    });
+});

@@ -1,0 +1,31 @@
+.chat_page {
+    display: flex;
+    height: 100vh;
+}
+
+.chat_container {
+    flex: 0.8;
+    margin-top: 30px;
+    width: 100%;
+}
+
+.chat_header {
+    background-color: rgb(195, 232, 186);
+    text-align: center;
+    position: sticky;
+    top: 0px;
+    z-index: 99;
+    width: 100%;
+}
+
+.flex_container {
+    display: flex;
+}
+
+.chat_body {
+    flex: 0.8;
+}
+
+.friend_list {
+    flex: 0.2;
+}

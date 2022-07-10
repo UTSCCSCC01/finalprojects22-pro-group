@@ -15,7 +15,7 @@ import StockList from "./components/StockList.js";
 import Home from "./components/Home";
 import Friends from "./components/Friends";
 import Search_page from "./components/Search_page";
-
+import ChatPage from "./components/ChatPage";
 
 import {
     BrowserRouter as Router,
@@ -38,6 +38,7 @@ root.render(
             <Route path="/friends" element={<Friends />} />
             <Route path="/hotlist" element={<StockList />} />
             <Route path="/search" element={<Search_page />} />
+            <Route path="/chat" element={<ChatPage />} />
         </Routes>
     </Router>
 );
