@@ -16,6 +16,7 @@ const {
     search_friend,
 
     add_to_personal_watchlist,
+    get_watchlist,
 
     add_friends,
     accept_friend,
@@ -35,6 +36,7 @@ router.route("/findfout").post(find_friend_out);
 router.route("/searchf").post(search_friend);
 
 router.route("/addWatchList").post(add_to_personal_watchlist);
+router.route("/getWatchList").get(get_watchlist);
 
 router.route("/addf").post(add_friends);
 router.route("/acceptf").post(accept_friend);

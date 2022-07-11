@@ -498,8 +498,42 @@ const add_to_personal_watchlist = async (req, res) => {
         return res.status(400).send("can't add to watchlist")
     }
     
-
 };
+
+const get_watchlist = async (req, res) => {
+    try {
+        const cookietoken = req.cookies["token"];
+        if (!cookietoken) {
+            return res.status(400).send("No auth");
+        }
+        const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
+
+       
+       
+        // const { id } = req.body;
+        console.log(id);
+        const user_data = await User.findById(id);
+        const watchList_array = user_data.watchList;
+       // const result_array = [];
+
+        // for (let i = 0; i < friend_array.length; i++) {
+        //     var temp = await User.findById(friend_array[i]);
+        //     console.log(temp);
+        //     let temp_array = [];
+        //     temp_array.push(temp.name);
+        //     temp_array.push(temp.email);
+        //     result_array.push(temp_array);
+        //     console.log(result_array);
+        // }
+        // console.log("123");
+        console.log(watchList_array);
+        return res.status(200).json({ list: watchList_array });
+    } catch (error) {
+        console.log(error);
+        res.status(400).send("Cannot get watch list!");
+    }
+};
+
 module.exports = {
     login,
     register,
@@ -515,4 +549,5 @@ module.exports = {
     reject_friend,
     reset_password,
     add_to_personal_watchlist,
+    get_watchlist,
 };

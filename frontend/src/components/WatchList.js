@@ -1,13 +1,13 @@
 import React from "react";
-import Stock from "./Stock";
-import "./StockFeed.css";
 import { useEffect, useState } from "react";
-function StockFeed() {
-    // const stocks = ["META", "GOOG", "AAPL", "ABNB", "TSLA", "MSFT"];
-    //const stocks = ["META", "GOOG", "AAPL"];
+
+function WatchList() {
     const [watchList, setWatchList] = useState([]);
+
     useEffect(() => {
+        
         getList();
+
     }, []);
 
     const getList = () => {
@@ -30,19 +30,31 @@ function StockFeed() {
             });
     };
 
+
+
     return (
-        <div className="feed">
-            <div className="feedHeader">
-                <h2> Stocks</h2>
+        <div className="frds">
+            <div className="watchlistheader">
+                <h3>Watch List</h3>
             </div>
-            {/* <SearchBox/> */}
-            <div>
-                {watchList.map((stockSymbol) => (
-                    <Stock stockSymbol={stockSymbol} />
-                ))}
+            <div className="watchlist">
+                
+                {watchList.map((item) => {
+                    return (
+                        <a
+                            target="_blank"
+                            href={"https://finance.yahoo.com/quote/" + item}
+                        >
+                            <span>{item}<br/></span>
+                        </a>
+                        
+                    );
+                })}
+  
+
             </div>
         </div>
     );
 }
 
-export default StockFeed;
+export default WatchList;
