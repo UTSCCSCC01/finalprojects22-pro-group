@@ -21,7 +21,7 @@ function App() {
     return (
         <div className="App">
             <Clock />
-            <Login />
+            {/* <Login /> */}
             {/* <Register/> */}
             {/* <Navbars /> */}
 
