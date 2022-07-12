@@ -1,6 +1,7 @@
 import React from "react"
 import dateFormat, { masks } from "dateformat";
 import { Menu, Select } from "@mui/material";
+import "./Clock.css"
 
 
 
@@ -63,18 +64,18 @@ class Clock extends React.Component{
             }
         }
         return (
-            <fieldset>
-                <div>
+            <div className="main">
+                <div className="bar">
                     <select onChange={(e) => handleChange(e)}>
                         <option value="5" >GMT -5</option>
                         <option value="1" >GMT +1</option>
                         <option value="8" >GMT +8</option>
                     </select>
                 </div>
-                <div className="main">
+                <div className="text">
                     <h1>{this.state.time}</h1>
                 </div>
-            </fieldset>
+            </div>
         )
     }
 }
