@@ -32,7 +32,7 @@ function FriendList({ listtype }) {
             .then((data) => {
                 if (data.list) {
                     setFriendList(data.list);
-                    console.log(friendlist);
+                    //console.log(friendlist);
                 }
             })
             .catch((error) => {
@@ -52,7 +52,7 @@ function FriendList({ listtype }) {
             .then((data) => {
                 if (data.list) {
                     setFriendList(data.list);
-                    console.log(friendlist);
+                    //console.log(friendlist);
                 }
             })
             .catch((error) => {
@@ -72,7 +72,7 @@ function FriendList({ listtype }) {
             .then((data) => {
                 if (data.list) {
                     setFriendList(data.list);
-                    console.log(friendlist);
+                    //console.log(friendlist);
                 }
             })
             .catch((error) => {
@@ -87,7 +87,12 @@ function FriendList({ listtype }) {
             </div>
             <div className="frdlist">
                 {friendlist.map((info) => (
-                    <FriendTag name={info[0]} email={info[1]} button={button} />
+                    <FriendTag
+                        key={info[1]}
+                        name={info[0]}
+                        email={info[1]}
+                        button={button}
+                    />
                 ))}
             </div>
         </div>

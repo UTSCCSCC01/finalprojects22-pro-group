@@ -10,6 +10,8 @@ function FriendTag({ name, email, button }) {
             addfriend();
         } else if (button == "accept") {
             acceptfrd();
+        } else if (button == "chat") {
+            navigate("/chat", { state: email });
         }
         window.location.reload();
     };

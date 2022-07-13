@@ -1,0 +1,25 @@
+.chatBox {
+    display: flex;
+    flex-direction: column;
+    flex: 0.6;
+}
+
+.inputBar {
+    display: flex;
+    width: 100%;
+}
+
+.messages {
+    display: flex;
+    flex-direction: column;
+    flex: 0.9;
+    overflow: scroll;
+}
+
+.message-sent {
+    text-align: right;
+}
+
+.message-received {
+    text-align: left;
+}
