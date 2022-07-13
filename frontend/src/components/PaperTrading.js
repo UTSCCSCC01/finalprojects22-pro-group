@@ -12,7 +12,7 @@ const StyledInput = styled.input`
 function PaperTrading() {
   const [value, setValue] = useState("");
   const [balance, setBalance] = useState(1000);
-  const [cost, setCost] = useState(10);
+  const [cost, setCost] = useState(0);
   const [stock, setStock] = useState("");
   const [stockArray, setStockArray] = useState([]);
   var axios = require("axios").default;
@@ -59,16 +59,20 @@ function PaperTrading() {
       .catch(function (error) {
         console.error(error);
       });
-
-    setBalance(balance - cost);
-    setStockArray([...stockArray, stock]);
+    if (balance - cost < 0) {
+      alert("not enough funds");
+    } else {
+      setStockArray([...stockArray, stock]);
+    }
   };
+  useEffect(() => {
+    setBalance(balance - cost);
+  }, [cost]);
   return (
     <>
       <div>
         <span>Buy stock</span>
         <div>Buy stock from Proview account</div>
-        <div>Balance: {balance}</div>
 
         <StyledInput
           value={stock}
@@ -88,6 +92,7 @@ function PaperTrading() {
           </a>
         );
       })}
+      <div>Balance: {balance}</div>
 
       <div>Buy stock from IBKR</div>
       <button onClick={buybutton}>buy stock</button>
