@@ -11,6 +11,8 @@ const socketIO = require("socket.io");
 const http = require("http");
 const cors = require("cors");
 const { instrument } = require("@socket.io/admin-ui");
+const Message = require("./models/Message");
+const mongoose = require("mongoose");
 
 // set up port
 const port = process.env.PORT;
@@ -72,13 +74,25 @@ start();
 
 io.on("connection", (socket) => {
     console.log(socket.id);
+
+    Message.find().then((result) => {
+        console.log(result);
+        socket.emit("all_messages", result);
+    });
+
     socket.on("message", (value) => {
         const msg = {
-            id: "blah",
-            // user: "blah",
-            value,
+            email: "blah@gmail.com",
+            message: value,
             time: Date.now(),
         };
-        socket.emit("message", { msg });
+        const db_message = new Message({
+            email: msg.email,
+            message: msg.message,
+            time: msg.time,
+        });
+        db_message.save().then(() => {
+            socket.emit("message", msg);
+        });
     });
 });

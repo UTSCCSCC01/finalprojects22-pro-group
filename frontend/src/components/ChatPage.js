@@ -1,14 +1,14 @@
 import React from "react";
 import Sidebar from "./Sidebar";
 import FriendList from "./FriendList";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import io from "socket.io-client";
 import "./ChatPage.css";
 
 function ChatPage() {
     const [message, setMessage] = useState("");
     const [socket, setSocket] = useState(null);
-    const [messages, setMessages] = useState({});
+    const nodeRef = useRef();
 
     const handleSend = () => {
         console.log("here");
@@ -26,14 +26,15 @@ function ChatPage() {
     useEffect(() => {
         // console.log("?????????????????????");
         if (socket == null) return;
-        const messageListener = (message) => {
-            console.log(message);
-
-            setMessages((prevMessages) => {
-                const newMessages = { ...prevMessages };
-                newMessages[message.id] = message;
-                return newMessages;
-            });
+        const messageListener = (data) => {
+            console.log(data);
+            console.log(data.message);
+            console.log(nodeRef.current.children);
+            const add = data.message;
+            console.log(add);
+            nodeRef.current.innerHTML += add;
+            //message.message
+            // just append to the div
         };
 
         // const deleteMessageListener = (messageID) => {
@@ -44,7 +45,20 @@ function ChatPage() {
         //   });
         // };
 
-        socket.on("message", messageListener);
+        socket.on("message", (data) => {
+            messageListener(data);
+        });
+
+        socket.on("all_messages", (data) => {
+            console.log(data);
+            if (data.length) {
+                data.forEach((message) => {
+                    console.log(message);
+                    messageListener(message);
+                });
+            }
+        });
+
         // socket.on('deleteMessage', deleteMessageListener);
         // socket.emit("getMessages");
 
@@ -63,32 +77,10 @@ function ChatPage() {
                     <h2> Chats </h2>
                 </div>
                 <div className="flex_container">
-                    <div className="chat_body">
-                        <div className="messages">
-                            {[...Object.values(messages)]
-                                // .sort((a, b) => a.time - b.time)
-                                .map((message) => (
-                                    <div
-                                        key={message.id}
-                                        className="message-container"
-                                        // title={`Sent at ${new Date(
-                                        //     message.time
-                                        // ).toLocaleTimeString()}`}
-                                    >
-                                        {/* <span className="user">
-                                            {message.user.name}:
-                                        </span> */}
-                                        <span className="message">
-                                            {message.value}
-                                        </span>
-                                        {/* <span className="date">
-                                            {new Date(
-                                                message.time
-                                            ).toLocaleTimeString()}
-                                        </span> */}
-                                    </div>
-                                ))}
-                        </div>
+                    <div className="message-list">
+                        <span ref={nodeRef}>sfdfds</span>
+                    </div>
+                    <div className="input_body">
                         <input
                             className="inputfield"
                             value={message}
