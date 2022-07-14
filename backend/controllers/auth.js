@@ -460,8 +460,6 @@ const reject_friend = async (req, res) => {
 const add_to_personal_watchlist = async (req, res) => {
 
     try {
-    
-
         const cookietoken = req.cookies["token"];
             if (!cookietoken) {
                 return res.status(400).send("No auth");
@@ -507,9 +505,6 @@ const get_watchlist = async (req, res) => {
             return res.status(400).send("No auth");
         }
         const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
-
-       
-       
         // const { id } = req.body;
         console.log(id);
         const user_data = await User.findById(id);
@@ -531,6 +526,45 @@ const get_watchlist = async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(400).send("Cannot get watch list!");
+    }
+};
+
+const delete_from_personal_watchlist = async(req, res) =>{
+    try {
+        const cookietoken = req.cookies["token"];
+            if (!cookietoken) {
+                return res.status(400).send("No auth");
+            }
+        const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
+        const{ stockname } = req.body;
+
+        if (!id || !stockname) {
+            return res.status(400).send("Please provide correct Information");
+        }
+
+        const my_id = await User.findById(id);
+        if (
+            my_id.watchList.includes(stockname)
+        ) {
+            return res.status(400).send("already in watch list");
+        }
+
+        User.findOneAndUpdate(
+            { _id: id },
+            { $pull: { watchList: stockname } },
+            function (error, success) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log(success); 
+                }
+            }
+        );
+
+        return res.status(200).send("delete successful")
+    } catch (error) {
+        
+        return res.status(400).send("can't delete from watchlist")
     }
 };
 
