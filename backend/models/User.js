@@ -32,6 +32,10 @@ const UserSchema = new mongoose.Schema({
     friend_in: {
         type: Array,
     },
+
+    groups: {
+        type: Array,
+    },
 });
 
 UserSchema.pre("save", async function () {

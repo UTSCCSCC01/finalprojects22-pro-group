@@ -8,11 +8,10 @@ const msgRouter = require("./routes/msgRouter");
 const notFound = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
 const cookieParser = require("cookie-parser");
-const socketIO = require("socket.io");
+
 const http = require("http");
 const cors = require("cors");
-const { instrument } = require("@socket.io/admin-ui");
-const Message = require("./models/Message");
+
 const mongoose = require("mongoose");
 
 // set up port
@@ -23,18 +22,11 @@ const app = express();
 
 server = http.createServer(app);
 
-var io = socketIO(server, {
-    cors: {
-        origin: ["http://localhost:3000", "https://admin.socket.io"],
-        credentials: true,
-    },
-});
-
 app.use(express.json());
 app.use(cookieParser());
 app.use(
     cors({
-        origin: ["http://localhost:3000", "https://admin.socket.io"],
+        origin: ["http://localhost:3000"],
         credentials: true,
     })
 );
@@ -53,13 +45,6 @@ const start = async () => {
         // connect mongodb database
         await database_connect(process.env.PRO_VIEW_URI);
 
-        // io.on("connection", (socket) => {
-        //     console.log("9");
-        //     console.log(socket.id);
-        // });
-
-        instrument(io, { auth: false });
-
         server.listen(port, () =>
             console.log(`Server is listening port ${port}...`)
         );
@@ -73,28 +58,3 @@ const start = async () => {
 };
 
 start();
-
-io.on("connection", (socket) => {
-    console.log(socket.id);
-
-    Message.find().then((result) => {
-        console.log(result);
-        socket.emit("all_messages", result);
-    });
-
-    socket.on("message", (value) => {
-        const msg = {
-            email: "blah@gmail.com",
-            message: value,
-            time: Date.now(),
-        };
-        const db_message = new Message({
-            email: msg.email,
-            message: msg.message,
-            time: msg.time,
-        });
-        db_message.save().then(() => {
-            socket.emit("message", msg);
-        });
-    });
-});
