@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./ChatBox.css";
 import TAlert from "./alert";
 
 function ChatBox({ email }) {
     const [msgs, setMsgs] = useState([]);
     const [message, setInputMsg] = useState("");
+    const autoScroll = useRef();
 
     const getMessages = () => {
         //get message list from backend, set to msgs
@@ -37,11 +38,10 @@ function ChatBox({ email }) {
 
     const messageList = msgs.map((msg, index) => {
         return (
-            <div
-                key={index}
-                className={`message-${msg.isMe ? "sent" : "received"}`}
-            >
-                {msg.msg}
+            <div key={index} className="msgline">
+                <div className={`message-${msg.isMe ? "sent" : "received"}`}>
+                    {msg.message}
+                </div>
             </div>
         );
     });
@@ -64,11 +64,16 @@ function ChatBox({ email }) {
             .catch((error) => {
                 console.log("error occured in fetch");
             });
+        setInputMsg("");
+        autoScroll.current.scrollIntoView({ behavior: "auto" });
     };
 
     return (
         <div className="chatBox">
-            <div className="messages">{messageList}</div>
+            <div className="messages">
+                {messageList}
+                <div ref={autoScroll}></div>
+            </div>
             <div className="inputBar">
                 <input
                     onChange={(e) => setInputMsg(e.target.value)}

@@ -29,3 +29,26 @@
 .friend_list {
     flex: 0.2;
 }
+
+.friend_list {
+    margin-right: 25px;
+}
+
+.chat_component {
+    flex: 0.8;
+    margin-top: 30px;
+}
+
+.chatHeader {
+    background-color: rgb(195, 232, 186);
+    text-align: center;
+    position: sticky;
+    top: 0px;
+    z-index: 99;
+    width: 100%;
+}
+
+.chat_down {
+    display: flex;
+    height: 92vh;
+}

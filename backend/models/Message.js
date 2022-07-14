@@ -1,13 +1,16 @@
 const mongoose = require("mongoose");
 
 const MessageSchema = new mongoose.Schema({
-    message: {
+    myId: {
         type: String,
-        required: [true, "Please provide message"],
-        // maxlength: 100,
-        // minlength: 1,
+        required: [true, "Need token"],
     },
-    email: {
+
+    msgList: {
+        type: Array,
+    },
+
+    frdId: {
         type: String,
         required: [true, "Please provide email"],
         // match: [
@@ -15,11 +18,11 @@ const MessageSchema = new mongoose.Schema({
         //     "Please provide a valid email",
         // ]
     },
-    time:{
-        type: Date,
-        required: [true, "Please provide time"],
-    }
+    // time:{
+    //     type: Date,
+    //     required: [true, "Please provide time"],
+    // }
 });
 
 const Message = mongoose.model("Message", MessageSchema);
-module.exports =  Message ;
+module.exports = { Message };

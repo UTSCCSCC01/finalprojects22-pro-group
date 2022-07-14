@@ -1,9 +1,10 @@
 import React from "react";
 import "./FriendTag.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function FriendTag({ name, email, button }) {
     const navigate = useNavigate();
+    // const location = useLocation();
 
     const handleButton = () => {
         if (button == "add a friend") {
@@ -11,7 +12,11 @@ function FriendTag({ name, email, button }) {
         } else if (button == "accept") {
             acceptfrd();
         } else if (button == "chat") {
+            // if (location.pathname === "/chat") {
+            //     setEmail(email);
+            // } else {
             navigate("/chat", { state: email });
+            // }
         }
         window.location.reload();
     };

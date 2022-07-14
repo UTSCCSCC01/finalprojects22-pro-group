@@ -92,6 +92,7 @@ function FriendList({ listtype }) {
                         name={info[0]}
                         email={info[1]}
                         button={button}
+                        // setEmail={setEmail}
                     />
                 ))}
             </div>
