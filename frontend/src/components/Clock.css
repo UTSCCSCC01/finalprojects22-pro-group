@@ -1,0 +1,16 @@
+.main{
+    display: flex;
+    flex-direction: row-reverse;
+    text-align: center;
+}
+.bar{
+    display: flex;
+    flex-direction: row;
+    margin-right: 10%;
+}
+
+.text{
+    display: flex;
+    flex-direction: row;
+}
+
