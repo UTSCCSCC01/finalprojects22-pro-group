@@ -17,7 +17,6 @@ const {
     add_friends,
     accept_friend,
     reject_friend,
-
 } = require("../controllers/auth");
 
 // sprint 1 apis
