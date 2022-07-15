@@ -1,0 +1,52 @@
+.chatBox {
+    flex: 0.8;
+    display: flex;
+    flex-direction: column;
+}
+
+.inputBar {
+    display: flex;
+    width: 100%;
+}
+
+.messages {
+    background-color: #f3f4f6;
+    display: flex;
+    flex-direction: column;
+    flex: 0.9;
+    overflow: scroll;
+
+    padding: 25px;
+    margin: 0;
+
+    box-shadow: -15px -15px 15px rgba(255, 255, 255, 0.5),
+        15px 15px 15px rgba(0, 0, 0, 0.05),
+        inset 4px 4px 5px rgba(255, 255, 255, 0.8),
+        inset -4px -4px 5px rgba(0, 0, 0, 0.05), 0 50px 40px rgba(0, 0, 0, 0.05);
+}
+
+.messages::-webkit-scrollbar {
+    display: none;
+}
+
+.msgline {
+    width: 100%;
+    padding: 20px;
+}
+
+.message-sent {
+    background-color: aquamarine;
+    float: right;
+    width: fit-content;
+    margin-right: 10px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.message-received {
+    background-color: violet;
+    float: left;
+    width: fit-content;
+    padding: 10px;
+    border-radius: 10px;
+}

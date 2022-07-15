@@ -2,8 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import uuid from "react-uuid";
+
 import Sidebar from "./Sidebar";
 import "./PaperTrading.css";
+
 
 const StyledInput = styled.input`
   display: block;
@@ -13,7 +15,9 @@ const StyledInput = styled.input`
 
 function PaperTrading() {
   const [value, setValue] = useState("");
+
   const [balance, setBalance] = useState(100000);
+
   const [cost, setCost] = useState(0);
   const [stock, setStock] = useState("");
   const [stockArray, setStockArray] = useState([]);
@@ -67,6 +71,7 @@ function PaperTrading() {
       setStockArray([...stockArray, stock]);
     }
 
+
     buystock();
     getBalance();
   };
@@ -80,6 +85,7 @@ function PaperTrading() {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
+
       body: JSON.stringify({ stock, price: 5, amount: 1 }),
     }).catch((error) => {
       console.log("error occured in buying stock");

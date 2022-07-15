@@ -16,7 +16,9 @@ import Home from "./components/Home";
 import Friends from "./components/Friends";
 import Search_page from "./components/Search_page";
 
+import ChatPage from "./components/ChatPage";
 import PaperTrading from "./components/PaperTrading";
+
 
 import {
   BrowserRouter as Router,
@@ -27,6 +29,7 @@ import {
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
+
   <Router>
     <Routes>
       <Route path="/" element={<App />} />
@@ -39,6 +42,7 @@ root.render(
       <Route path="/friends" element={<Friends />} />
       <Route path="/hotlist" element={<StockList />} />
       <Route path="/search" element={<Search_page />} />
+      <Route path="/chat" element={<ChatPage />} />
       <Route path="/papertrading" element={<PaperTrading />} />
     </Routes>
   </Router>

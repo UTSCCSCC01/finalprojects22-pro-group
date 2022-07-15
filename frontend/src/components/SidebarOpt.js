@@ -35,9 +35,9 @@ function SidebarOpt({ text, Icon, func }) {
         } else if (text === "Search") {
           navigate("/search");
         } else if (text === "Alarm") {
-          navigate("/alarmpage");
-        } else if (text === "Alarm") {
-          navigate("/alarmpage");
+            navigate("/alarmpage");
+        } else if (text === "Chat") {
+            navigate("/chat");
         } else if (text === "Paper Trading") {
           navigate("/papertrading");
         }
