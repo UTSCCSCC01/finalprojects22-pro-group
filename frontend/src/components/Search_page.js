@@ -9,15 +9,37 @@ import { ToastContainer } from "react-toastify";
 function Search_page() {
     const [input, setInput] = useState("");
     const [search, setSearch] = useState("");
-
+    const [stockname, setStockname] = useState("");
     const handleSearch = () => {
         if (input === "") {
             TAlert("Input is invalid!");
             return;
         }
         setSearch(input);
+        
     };
-
+    const handlePersonalWatchList = () => {
+        
+        if (input === "") {
+            TAlert("Input is invalid!");
+            return;
+        }
+        setStockname(input);
+        fetch("http://localhost:5050/api/addWatchList", {
+            method: "POST",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ stockname }),
+        })
+            .then((response) => {
+                console.log("success");
+                return
+                // return response.json();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
     return (
         <div className="flex_container">
             <Sidebar />
@@ -47,6 +69,16 @@ function Search_page() {
                             // sx={{ mt: 3, mb: 2 }}
                         >
                             Search
+                        </Button>
+                        <Button
+                            className="personalWatchList"
+                            type="button"
+                            onClick={handlePersonalWatchList}
+                            variant="contained"
+                            fullWidth
+                            // sx={{ mt: 3, mb: 2 }}
+                        >
+                            add to personal watch list
                         </Button>
                         <ToastContainer />
                     </div>

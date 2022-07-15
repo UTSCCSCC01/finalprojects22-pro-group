@@ -48,6 +48,7 @@ function Stock({ stockSymbol }) {
                 ]);
             }
         });
+        
     };
     // const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&output_size=compact&apikey=${API_KEY}`;
 
@@ -66,7 +67,7 @@ function Stock({ stockSymbol }) {
     // });
 
     stockChartXValues.slice(-1);
-
+   // setTimeout('getStockRequest', 1000);
     return (
         <div className="stock">
             <h4>{stockSymbol}</h4>
