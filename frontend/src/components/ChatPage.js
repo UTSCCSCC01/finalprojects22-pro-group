@@ -25,7 +25,7 @@ function ChatPage() {
                     <div className="friend_list">
                         <FriendList listtype="Friends" />
                     </div>
-                    <ChatBox email={email} />
+                    <ChatBox email={email} groupId="" />
                 </div>
             </div>
         </div>

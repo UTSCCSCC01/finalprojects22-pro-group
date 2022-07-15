@@ -12,7 +12,6 @@ import "./Sidebar.css";
 
 function Sidebar() {
     return (
-
       <div className="sidebar">
         <div className="logo"> Proview</div>
         <br />
@@ -22,9 +21,11 @@ function Sidebar() {
         <SidebarOpt Icon={SearchIcon} text="Search" />
         <SidebarOpt Icon={AlarmIcon} text="Alarm" />
         <SidebarOpt Icon={PeopleIcon} text="Friends" />
-        <SidebarOpt Icon={LogoutIcon} text="Logout" />
         <SidebarOpt Icon={PeopleIcon} text="Chat" />
+        <SidebarOpt Icon={PeopleIcon} text="Group" />
+        <SidebarOpt Icon={PeopleIcon} text="Community" />
         <SidebarOpt Icon={ShowChartIcon} text="Paper Trading" />
+        <SidebarOpt Icon={LogoutIcon} text="Logout" />
       </div>
     );
 }

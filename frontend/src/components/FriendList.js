@@ -8,13 +8,13 @@ function FriendList({ listtype }) {
 
     useEffect(() => {
         console.log(listtype);
-        if (listtype == "Friends") {
+        if (listtype === "Friends") {
             setButton("chat");
             getFriends();
-        } else if (listtype == "Received requests") {
+        } else if (listtype === "Received requests") {
             setButton("accept");
             getFriendsIn();
-        } else if (listtype == "Requests sent") {
+        } else if (listtype === "Requests sent") {
             setButton("waiting");
             getFriendsOut();
         }
