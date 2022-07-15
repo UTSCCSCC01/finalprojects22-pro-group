@@ -16,10 +16,8 @@ function Search_page() {
             return;
         }
         setSearch(input);
-        
     };
     const handlePersonalWatchList = () => {
-        
         if (input === "") {
             TAlert("Input is invalid!");
             return;
@@ -29,11 +27,11 @@ function Search_page() {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ stockname }),
+            body: JSON.stringify({ stockname: input }),
         })
             .then((response) => {
                 console.log("success");
-                return
+                return;
                 // return response.json();
             })
             .catch((error) => {

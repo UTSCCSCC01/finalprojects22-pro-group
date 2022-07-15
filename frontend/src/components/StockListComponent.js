@@ -122,6 +122,7 @@ function StockListComponent() {
                 {stockHotlist.map((item) => {
                     return (
                         <a
+                            key={item}
                             target="_blank"
                             href={"https://finance.yahoo.com/quote/" + item}
                         >

@@ -5,9 +5,13 @@ import { useEffect, useState } from "react";
 function StockFeed() {
     // const stocks = ["META", "GOOG", "AAPL", "ABNB", "TSLA", "MSFT"];
     //const stocks = ["META", "GOOG", "AAPL"];
+
     const [watchList, setWatchList] = useState([]);
+
+    const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
     useEffect(() => {
         getList();
+        sleep(1000);
     }, []);
 
     const getList = () => {
@@ -21,7 +25,11 @@ function StockFeed() {
             })
             .then((data) => {
                 if (data.list) {
-                    setWatchList(data.list);
+                    if (data.list.length != 0) {
+                        setWatchList(data.list);
+                    } else {
+                        setWatchList(["aapl", "tsla", "meta"]);
+                    }
                     console.log(watchList);
                 }
             })
@@ -29,6 +37,20 @@ function StockFeed() {
                 console.log("error occured in login fetch");
             });
     };
+
+    // const getStocks = () => {
+    //     let list = [];
+    //     watchList.forEach((stockSymbol) => {
+    //         sleep(1000);
+    //         list.push(<Stock key={stockSymbol} stockSymbol={stockSymbol} />);
+    //     });
+    //     return list;
+    // };
+
+    const STocks = watchList.forEach((stockSymbol) => {
+        sleep(1000);
+        return <Stock key={stockSymbol} stockSymbol={stockSymbol} />;
+    });
 
     return (
         <div className="feed">
@@ -38,7 +60,7 @@ function StockFeed() {
             {/* <SearchBox/> */}
             <div>
                 {watchList.map((stockSymbol) => (
-                    <Stock stockSymbol={stockSymbol} />
+                    <Stock key={stockSymbol} stockSymbol={stockSymbol} />
                 ))}
             </div>
         </div>

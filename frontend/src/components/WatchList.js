@@ -7,12 +7,10 @@ import TAlert from "./alert";
 function WatchList() {
     const [watchList, setWatchList] = useState([]);
     const [stockname, setStockname] = useState("");
-    const [currentStock, setCurrentStock] = useState("")
+    const [currentStock, setCurrentStock] = useState("");
 
     useEffect(() => {
-        
         getList();
-
     }, []);
 
     const getList = () => {
@@ -41,7 +39,7 @@ function WatchList() {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({stockname}),
+            body: JSON.stringify({ stockname }),
         })
             .then((response) => {
                 console.log("success");
@@ -60,27 +58,30 @@ function WatchList() {
                 <h3>Watch List</h3>
             </div>
             <div className="watchlist">
-                
                 {watchList.map((item) => {
                     return (
-                        <div className="container"
+                        <div
+                            key={item}
+                            className="container"
                             // target="_blank"
                             // href={"https://finance.yahoo.com/quote/" + item}
                         >
-                            <span>{item}<br/></span>
+                            <span>
+                                {item}
+                                <br />
+                            </span>
                             <Button
                                 className="deleteFromWatchList"
                                 type="button"
-                                onClick={()=>handleDeletePersonalWatchlist(item)}
+                                onClick={() =>
+                                    handleDeletePersonalWatchlist(item)
+                                }
                             >
                                 delete
                             </Button>
                         </div>
-                        
                     );
                 })}
-  
-
             </div>
         </div>
     );
