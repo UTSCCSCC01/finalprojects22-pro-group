@@ -1,4 +1,5 @@
 const { User } = require("../models/User");
+const { Trade} = require("../models/Trade");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const { StatusCodes } = require("http-status-codes");
@@ -14,11 +15,19 @@ const user_list = async (req, res) => {
 
 const register = async (req, res) => {
     try {
+        const {username, email, password} = req.body;
         const user = await User.create({
-            name: req.body.username,
-            email: req.body.email,
-            password: req.body.password,
+            name: username,
+            email: email,
+            password: password,
         });
+        const thisUser = await User.findOne({email})
+        var uid = thisUser._id.toString();
+        Trade.create({
+            uid:uid,
+            stocks: [],
+            balance: 100000.0,
+        })
         console.log("register success");
         const token = user.createJWT();
         res.cookie("token", token, {

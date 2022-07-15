@@ -4,6 +4,9 @@ const database_connect = require("./db/connect");
 // const mongoose = require("mongoose");
 require("dotenv").config();
 const authRouter = require("./routes/authRouter");
+const stockRouter = require("./routes/stockRouter");
+const bot = require("./routes/bot");
+
 const notFound = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
 const cookieParser = require("cookie-parser");
@@ -24,6 +27,8 @@ app.use(function (req, res, next) {
 
 // routers
 app.use("/api/", authRouter);
+app.use("/api/", stockRouter);
+app.use("/bot/", bot);
 
 // set up error
 app.use(notFound);

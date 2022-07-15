@@ -7,21 +7,23 @@ import PeopleIcon from "@mui/icons-material/People";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import SearchIcon from "@mui/icons-material/Search";
 import AlarmIcon from "@mui/icons-material/Alarm";
+import ShowChartIcon from "@mui/icons-material/ShowChart";
 import "./Sidebar.css";
 
 function Sidebar() {
     return (
-        <div className="sidebar">
-            <div className="logo"> Proview</div>
-            <br />
-            <SidebarOpt Icon={HomeIcon} text="Home" />
-            <SidebarOpt Icon={PersonIcon} text="Profile" />
-            <SidebarOpt Icon={LocalFireDepartmentIcon} text="HotList" />
-            <SidebarOpt Icon={SearchIcon} text="Search" />
-            <SidebarOpt Icon={AlarmIcon} text="Alarm" />
-            <SidebarOpt Icon={PeopleIcon} text="Friends" />
-            <SidebarOpt Icon={LogoutIcon} text="Logout" />
-        </div>
+      <div className="sidebar">
+        <div className="logo"> Proview</div>
+        <br />
+        <SidebarOpt Icon={HomeIcon} text="Home" />
+        <SidebarOpt Icon={PersonIcon} text="Profile" />
+        <SidebarOpt Icon={LocalFireDepartmentIcon} text="HotList" />
+        <SidebarOpt Icon={SearchIcon} text="Search" />
+        <SidebarOpt Icon={AlarmIcon} text="Alarm" />
+        <SidebarOpt Icon={PeopleIcon} text="Friends" />
+        <SidebarOpt Icon={LogoutIcon} text="Logout" />
+        <SidebarOpt Icon={ShowChartIcon} text="Paper Trading" />
+      </div>
     );
 }
 
