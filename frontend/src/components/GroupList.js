@@ -10,7 +10,7 @@ function GroupList({ listtype }) {
     useEffect(() => {
         if (listtype === "My Groups") {
             setButton("chat");
-            getMyGroups();
+            // getMyGroups();
         } else if (listtype === "Searching") {
             setButton("add");
         }

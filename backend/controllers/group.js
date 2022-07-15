@@ -28,11 +28,11 @@ const createGroup = async (req, res) => {
             id,
             { $push: { groups: groupId.toString() } },
             function (error, success) {
-                if (error) {
-                    console.log(error);
-                } else {
-                    console.log(success);
-                }
+                // if (error) {
+                //     console.log(error);
+                // } else {
+                //     console.log(success);
+                // }
             }
         );
         res.status(200);
@@ -91,26 +91,32 @@ const addMember = async (req, res) => {
         if (!group) {
             return res.status(404).send("No such group");
         }
+        var members = group.members;
+        console.log(members);
+        if (members.includes(id)) {
+            console.log("already in group");
+            return res.status(200);
+        }
         Group.findByIdAndUpdate(
             groupId,
             { $push: { members: id } },
             function (error, success) {
-                if (error) {
-                    console.log(error);
-                } else {
-                    console.log(success);
-                }
+                // if (error) {
+                //     console.log(error);
+                // } else {
+                //     console.log(success);
+                // }
             }
         );
         User.findByIdAndUpdate(
             id,
             { $push: { groups: groupId } },
             function (error, success) {
-                if (error) {
-                    console.log(error);
-                } else {
-                    console.log(success);
-                }
+                // if (error) {
+                //     console.log(error);
+                // } else {
+                //     console.log(success);
+                // }
             }
         );
         console.log(`Added ${id} To ${groupId}`);

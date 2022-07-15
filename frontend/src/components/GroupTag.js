@@ -12,7 +12,7 @@ function GroupTag({ name, id, button }) {
             console.log(id);
             navigate("/group", { state: id });
         }
-        // window.location.reload();
+        window.location.reload();
     };
 
     const addGroup = () => {
