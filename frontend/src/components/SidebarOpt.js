@@ -38,6 +38,8 @@ function SidebarOpt({ text, Icon, func }) {
             navigate("/alarmpage");
         } else if (text === "Chat") {
             navigate("/chat");
+        } else if (text === "Group") {
+            navigate("/group");
         }
     };
 
