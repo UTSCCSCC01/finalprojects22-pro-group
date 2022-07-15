@@ -8,7 +8,7 @@ function Home() {
         <div className="home">
             <Sidebar />
             <StockFeed className="Stocks" />
-            <WatchList/>
+            <WatchList className="WatchList"/>
         </div>
     );
 }

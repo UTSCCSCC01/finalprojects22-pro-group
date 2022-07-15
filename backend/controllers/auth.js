@@ -466,6 +466,9 @@ const add_to_personal_watchlist = async (req, res) => {
             }
         const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
         const{ stockname } = req.body;
+        console.log(1111111)
+        console.log(stockname)
+        console.log(req.body)
 
         if (!id || !stockname) {
             return res.status(400).send("Please provide correct Information");
@@ -518,7 +521,7 @@ const get_watchlist = async (req, res) => {
         //     temp_array.push(temp.name);
         //     temp_array.push(temp.email);
         //     result_array.push(temp_array);
-        //     console.log(result_array);
+        //     console.log(result_array);aw
         // }
         // console.log("123");
         console.log(watchList_array);
@@ -536,18 +539,20 @@ const delete_from_personal_watchlist = async(req, res) =>{
                 return res.status(400).send("No auth");
             }
         const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
-        const{ stockname } = req.body;
+        const { stockname } = req.body;
+        console.log(11111111)
+        console.log(req.body)
+        console.log(id)
+        console.log(stockname)
 
-        if (!id || !stockname) {
-            return res.status(400).send("Please provide correct Information");
-        }
+        //if (!id || !stockname) {
+        //    return res.status(400).send("Please provide correct Information");
+        //}
 
-        const my_id = await User.findById(id);
-        if (
-            my_id.watchList.includes(stockname)
-        ) {
-            return res.status(400).send("already in watch list");
-        }
+        //const my_id = await User.findById(id);
+        //if (!my_id.watchList.includes(stockname)) {
+        //    return res.status(400).send("not in watch list");
+        //}
 
         User.findOneAndUpdate(
             { _id: id },
@@ -584,4 +589,5 @@ module.exports = {
     reset_password,
     add_to_personal_watchlist,
     get_watchlist,
+    delete_from_personal_watchlist,
 };

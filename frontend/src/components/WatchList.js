@@ -1,8 +1,13 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import { Button } from "@mui/material";
+import Stock from "./Stock";
+import TAlert from "./alert";
 
 function WatchList() {
     const [watchList, setWatchList] = useState([]);
+    const [stockname, setStockname] = useState("");
+    const [currentStock, setCurrentStock] = useState("")
 
     useEffect(() => {
         
@@ -30,7 +35,24 @@ function WatchList() {
             });
     };
 
-
+    const handleDeletePersonalWatchlist = (stockname) => {
+        setStockname(stockname);
+        fetch("http://localhost:5050/api/deleteWatchList", {
+            method: "POST",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({stockname}),
+        })
+            .then((response) => {
+                console.log("success");
+                getList();
+                return;
+                // return response.json();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
 
     return (
         <div className="frds">
@@ -41,12 +63,19 @@ function WatchList() {
                 
                 {watchList.map((item) => {
                     return (
-                        <a
-                            target="_blank"
-                            href={"https://finance.yahoo.com/quote/" + item}
+                        <div className="container"
+                            // target="_blank"
+                            // href={"https://finance.yahoo.com/quote/" + item}
                         >
                             <span>{item}<br/></span>
-                        </a>
+                            <Button
+                                className="deleteFromWatchList"
+                                type="button"
+                                onClick={()=>handleDeletePersonalWatchlist(item)}
+                            >
+                                delete
+                            </Button>
+                        </div>
                         
                     );
                 })}
