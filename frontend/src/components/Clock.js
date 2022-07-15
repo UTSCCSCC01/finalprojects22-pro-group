@@ -59,6 +59,15 @@ class Clock extends React.Component{
             else if (e.target.value == "1"){
                 this.update_1()
             }
+            else if(e.target.value == "9"){
+                this.zone = 9;
+            }
+            else if(e.target.value == "-7"){
+                this.zone = -7;                
+            }
+            else if (e.target.value == "5.5"){
+                this.zone = 5.5;
+            }
             else{
                 this.update_8()
             }
@@ -67,9 +76,12 @@ class Clock extends React.Component{
             <div className="main">
                 <div className="bar">
                     <select onChange={(e) => handleChange(e)}>
-                        <option value="5" >GMT -5</option>
-                        <option value="1" >GMT +1</option>
-                        <option value="8" >GMT +8</option>
+                        <option value="5" >GMT -5 Newyork</option>
+                        <option value="1" >GMT +1 Europe</option>
+                        <option value="8" >GMT +8 China</option>
+                        <option value="9" >GMT +9 Tokyo</option>
+                        <option value="-7" >GMT -7 LA</option>
+                        <option value="5.5" >GMT +5:30 India</option>
                     </select>
                 </div>
                 <div className="text">
