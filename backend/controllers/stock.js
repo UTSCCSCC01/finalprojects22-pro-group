@@ -6,6 +6,7 @@ const { StatusCodes } = require("http-status-codes");
 
 const buyStock = async (req, res) => {
   try {
+    console.log("buying stock");
     const cookietoken = req.cookies["token"];
     if (!cookietoken) {
       console.log("no cookie");
@@ -14,16 +15,23 @@ const buyStock = async (req, res) => {
     }
     const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
     if (!id) {
+      console.log("jwt");
+
       res.status(400).send("No auth");
     }
+
     const { stock, price, amount } = req.body;
     if (!stock || !price || !amount) {
       res.status(400).send("Need balance, stock, price and amount");
+      return;
     }
 
     const trade = await Trade.findOne({ uid: id });
     var stocks = trade.stocks;
     // Update Balance
+    // console.log(typeof price);
+    // console.log(typeof amount);
+
     var new_balance = trade.balance - price * amount;
     Trade.findOneAndUpdate(
       { uid: id },
@@ -38,17 +46,20 @@ const buyStock = async (req, res) => {
     );
 
     // Update stock amount
-    function isStock(stock) {
-      return stock.symbol === { stock };
+    function isStock(stocks) {
+      return stocks.symbol === stock;
     }
+
     const found = stocks.find(isStock);
+    console.log(found);
 
     //stock is in the array
-    if (isStock != undefined) {
+    if (found != undefined) {
       var new_amount = found.amount + amount;
       Trade.findOneAndUpdate(
-        { uid: id, "stocks.symbol": stock },
-        { $set: { "stocks.amount": new_amount } },
+        { uid: id },
+        { $pull: { stocks: found },
+      $push: {stocks: {symbol: stock, amount: new_amount}} },
         function (error, success) {
           if (error) {
             console.log(error);
@@ -61,7 +72,11 @@ const buyStock = async (req, res) => {
       var new_amount = amount;
       Trade.findOneAndUpdate(
         { uid: id },
-        { $push: { "stocks": {symbol: stock, amount: new_amount} } },
+        {
+          $push: {
+            stocks: { symbol: stock.toLowerCase(), amount: new_amount },
+          },
+        },
         function (error, success) {
           if (error) {
             console.log(error);
@@ -75,11 +90,33 @@ const buyStock = async (req, res) => {
     res.status(200);
   } catch (error) {
     console.log(error);
-    res.status(400).send("Cannot find friend!");
+    res.status(400).send("Cannot buy stock!");
   }
 };
 
+const getBalance = async (req, res) => {
+  try {
+    const cookietoken = req.cookies["token"];
+    if (!cookietoken) {
+      console.log("no cookie");
+      // redirect to login page
+      return res.send("No auth");
+    }
+    const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
+    if (!id) {
+      res.status(400).send("No auth");
+    }
 
+    const trade = await Trade.findOne({ uid: id });
+    if (!trade) {
+      res.status(404).send("No trade for this user");
+    }
+    const balance = trade.balance;
+    res.status(200).send(JSON.stringify({ balance }));
+  } catch (error) {
+    console.log(error);
+    res.status(400).send("Cannot get balance!");
+  }
+};
 
-
-module.exports = { buyStock };
+module.exports = { buyStock, getBalance };
