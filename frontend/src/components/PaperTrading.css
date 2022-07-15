@@ -1,0 +1,7 @@
+.papertrading{
+    display: flex;
+}
+
+.trading {
+    flex: 0.7
+}

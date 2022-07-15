@@ -25,19 +25,21 @@ function SidebarOpt({ text, Icon, func }) {
 
     const handleClick = () => {
         if (text === "Logout") {
-            logout();
+          logout();
         } else if (text === "Home") {
-            navigate("/home");
+          navigate("/home");
         } else if (text === "Friends") {
-            navigate("/friends");
+          navigate("/friends");
         } else if (text === "HotList") {
-            navigate("/hotlist");
+          navigate("/hotlist");
         } else if (text === "Search") {
-            navigate("/search");
+          navigate("/search");
         } else if (text === "Alarm") {
             navigate("/alarmpage");
         } else if (text === "Chat") {
             navigate("/chat");
+        } else if (text === "Paper Trading") {
+          navigate("/papertrading");
         }
     };
 

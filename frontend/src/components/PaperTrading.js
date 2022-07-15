@@ -3,6 +3,10 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import uuid from "react-uuid";
 
+import Sidebar from "./Sidebar";
+import "./PaperTrading.css";
+
+
 const StyledInput = styled.input`
   display: block;
   margin: 20px 0px;
@@ -11,7 +15,9 @@ const StyledInput = styled.input`
 
 function PaperTrading() {
   const [value, setValue] = useState("");
-  const [balance, setBalance] = useState(1000);
+
+  const [balance, setBalance] = useState(100000);
+
   const [cost, setCost] = useState(0);
   const [stock, setStock] = useState("");
   const [stockArray, setStockArray] = useState([]);
@@ -64,48 +70,78 @@ function PaperTrading() {
     } else {
       setStockArray([...stockArray, stock]);
     }
-  };
-  useEffect(() => {
-    setBalance(balance - cost);
 
+
+    buystock();
+    getBalance();
+  };
+
+  useEffect(() => {
+    getBalance();
+  }, []);
+
+  const buystock = () => {
     fetch("http://localhost:5050/api/buystock", {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ balance, stock }),
+
+      body: JSON.stringify({ stock, price: 5, amount: 1 }),
     }).catch((error) => {
-      console.log("error occured in login fetch");
+      console.log("error occured in buying stock");
     });
-  }, [cost]);
+  };
+
+  const getBalance = () => {
+    fetch("http://localhost:5050/api/getBalance", {
+      method: "GET",
+      credentials: "include",
+      // headers: { "Content-Type": "application/json" },
+      // body: JSON.stringify({ stock, price: cost, amount: 1 }),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setBalance(data.balance);
+      })
+      .catch((error) => {
+        console.log("error occured in buying stock");
+      });
+  };
+
   return (
-    <>
-      <div>
-        <span>Buy stock</span>
-        <div>Buy stock from Proview account</div>
+    <div className="papertrading">
+      <Sidebar />
+      <div className="trading">
+        <div>
+          <span>Buy stock</span>
+          <div>Buy stock from Proview account</div>
 
-        <StyledInput
-          value={stock}
-          onChange={(e) => setStock(e.target.value)}
-          placeholder="Search stock to buy"
-        />
+          <StyledInput
+            value={stock}
+            onChange={(e) => setStock(e.target.value)}
+            placeholder="Search stock to buy"
+          />
+        </div>
+        <button onClick={buyLocalButton}>buy stock</button>
+        <div key="uniqueId1">Your Stock: {stock}</div>
+        <div key="uniqueId2">Your cost: {cost}</div>
+        <div key="uniqueId3">Bought:</div>
+
+        {stockArray.map((item) => {
+          return (
+            <a target="_blank" href={"https://finance.yahoo.com/quote/" + item}>
+              <div key={uuid()}>{item}</div>
+            </a>
+          );
+        })}
+        <div>Balance: {balance}</div>
+
+        <div>Buy stock from IBKR</div>
+        <button onClick={buybutton}>buy stock</button>
       </div>
-      <button onClick={buyLocalButton}>buy stock</button>
-      <div key="uniqueId1">Your Stock: {stock}</div>
-      <div key="uniqueId2">Your cost: {cost}</div>
-      <div key="uniqueId3">Bought:</div>
-
-      {stockArray.map((item) => {
-        return (
-          <a target="_blank" href={"https://finance.yahoo.com/quote/" + item}>
-            <div key={uuid()}>{item}</div>
-          </a>
-        );
-      })}
-      <div>Balance: {balance}</div>
-
-      <div>Buy stock from IBKR</div>
-      <button onClick={buybutton}>buy stock</button>
-    </>
+    </div>
   );
 }
 

@@ -10,7 +10,6 @@ const msgRouter = require("./routes/msgRouter");
 const stockRouter = require("./routes/stockRouter");
 const bot = require("./routes/bot");
 
-
 const notFound = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
 const cookieParser = require("cookie-parser");
@@ -39,6 +38,8 @@ app.use(
 
 // routers
 app.use("/api/", authRouter);
+app.use("/api/", stockRouter);
+app.use("/bot/", bot);
 
 app.use("/api/", msgRouter);
 
