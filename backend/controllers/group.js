@@ -1,4 +1,4 @@
-const { Group, newId } = require("../models/Message");
+const { Group, newId } = require("../models/Group");
 const { User } = require("../models/User");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
@@ -24,10 +24,53 @@ const createGroup = async (req, res) => {
             msgList: [],
         });
 
-        User.findByIdAndUpdate(groupId, { $push: { groups: id } });
+        User.findByIdAndUpdate(
+            id,
+            { $push: { groups: groupId.toString() } },
+            function (error, success) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log(success);
+                }
+            }
+        );
+        res.status(200);
     } catch (error) {
         console.log(error);
         res.send("createGroup failed");
+    }
+};
+
+const getMyGroups = async (req, res) => {
+    try {
+        // console.log("getting my groups");
+        const cookietoken = req.cookies["token"];
+        if (!cookietoken) {
+            // redirect to login page
+            return res.status(400).send("No auth");
+        }
+        const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
+        if (!id) {
+            return res.status(400).send("No auth");
+        }
+        const user = await User.findById(id);
+        if (!user) {
+            return res.status(404).send("No such user");
+        }
+        var groups = user.groups;
+        let myGroups = [];
+
+        for (let i = 0; i < groups.length; i++) {
+            var temp = await Group.findById(groups[i]);
+            // console.log(temp);
+            myGroups.push({ name: temp.name, id: temp._id.toString() });
+        }
+        // console.log(myGroups);
+        res.status(200).send(JSON.stringify({ myGroups }));
+    } catch (error) {
+        console.log(error);
+        res.send(JSON.stringify({ myGroups: [] }));
     }
 };
 
@@ -39,11 +82,11 @@ const addMember = async (req, res) => {
             return res.status(400).send("No auth");
         }
         const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
+
         const { groupId } = req.body;
         if (!id || !groupId) {
             return res.status(400).send("Need information");
         }
-
         const group = await Group.findById(groupId);
         if (!group) {
             return res.status(404).send("No such group");
@@ -51,6 +94,17 @@ const addMember = async (req, res) => {
         Group.findByIdAndUpdate(
             groupId,
             { $push: { members: id } },
+            function (error, success) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log(success);
+                }
+            }
+        );
+        User.findByIdAndUpdate(
+            id,
+            { $push: { groups: groupId } },
             function (error, success) {
                 if (error) {
                     console.log(error);
@@ -73,7 +127,7 @@ const getMember = async (req, res) => {
         if (!groupId) {
             res.status(400).send("Please provide groupId");
         }
-        const group = await Group.finById(groupId);
+        const group = await Group.findById(groupId);
         if (!group) {
             return res.status(404).send("No such group");
         }
@@ -94,7 +148,7 @@ const getMember = async (req, res) => {
     }
 };
 
-const getMsg = async (req, res) => {
+const getGroupMsg = async (req, res) => {
     try {
         const cookietoken = req.cookies["token"];
         if (!cookietoken) {
@@ -102,25 +156,32 @@ const getMsg = async (req, res) => {
             return res.status(400).send("No auth");
         }
         const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
-        const { email } = req.body;
-        if (!id || !email) {
+        const { groupId } = req.body;
+        if (!id || !groupId) {
             const msgs = [];
             return res.send(JSON.stringify({ msgs }));
         }
-        const friend_user = await User.findOne({ email });
-        if (!friend_user) return res.status(400).send("No such user");
-        const frdId = friend_user._id.toString();
-
-        //TODO get msg from db
-        const msgs = await Message.findOne({ myId: id, frdId: frdId });
-        if (!msgs) {
-            return res.status(200).send(JSON.stringify({ msgs: [] }));
+        const group = await Group.findById(groupId);
+        if (!group) {
+            const msgs = [];
+            return res.send(JSON.stringify({ msgs }));
         }
-        // const msgs = [
-        //     { isMe: true, msg: "This is message #1" },
-        //     { isMe: false, msg: "This is message #2" },
-        // ];
-        return res.status(200).send(JSON.stringify({ msgs: msgs.msgList }));
+        // get msg from db
+        const msgList = group.msgList;
+        let msgs = [];
+        for (let i = 0; i < msgList.length; i++) {
+            var temp = msgList[i];
+            // console.log(temp);
+            var user = await User.findById(temp.uid);
+            var username = user.name;
+            msgs.push({
+                message: temp.message,
+                username: username,
+                isMe: temp.uid === id,
+            });
+        }
+
+        return res.status(200).send(JSON.stringify({ msgs: msgs }));
     } catch (error) {
         console.log(error);
         const msgs = [];
@@ -128,7 +189,7 @@ const getMsg = async (req, res) => {
     }
 };
 
-const sendMsg = async (req, res) => {
+const sendGroupMsg = async (req, res) => {
     try {
         const cookietoken = req.cookies["token"];
         if (!cookietoken) {
@@ -136,43 +197,22 @@ const sendMsg = async (req, res) => {
             return res.status(400).send("No auth");
         }
         const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
-        const { email, message } = req.body;
-        if (!id || !email || !message) {
+        const { groupId, message } = req.body;
+        if (!id || !groupId || !message) {
             return res.status(400).send("Please provide correct Information");
         }
-        const friend_user = await User.findOne({ email });
-        if (!friend_user) return res.status(400).send("No such user");
-        const frdId = friend_user._id.toString();
+
         //TODO store to db
 
-        const msgs = await Message.findOne({ myId: id, frdId: frdId });
+        const group = await Group.findById(groupId);
 
-        if (!msgs) {
-            const msg1 = await Message.create({
-                myId: id,
-                frdId: frdId,
-                msgList: [{ message, isMe: true }],
-            });
-            const msg2 = await Message.create({
-                myId: frdId,
-                frdId: id,
-                msgList: [{ message, isMe: false }],
-            });
+        if (!group) {
+            res.status(404);
+            return;
         } else {
-            Message.findOneAndUpdate(
-                { myId: id, frdId: frdId },
-                { $push: { msgList: { message, isMe: true } } },
-                function (error, success) {
-                    if (error) {
-                        console.log(error);
-                    } else {
-                        console.log(success);
-                    }
-                }
-            );
-            Message.findOneAndUpdate(
-                { myId: frdId, frdId: id },
-                { $push: { msgList: { message, isMe: false } } },
+            Group.findByIdAndUpdate(
+                groupId,
+                { $push: { msgList: { message, uid: id } } },
                 function (error, success) {
                     if (error) {
                         console.log(error);
@@ -182,7 +222,7 @@ const sendMsg = async (req, res) => {
                 }
             );
         }
-        console.log(`Said ${message} to :${email}`);
+        console.log(`Said ${message} to :${groupId}`);
         res.status(200);
     } catch (error) {
         console.log(error);
@@ -191,10 +231,47 @@ const sendMsg = async (req, res) => {
     }
 };
 
+const findGroup = async (req, res) => {
+    try {
+        const { groupName } = req.body;
+        if (!groupName) {
+            res.status(400).send("Need Group Name");
+        }
+        let result = [];
+        for await (const doc of Group.find({ name: groupName })) {
+            result.push({ id: doc._id.toString(), name: doc.name });
+        }
+        console.log(result);
+        res.status(200).send(JSON.stringify({ result }));
+    } catch (error) {
+        console.log(error);
+        res.status(400);
+    }
+};
+
+const getGroupName = async (req, res) => {
+    try {
+        const { groupId } = req.body;
+        if (!groupId) {
+            res.status(400).send("Need Group Name");
+        }
+        console.log(groupId);
+        const group = await Group.findById(groupId);
+        console.log(group);
+        res.status(200).send(JSON.stringify({ name: group.name }));
+    } catch (error) {
+        console.log(error);
+        res.status(400);
+    }
+};
+
 module.exports = {
     createGroup,
+    getMyGroups,
     addMember,
     getMember,
-    getMsg,
-    sendMsg,
+    getGroupMsg,
+    sendGroupMsg,
+    findGroup,
+    getGroupName,
 };

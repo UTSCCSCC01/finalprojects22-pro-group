@@ -23,6 +23,7 @@ function Sidebar() {
             <SidebarOpt Icon={LogoutIcon} text="Logout" />
             <SidebarOpt Icon={PeopleIcon} text="Chat" />
             <SidebarOpt Icon={PeopleIcon} text="Group" />
+            <SidebarOpt Icon={PeopleIcon} text="Community" />
         </div>
     );
 }

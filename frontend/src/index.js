@@ -17,6 +17,7 @@ import Friends from "./components/Friends";
 import Search_page from "./components/Search_page";
 import ChatPage from "./components/ChatPage";
 import GroupPage from "./components/GroupPage";
+import Community from "./components/Community";
 
 import {
     BrowserRouter as Router,
@@ -41,6 +42,7 @@ root.render(
             <Route path="/search" element={<Search_page />} />
             <Route path="/chat" element={<ChatPage />} />
             <Route path="/group" element={<GroupPage />} />
+            <Route path="/community" element={<Community />} />
         </Routes>
     </Router>
 );

@@ -40,6 +40,8 @@ function SidebarOpt({ text, Icon, func }) {
             navigate("/chat");
         } else if (text === "Group") {
             navigate("/group");
+        } else if (text === "Community") {
+            navigate("/community");
         }
     };
 

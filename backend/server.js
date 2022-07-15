@@ -5,6 +5,7 @@ const database_connect = require("./db/connect");
 require("dotenv").config();
 const authRouter = require("./routes/authRouter");
 const msgRouter = require("./routes/msgRouter");
+const groupRouter = require("./routes/groupRouter");
 const notFound = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
 const cookieParser = require("cookie-parser");
@@ -34,6 +35,7 @@ app.use(
 // routers
 app.use("/api/", authRouter);
 app.use("/api/", msgRouter);
+app.use("/api/", groupRouter);
 
 // set up error
 app.use(notFound);

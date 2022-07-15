@@ -7,11 +7,11 @@ function FriendTag({ name, email, button }) {
     // const location = useLocation();
 
     const handleButton = () => {
-        if (button == "add a friend") {
+        if (button === "add a friend") {
             addfriend();
-        } else if (button == "accept") {
+        } else if (button === "accept") {
             acceptfrd();
-        } else if (button == "chat") {
+        } else if (button === "chat") {
             // if (location.pathname === "/chat") {
             //     setEmail(email);
             // } else {
