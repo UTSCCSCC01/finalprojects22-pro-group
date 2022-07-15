@@ -28,6 +28,7 @@ const buyStock = async (req, res) => {
 
     const trade = await Trade.findOne({ uid: id });
     var stocks = trade.stocks;
+    console.log(stocks);
     // Update Balance
     // console.log(typeof price);
     // console.log(typeof amount);
@@ -39,8 +40,6 @@ const buyStock = async (req, res) => {
       function (error, success) {
         if (error) {
           console.log(error);
-        } else {
-          console.log(success);
         }
       }
     );
@@ -56,15 +55,27 @@ const buyStock = async (req, res) => {
     //stock is in the array
     if (found != undefined) {
       var new_amount = found.amount + amount;
+      console.log(found.amount);
+      console.log(new_amount);
       Trade.findOneAndUpdate(
         { uid: id },
-        { $pull: { stocks: found },
-      $push: {stocks: {symbol: stock, amount: new_amount}} },
+        {
+          $pull: { stocks: found },
+        },
         function (error, success) {
           if (error) {
             console.log(error);
-          } else {
-            console.log(success);
+          }
+        }
+      );
+      Trade.findOneAndUpdate(
+        { uid: id },
+        {
+          $push: { stocks: { symbol: stock, amount: new_amount } },
+        },
+        function (error, success) {
+          if (error) {
+            console.log(error);
           }
         }
       );
@@ -80,14 +91,12 @@ const buyStock = async (req, res) => {
         function (error, success) {
           if (error) {
             console.log(error);
-          } else {
-            console.log(success);
           }
         }
       );
     }
 
-    res.status(200);
+    res.status(200).send("success");
   } catch (error) {
     console.log(error);
     res.status(400).send("Cannot buy stock!");
