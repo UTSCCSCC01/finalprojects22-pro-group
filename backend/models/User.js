@@ -36,6 +36,11 @@ const UserSchema = new mongoose.Schema({
     groups: {
         type: Array,
     },
+
+    watchList:{
+        type:Array
+    }
+
 });
 
 UserSchema.pre("save", async function () {
