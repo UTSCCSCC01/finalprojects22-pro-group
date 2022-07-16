@@ -85,6 +85,10 @@ function ChatBox({ email, groupId }) {
         getMessages();
     });
 
+    useEffect(() => {
+        autoScroll.current.scrollIntoView({ behavior: "auto" });
+    }, [msgs.length]);
+
     const messageList = msgs.map((msg, index) => {
         return (
             <div key={index} className="msgline">
@@ -136,7 +140,7 @@ function ChatBox({ email, groupId }) {
                 });
             setInputMsg("");
         }
-        autoScroll.current.scrollIntoView({ behavior: "auto" });
+        // autoScroll.current.scrollIntoView({ behavior: "auto" });
     };
 
     return (

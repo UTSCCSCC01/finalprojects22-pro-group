@@ -35,5 +35,5 @@ npm start
 4. Sprint_4_Develop_Branch
 
 -   The features branches follow the following naming convention of PROG-X (X is the ticket number).
--   We will use SPRINT_X to merge all user stories together
+-   We will use SPRINT_X_Merge to merge all user stories together
 -   We will use Jira for tracking issues and to merge a feature branch into the develop branch requires a pull request that needs to be approved by at least 2 group members to merge into main branch.
