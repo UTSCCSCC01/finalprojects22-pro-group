@@ -1,4 +1,5 @@
 const { User } = require("../models/User");
+const { Trade} = require("../models/Trade");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const { StatusCodes } = require("http-status-codes");
@@ -14,11 +15,19 @@ const user_list = async (req, res) => {
 
 const register = async (req, res) => {
     try {
+        const {username, email, password} = req.body;
         const user = await User.create({
-            name: req.body.username,
-            email: req.body.email,
-            password: req.body.password,
+            name: username,
+            email: email,
+            password: password,
         });
+        const thisUser = await User.findOne({email})
+        var uid = thisUser._id.toString();
+        Trade.create({
+            uid:uid,
+            stocks: [],
+            balance: 100000.0,
+        })
         console.log("register success");
         const token = user.createJWT();
         res.cookie("token", token, {
@@ -131,22 +140,22 @@ const find_friends = async (req, res) => {
         }
         const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
         // const { id } = req.body;
-        console.log(id);
+        // console.log(id);
         const user_data = await User.findById(id);
         const friend_array = user_data.friends;
         const result_array = [];
 
         for (let i = 0; i < friend_array.length; i++) {
             var temp = await User.findById(friend_array[i]);
-            console.log(temp);
+            // console.log(temp);
             let temp_array = [];
             temp_array.push(temp.name);
             temp_array.push(temp.email);
             result_array.push(temp_array);
-            console.log(result_array);
+            // console.log(result_array);
         }
-        console.log("123");
-        console.log(result_array);
+        // console.log("123");
+        // console.log(result_array);
         return res.status(200).json({ list: result_array });
     } catch (error) {
         console.log(error);
@@ -161,7 +170,7 @@ const find_friend_in = async (req, res) => {
             return res.status(400).send("No auth");
         }
         const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
-        console.log(id);
+        // console.log(id);
         const user_data = await User.findById(id);
         // console.log(user_data);
         const friend_array = user_data.friend_in;
@@ -169,15 +178,15 @@ const find_friend_in = async (req, res) => {
 
         for (let i = 0; i < friend_array.length; i++) {
             var temp = await User.findById(friend_array[i]);
-            console.log(temp);
+            // console.log(temp);
             let temp_array = [];
             temp_array.push(temp.name);
             temp_array.push(temp.email);
             result_array.push(temp_array);
-            console.log(result_array);
+            // console.log(result_array);
         }
-        console.log("123");
-        console.log(result_array);
+        // console.log("123");
+        // console.log(result_array);
         return res.status(200).json({ list: result_array });
     } catch (error) {
         console.log(error);
@@ -193,7 +202,7 @@ const find_friend_out = async (req, res) => {
             return res.status(400).send("No auth");
         }
         const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
-        console.log(id);
+        // console.log(id);
         const user_data = await User.findById(id);
         // console.log(user_data);
         const friend_array = user_data.friend_out;
@@ -201,15 +210,15 @@ const find_friend_out = async (req, res) => {
 
         for (let i = 0; i < friend_array.length; i++) {
             var temp = await User.findById(friend_array[i]);
-            console.log(temp);
+            // console.log(temp);
             let temp_array = [];
             temp_array.push(temp.name);
             temp_array.push(temp.email);
             result_array.push(temp_array);
-            console.log(result_array);
+            // console.log(result_array);
         }
-        console.log("123");
-        console.log(result_array);
+        // console.log("123");
+        // console.log(result_array);
         return res.status(200).json({ list: result_array });
     } catch (error) {
         console.log(error);
@@ -230,7 +239,7 @@ const search_friend = async (req, res) => {
                 .send("This user doesn't exist. Please use another email ~");
         }
         // find the email, return email and username
-        console.log(friend_user);
+        // console.log(friend_user);
 
         const email_result = email;
         const name_result = friend_user.name;
@@ -238,7 +247,7 @@ const search_friend = async (req, res) => {
         result_array.push(name_result);
         result_array.push(email_result);
 
-        console.log(result_array);
+        // console.log(result_array);
         return res.status(200).json({ info: result_array });
     } catch (error) {
         console.log(error);
@@ -391,8 +400,8 @@ const accept_friend = async (req, res) => {
 
         const result = await User.findOne({ my_id });
         const result_2 = await User.findOne({ email_id });
-        console.log(result);
-        console.log(result_2);
+        // console.log(result);
+        // console.log(result_2);
         return res.status(200).json(result);
     } catch (error) {
         console.log(error);
@@ -448,12 +457,126 @@ const reject_friend = async (req, res) => {
 
         const result = await User.findOne({ my_id });
         const result_2 = await User.findOne({ email_id });
-        console.log(result);
-        console.log(result_2);
         return res.status(200).json(result);
     } catch (error) {
         console.log(error);
         res.send("Cannot add friend!");
+    }
+};
+
+const add_to_personal_watchlist = async (req, res) => {
+
+    try {
+        const cookietoken = req.cookies["token"];
+            if (!cookietoken) {
+                return res.status(400).send("No auth");
+            }
+        const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
+        const{ stockname } = req.body;
+        console.log(1111111)
+        console.log(stockname)
+        console.log(req.body)
+
+        if (!id || !stockname) {
+            return res.status(400).send("Please provide correct Information");
+        }
+
+        const my_id = await User.findById(id);
+        if (
+            my_id.watchList.includes(stockname)
+        ) {
+            return res.status(400).send("already in watch list");
+        }
+
+        User.findOneAndUpdate(
+            { _id: id },
+            { $push: { watchList: stockname } },
+            function (error, success) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log(success); 
+                }
+            }
+        );
+
+        return res.status(200).send("add successful")
+    } catch (error) {
+        
+        return res.status(400).send("can't add to watchlist")
+    }
+    
+};
+
+const get_watchlist = async (req, res) => {
+    try {
+        const cookietoken = req.cookies["token"];
+        if (!cookietoken) {
+            return res.status(400).send("No auth");
+        }
+        const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
+        // const { id } = req.body;
+        console.log(id);
+        const user_data = await User.findById(id);
+        const watchList_array = user_data.watchList;
+       // const result_array = [];
+
+        // for (let i = 0; i < friend_array.length; i++) {
+        //     var temp = await User.findById(friend_array[i]);
+        //     console.log(temp);
+        //     let temp_array = [];
+        //     temp_array.push(temp.name);
+        //     temp_array.push(temp.email);
+        //     result_array.push(temp_array);
+        //     console.log(result_array);aw
+        // }
+        // console.log("123");
+        console.log(watchList_array);
+        return res.status(200).json({ list: watchList_array });
+    } catch (error) {
+        console.log(error);
+        res.status(400).send("Cannot get watch list!");
+    }
+};
+
+const delete_from_personal_watchlist = async(req, res) =>{
+    try {
+        const cookietoken = req.cookies["token"];
+            if (!cookietoken) {
+                return res.status(400).send("No auth");
+            }
+        const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
+        const { stockname } = req.body;
+        console.log(11111111)
+        console.log(req.body)
+        console.log(id)
+        console.log(stockname)
+
+        //if (!id || !stockname) {
+        //    return res.status(400).send("Please provide correct Information");
+        //}
+
+        //const my_id = await User.findById(id);
+        //if (!my_id.watchList.includes(stockname)) {
+        //    return res.status(400).send("not in watch list");
+        //}
+
+        User.findOneAndUpdate(
+            { _id: id },
+            { $pull: { watchList: stockname } },
+            function (error, success) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log(success); 
+                }
+            }
+        );
+
+        return res.status(200).send("delete successful")
+    } catch (error) {
+        
+        return res.status(400).send("can't delete from watchlist")
     }
 };
 
@@ -471,4 +594,7 @@ module.exports = {
     accept_friend,
     reject_friend,
     reset_password,
+    add_to_personal_watchlist,
+    get_watchlist,
+    delete_from_personal_watchlist,
 };

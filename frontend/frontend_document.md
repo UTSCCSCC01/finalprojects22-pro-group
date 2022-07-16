@@ -104,7 +104,7 @@
 
     -   This component is currently used in all pages
     -   This component is used for navigation to all pages
-    
+
 -   SidebarOpt
 
     -   The component show a single choice from Sidebar
@@ -130,3 +130,41 @@
 
     -   This component shows stock hotlist
     -   Used for Hotlist page
+
+-   WatchList
+
+    -   Show the name of the stocks in users' watchlist
+    -   Allow users to delete a stock from watchlist
+
+-   PaperTrading
+
+    -   This component allows users to paper trade
+    -   Shows owned stocks and balance
+
+-   GroupTag
+
+    -   This is the component for a group
+    -   it can show the group name and a button to chat
+
+-   GroupList
+
+    -   This is the component to show a whole group list
+    -   We use it in GroupPage to show all groups
+
+-   GroupPage
+
+    -   This is the page to chat in a group
+    -   It contains a GroupList and a ChatBox
+
+-   Community
+
+    -   This is where we can create a group and search a group to add
+
+-   Clock
+
+    -   This is the component that show the time on every page
+    -   It can show users the time of different time zone
+
+-   StockBot
+    -   Allows users to trade a stock using a proprietary algorithm
+    -   Use in next sprint

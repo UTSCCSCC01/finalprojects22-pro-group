@@ -8,13 +8,13 @@ function FriendList({ listtype }) {
 
     useEffect(() => {
         console.log(listtype);
-        if (listtype == "Friends") {
+        if (listtype === "Friends") {
             setButton("chat");
             getFriends();
-        } else if (listtype == "Received requests") {
+        } else if (listtype === "Received requests") {
             setButton("accept");
             getFriendsIn();
-        } else if (listtype == "Requests sent") {
+        } else if (listtype === "Requests sent") {
             setButton("waiting");
             getFriendsOut();
         }
@@ -32,7 +32,7 @@ function FriendList({ listtype }) {
             .then((data) => {
                 if (data.list) {
                     setFriendList(data.list);
-                    console.log(friendlist);
+                    //console.log(friendlist);
                 }
             })
             .catch((error) => {
@@ -52,7 +52,7 @@ function FriendList({ listtype }) {
             .then((data) => {
                 if (data.list) {
                     setFriendList(data.list);
-                    console.log(friendlist);
+                    //console.log(friendlist);
                 }
             })
             .catch((error) => {
@@ -72,7 +72,7 @@ function FriendList({ listtype }) {
             .then((data) => {
                 if (data.list) {
                     setFriendList(data.list);
-                    console.log(friendlist);
+                    //console.log(friendlist);
                 }
             })
             .catch((error) => {
@@ -87,7 +87,13 @@ function FriendList({ listtype }) {
             </div>
             <div className="frdlist">
                 {friendlist.map((info) => (
-                    <FriendTag name={info[0]} email={info[1]} button={button} />
+                    <FriendTag
+                        key={info[1]}
+                        name={info[0]}
+                        email={info[1]}
+                        button={button}
+                        // setEmail={setEmail}
+                    />
                 ))}
             </div>
         </div>

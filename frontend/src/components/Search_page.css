@@ -18,6 +18,7 @@
 }
 
 .search {
+    margin-top: 10px;
     text-align: center;
     /* align-items: center; */
     width: 100% !important;
@@ -35,6 +36,11 @@
 }
 
 .searchButton {
+    color: black !important;
+    background: rgb(195, 232, 186) !important;
+}
+
+.personalWatchList {
     color: black !important;
     background: rgb(195, 232, 186) !important;
 }

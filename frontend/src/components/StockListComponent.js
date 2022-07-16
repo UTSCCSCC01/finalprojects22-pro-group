@@ -116,12 +116,13 @@ function StockListComponent() {
     return (
         <div className="whole">
             <div className="hotHeader">
-                <h2> HotLists</h2>
+                <h3> HotLists</h3>
             </div>
             <div className="grid-container">
                 {stockHotlist.map((item) => {
                     return (
                         <a
+                            key={item}
                             target="_blank"
                             href={"https://finance.yahoo.com/quote/" + item}
                         >

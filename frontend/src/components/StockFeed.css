@@ -15,3 +15,15 @@
 .feed::-webkit-scrollbar {
     display: none;
 }
+
+.watchList_flex {
+    display: flex;
+}
+
+.watch_list {
+    flex: 0.93;
+}
+
+.watch {
+    padding-top: 10px;
+}
