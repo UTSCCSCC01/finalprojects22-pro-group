@@ -19,7 +19,7 @@ function ChatPage() {
             <Sidebar />
             <div className="chat_component">
                 <div className="chatHeader">
-                    <h2> Chat</h2>
+                    <h3> Chat</h3>
                 </div>
                 <div className="chat_down">
                     <div className="friend_list">

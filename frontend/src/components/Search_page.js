@@ -5,6 +5,8 @@ import "./Search_page.css";
 import Sidebar from "./Sidebar";
 import Stock from "./Stock";
 import TAlert from "./alert";
+import Clock from "./Clock";
+
 import { ToastContainer } from "react-toastify";
 function Search_page() {
     const [input, setInput] = useState("");
@@ -43,7 +45,7 @@ function Search_page() {
             <Sidebar />
             <div className="search_component">
                 <div className="searchHeader">
-                    <h2> Search</h2>
+                    <Clock></Clock>
                 </div>
                 <div className="search">
                     <div className="input">

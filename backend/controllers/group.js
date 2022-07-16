@@ -15,6 +15,8 @@ const createGroup = async (req, res) => {
 
         const { groupName } = req.body;
 
+        if (groupName === "") return res.status(400);
+
         const groupId = newId();
 
         Group.create({

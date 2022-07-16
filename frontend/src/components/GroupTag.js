@@ -1,6 +1,7 @@
 import React from "react";
 import "./FriendTag.css";
 import { useNavigate, useLocation } from "react-router-dom";
+import "./GroupTag.css";
 
 function GroupTag({ name, id, button }) {
     const navigate = useNavigate();

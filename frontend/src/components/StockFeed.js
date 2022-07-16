@@ -1,6 +1,9 @@
 import React from "react";
 import Stock from "./Stock";
 import "./StockFeed.css";
+import WatchList from "./WatchList";
+import Clock from "./Clock";
+
 import { useEffect, useState } from "react";
 function StockFeed() {
     // const stocks = ["META", "GOOG", "AAPL", "ABNB", "TSLA", "MSFT"];
@@ -55,13 +58,18 @@ function StockFeed() {
     return (
         <div className="feed">
             <div className="feedHeader">
-                <h2> Stocks</h2>
+                <Clock></Clock>
             </div>
             {/* <SearchBox/> */}
-            <div>
-                {watchList.map((stockSymbol) => (
-                    <Stock key={stockSymbol} stockSymbol={stockSymbol} />
-                ))}
+            <div className="watchList_flex">
+                <div className="watch_list">
+                    {watchList.map((stockSymbol) => (
+                        <Stock key={stockSymbol} stockSymbol={stockSymbol} />
+                    ))}
+                </div>
+                <div className="watch">
+                    <WatchList className="WatchList" />
+                </div>
             </div>
         </div>
     );

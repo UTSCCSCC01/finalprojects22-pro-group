@@ -51,7 +51,7 @@ function GroupList({ listtype }) {
         }).catch((error) => {
             console.log("error");
         });
-        // window.location.reload();
+        window.location.reload();
         setInput("");
     };
 

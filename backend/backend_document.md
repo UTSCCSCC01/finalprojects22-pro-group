@@ -70,3 +70,36 @@
     -   localhost:5050/api/acceptf
 -   Post: Reject a friend
     -   localhost:5050/api/rejectf
+
+## End Points for Sprint 3
+
+-   Post: Add to personal watchlist
+    -   localhost:5050/api/addWatchList
+-   Post: Delete from personal watchlist
+    -   localhost:5050/api/deleteWatchList
+-   Get: Get watchlist
+    -   localhost:5050/api/getWatchList
+-   Post: Get Message
+    -   localhost:5050/api/getMsg
+-   Post: Send Message
+    -   localhost:5050/api/sendMsg
+-   Post: Buy stock
+    -   localhost:5050/api/buyStock
+-   Get: Get balance
+    -   localhost:5050/api/getBalance
+-   Post: Get Group Msg
+    -   localhost:5050/api/getGroupMsg
+-   Post: Send Group Msg
+    -   localhost:5050/api/sendGroupMsg
+-   Post:Create Group
+    -   localhost:5050/api/createGroup
+-   Post: Get My Groups
+    -   localhost:5050/api/getMyGroups
+-   Post: Add Member
+    -   localhost:5050/api/addMember
+-   Post: Get Member
+    -   localhost:5050/api/getMember
+-   Post: Find Group
+    -   localhost:5050/api/findGroup
+-   Post: Get Group Name
+    -   localhost:5050/api/getGroupName

@@ -1,26 +1,25 @@
 import React from "react";
-import styled from "styled-components";
 import { useEffect, useState } from "react";
-import uuid from "react-uuid";
 
 import Sidebar from "./Sidebar";
 import "./PaperTrading.css";
 
-const StyledInput = styled.input`
-    display: block;
-    margin: 20px 0px;
-    border: 1px solid lightblue;
-`;
-
 function PaperTrading() {
-    const [value, setValue] = useState("");
-
     const [balance, setBalance] = useState(100000);
 
     const [cost, setCost] = useState(0);
+    const [amount, setAmount] = useState("");
+    const [price, setPrice] = useState(0);
     const [stock, setStock] = useState("");
     const [stockArray, setStockArray] = useState([]);
-    var axios = require("axios").default;
+
+    useEffect(() => {
+        setCost(amount * price);
+    }, [amount, price]);
+
+    useEffect(() => {
+        getPrice();
+    }, [amount, stock]);
 
     const buybutton = (e) => {
         fetch("http://localhost:5050/bot/", {
@@ -48,56 +47,38 @@ function PaperTrading() {
     const realToken = "pk_0e6314b0afd047f3bb2da2517debc3a0";
     const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-    const buyLocalButton = async () => {
+    const getPrice = async () => {
         if (!stock) return;
         const real = `https://cloud.iexapis.com/stable/stock/${stock}/price?token=${realToken}`;
         const sandbox = `https://sandbox.iexapis.com/stable/stock/${stock}/price?token=${sandboxToken}`;
         const response = await fetch(sandbox)
             .then((response) => {
-                console.log(response.status);
                 if (response.status === 429) {
                     // console.log("here");
-                    sleep(200).then(() => buyLocalButton());
+                    sleep(200).then(() => getPrice());
                 }
                 return response.json();
             })
             .then((data) => {
-                console.log(data);
-                console.log(typeof data);
-                setCost(data);
+                setPrice(data);
             });
-        // var options = {
-        //   method: "GET",
-        //   url: `https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols=${stock}`,
+    };
 
-        //   headers: {
-        //     // "x-api-key": "mqGwUbeB2K1t2FFNFFXaV8mXEPBry3hX7rGo1R0n",
-        //     "x-api-key": "oZqkJXbM3LwpyKw6OpkI16oyiCwa3yR3bOoUXeTg",
-        //   },
-        // };
-
-        // axios
-        //   .request(options)
-        //   .then(function (response) {
-        //     console.log(response);
-        //     console.log(response.data.quoteResponse["result"][0]["ask"]);
-        //     setCost(response.data.quoteResponse["result"][0]["ask"]);
-        //   })
-        //   .catch(function (error) {
-        //     console.error(error);
-        //   });
+    const buyLocalButton = async () => {
         if (balance - cost < 0) {
             alert("not enough funds");
         } else {
             setStockArray([...stockArray, stock]);
+            await buystock();
         }
 
-        buystock();
         getBalance();
+        getStocksBought();
     };
 
     useEffect(() => {
         getBalance();
+        getStocksBought();
     }, [stock]);
 
     const buystock = () => {
@@ -105,11 +86,17 @@ function PaperTrading() {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },
-
-            body: JSON.stringify({ stock, price: cost, amount: 1 }),
+            body: JSON.stringify({
+                stock,
+                price: cost,
+                amount: parseInt(amount),
+            }),
         }).catch((error) => {
             console.log("error occured in buying stock");
         });
+
+        setStock("");
+        setAmount(0);
     };
 
     const getBalance = async () => {
@@ -130,46 +117,72 @@ function PaperTrading() {
             });
     };
 
+    const getStocksBought = async () => {
+        fetch("http://localhost:5050/api/getBought", {
+            method: "GET",
+            credentials: "include",
+            // headers: { "Content-Type": "application/json" },
+            // body: JSON.stringify({ stock, price: cost, amount: 1 }),
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                setStockArray(data.stocks);
+            })
+            .catch((error) => {
+                console.log("error occured in buying stock");
+            });
+    };
+
     return (
         <div className="papertrading">
             <Sidebar />
             <div className="trading">
                 <div>
-                    <span>Buy stock</span>
                     <div className="searchHeader">
-                        Buy stock from Proview account
+                        <h3>Buy stock from Proview account</h3>
                     </div>
                     <div className="search">
-                        <div className="input">
-                            <StyledInput
-                                value={stock}
-                                onChange={(e) => setStock(e.target.value)}
-                                placeholder="Search stock to buy"
-                            />
-                        </div>
+                        <input
+                            className="stock_input"
+                            value={stock}
+                            onChange={(e) => setStock(e.target.value)}
+                            placeholder="Search stock to buy"
+                        />
+                        <input
+                            className="amount_input"
+                            value={amount}
+                            onChange={(e) => setAmount(e.target.value)}
+                            placeholder="Set Amount"
+                        />
                     </div>
                 </div>
-                <button className="searchButton" onClick={buyLocalButton}>
+
+                <button className="buy_stock" onClick={buyLocalButton}>
                     buy stock
                 </button>
-                <div key="uniqueId1">Your Stock: {stock}</div>
-                <div key="uniqueId2">Your cost: {cost}</div>
-                <div key="uniqueId3">Bought:</div>
+                <div className="detail">
+                    <div>Your Stock: {stock}</div>
+                    <div>Current price: {price}</div>
+                    <div>Your cost: {cost}</div>
+                    <div>Bought:</div>
 
-                {stockArray.map((item) => {
-                    return (
-                        <a
-                            target="_blank"
-                            href={"https://finance.yahoo.com/quote/" + item}
-                        >
-                            <div key={uuid()}>{item}</div>
-                        </a>
-                    );
-                })}
-                <div>Balance: {balance}</div>
+                    {stockArray.map((item, index) => {
+                        return (
+                            <div key={item.symbol} className="mystock">
+                                <div>
+                                    {item.symbol}: {item.amount}
+                                </div>
+                            </div>
+                        );
+                    })}
+                    <div>Balance: {balance}</div>
+                </div>
 
-                <div>Buy stock from IBKR</div>
-                <button onClick={buybutton}>buy stock</button>
+                {/* <div>Buy stock from IBKR</div>
+
+                <button onClick={buybutton}>buy stock</button>*/}
             </div>
         </div>
     );
