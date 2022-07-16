@@ -152,10 +152,13 @@ function ChatBox({ email, groupId }) {
             </div>
             <div className="inputBar">
                 <input
+                    className="inputfield"
                     onChange={(e) => setInputMsg(e.target.value)}
                     value={message}
                 />
-                <button onClick={handleSend}>send</button>
+                <button className="send" onClick={handleSend}>
+                    send
+                </button>
             </div>
         </div>
     );

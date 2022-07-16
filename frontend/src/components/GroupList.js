@@ -1,6 +1,7 @@
 import React from "react";
 import GroupTag from "./GroupTag";
 import { useEffect, useState } from "react";
+import "./GroupList.css";
 
 function GroupList({ listtype }) {
     const [groupList, setGroupList] = useState([]);
@@ -83,15 +84,20 @@ function GroupList({ listtype }) {
             <div className="frdsHeader">
                 <h3>{listtype}</h3>
             </div>
-            <div>
+            <div className="inputbar">
                 {listtype === "Searching" && (
                     <div>
                         <input
+                            className="groupinput"
                             onChange={(e) => setInput(e.target.value)}
                             value={input}
                         />
-                        <button onClick={handleCreate}>Create</button>
-                        <button onClick={handleSearch}>Search</button>
+                        <button className="searching" onClick={handleCreate}>
+                            Create
+                        </button>
+                        <button className="searching" onClick={handleSearch}>
+                            Search
+                        </button>
                     </div>
                 )}
             </div>
