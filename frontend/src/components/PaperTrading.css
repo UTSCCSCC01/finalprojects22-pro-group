@@ -1,7 +1,50 @@
-.papertrading{
-    display: flex;
+.papertrading {
+  display: flex;
 }
 
 .trading {
-    flex: 0.7
+  flex: 0.7;
+  text-align: center;
+}
+/* .search {
+  text-align: center;
+} */
+
+
+.search_component {
+    flex: 0.8;
+    margin-top: 30px;
+      text-align: center;
+
+}
+
+.searchHeader {
+    background-color: rgb(195, 232, 186);
+    text-align: center;
+    position: sticky;
+    top: 0px;
+    z-index: 99;
+    width: 100%;
+}
+
+.search {
+    text-align: center;
+    /* align-items: center; */
+    width: 100% !important;
+}
+.input {
+    text-align: center;
+    align-items: center;
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.search_component Stock {
+    width: 100%;
+}
+
+.searchButton {
+    color: black !important;
+    background: rgb(195, 232, 186) !important;
 }
