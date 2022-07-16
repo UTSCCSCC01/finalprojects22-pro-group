@@ -1,13 +1,16 @@
 import "./App.css";
 import React, { useState } from "react";
 
-import Stock from "./components/Stock";
+import PaperTrading from "./components/PaperTrading";
 
 import Search_page from "./components/Search_page";
 
 import Login from "./components/Login.js";
 import Register from "./components/Register.js";
+// import Feedback from "./components/Feedback.js";
+
 import StockList from "./components/StockList.js";
+import Clock from "./components/Clock"
 
 // import Navbars from "./components/Navbars.js";
 // import Crypto from "./components/Crypto.js";
@@ -20,7 +23,10 @@ function App() {
     const [StockSymbol, setStockSymbol] = useState("FB");
     return (
         <div className="App">
-            <Login />
+
+           
+           <Login /> 
+
             {/* <Register/> */}
             {/* <Navbars /> */}
 
@@ -28,6 +34,7 @@ function App() {
             {/* <Clock /> */}
             {/* <Crypto /> */}
         </div>
+
     );
 }
 

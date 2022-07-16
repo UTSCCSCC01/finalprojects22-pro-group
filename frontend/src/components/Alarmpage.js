@@ -5,6 +5,7 @@ import React, { Fragment } from "react";
 import "./Alarmpage.css";
 import Alarm from "./AlarmComp";
 import Sidebar from "./Sidebar";
+import Clock from "./Clock";
 
 const Alarmpage = () => {
     return (
@@ -13,7 +14,7 @@ const Alarmpage = () => {
 
             <div className="alarm">
                 <div className="alarmHeader">
-                    <h2> Alarm</h2>
+                    <Clock></Clock>
                 </div>
                 <Alarm />
             </div>

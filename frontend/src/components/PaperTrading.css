@@ -1,0 +1,91 @@
+.papertrading {
+    display: flex;
+    height: 100vh;
+}
+
+.trading {
+    flex: 0.8;
+    text-align: center;
+    margin-top: 30px;
+}
+/* .search {
+  text-align: center;
+} */
+
+.searchHeader {
+    background-color: rgb(195, 232, 186);
+    text-align: center;
+    position: sticky;
+    top: 0px;
+    z-index: 99;
+    width: 100%;
+}
+
+.search {
+    text-align: center;
+    /* align-items: center; */
+    width: 100% !important;
+}
+.stock_input {
+    padding: 10px;
+    border: 1px solid lightblue;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.amount_input {
+    padding: 10px;
+    border: 1px solid lightblue;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.search_component Stock {
+    width: 100%;
+}
+
+.buy_stock {
+    border: 0px;
+    padding: 20px;
+    margin: 10px;
+    background: rgb(195, 232, 186);
+    border-radius: 20px;
+
+    box-shadow: -15px -15px 15px rgba(255, 255, 255, 0.5),
+        15px 15px 15px rgba(0, 0, 0, 0.05),
+        inset 4px 4px 5px rgba(255, 255, 255, 0.8),
+        inset -4px -4px 5px rgba(0, 0, 0, 0.05), 0 50px 40px rgba(0, 0, 0, 0.05);
+}
+.detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 0px;
+    padding: 20px;
+    margin: 10px;
+    background: #f3f4f6;
+    margin-left: 70px;
+    margin-right: 70px;
+
+    border-radius: 20px;
+
+    box-shadow: -15px -15px 15px rgba(255, 255, 255, 0.5),
+        15px 15px 15px rgba(0, 0, 0, 0.05),
+        inset 4px 4px 5px rgba(255, 255, 255, 0.8),
+        inset -4px -4px 5px rgba(0, 0, 0, 0.05), 0 50px 40px rgba(0, 0, 0, 0.05);
+}
+
+.mystock {
+    width: fit-content;
+    border: 0px;
+    padding: 20px;
+    margin: 10px;
+    background: rgb(195, 232, 186);
+    border-radius: 10px;
+    text-align: center;
+
+    box-shadow: -15px -15px 15px rgba(255, 255, 255, 0.5),
+        15px 15px 15px rgba(0, 0, 0, 0.05),
+        inset 4px 4px 5px rgba(255, 255, 255, 0.8),
+        inset -4px -4px 5px rgba(0, 0, 0, 0.05), 0 50px 40px rgba(0, 0, 0, 0.05);
+}

@@ -36,6 +36,14 @@ function SidebarOpt({ text, Icon, func }) {
             navigate("/search");
         } else if (text === "Alarm") {
             navigate("/alarmpage");
+        } else if (text === "Chat") {
+            navigate("/chat");
+        } else if (text === "Group") {
+            navigate("/group");
+        } else if (text === "Community") {
+            navigate("/community");
+        } else if (text === "Trading") {
+            navigate("/papertrading");
         }
     };
 

@@ -41,7 +41,7 @@ function Friends() {
             <Sidebar />
             <div className="friends_container">
                 <div className="friendsHeader">
-                    <h2> Friends</h2>
+                    <h3> Friends</h3>
                 </div>
                 <div className="part">
                     <div className="friendlist">
