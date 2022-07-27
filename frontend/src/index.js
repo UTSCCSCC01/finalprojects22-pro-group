@@ -22,6 +22,7 @@ import GroupPage from "./components/GroupPage";
 import Community from "./components/Community";
 
 import PaperTrading from "./components/PaperTrading";
+import AutoTrade from "./components/AutoTrade.js";
 
 import {
     BrowserRouter as Router,
@@ -48,6 +49,8 @@ root.render(
             <Route path="/group" element={<GroupPage />} />
             <Route path="/community" element={<Community />} />
             <Route path="/papertrading" element={<PaperTrading />} />
+            <Route path="/autoTrade" element={<AutoTrade />} />
+
         </Routes>
     </Router>
 );

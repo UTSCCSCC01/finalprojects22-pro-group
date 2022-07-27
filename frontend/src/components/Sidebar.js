@@ -9,7 +9,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import AlarmIcon from "@mui/icons-material/Alarm";
 import ShowChartIcon from "@mui/icons-material/ShowChart";
 import "./Sidebar.css";
-
+import PsychologyIcon from '@mui/icons-material/Psychology';
 function Sidebar() {
     return (
         <div className="sidebar">
@@ -26,6 +26,8 @@ function Sidebar() {
             <SidebarOpt Icon={PeopleIcon} text="Group" />
             <SidebarOpt Icon={ShowChartIcon} text="Trading" />
             <SidebarOpt Icon={LogoutIcon} text="Logout" />
+            <SidebarOpt Icon={PsychologyIcon} text="autoTrade" />
+
         </div>
     );
 }
