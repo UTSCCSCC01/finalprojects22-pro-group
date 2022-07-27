@@ -5,9 +5,15 @@ import "./Stock.css";
 
 function Stock({ stockSymbol }) {
     // const KEYS = ["THN5ITBH3LFSAWLV", "V59N2LFKMSXQWONN"];
-
+//date
     const [stockChartXValues, setStockChartXValues] = useState([]);
+    //close
     const [stockChartYValues, setStockChartYValues] = useState([]);
+    const [stockChartHigh, setStockChartHigh] = useState([]);
+    const [stockChartOpen, setStockChartOpen] = useState([]);
+    const [stockChartLow, setStockChartLow] = useState([]);
+
+
     // const [index, setIndex] = useState([]);
 
     useEffect(() => {
@@ -42,8 +48,17 @@ function Stock({ stockSymbol }) {
                 return response.json();
             })
             .then((data) => {
+                                    console.log(data);
+
                 for (const key in data) {
-                    //console.log(data[key]["date"]);
+                    console.log(data[key]);
+                    console.log(data[key]["date"]);
+                    console.log(data[key]["high"]);
+                    console.log(data[key]["low"]);
+                    console.log(data[key]["open"]);
+
+
+
                     setStockChartXValues((stockChartXValues) => [
                         ...stockChartXValues,
                         data[key]["date"],
@@ -51,6 +66,18 @@ function Stock({ stockSymbol }) {
                     setStockChartYValues((stockChartYValues) => [
                         ...stockChartYValues,
                         data[key]["close"],
+                    ]);
+                    setStockChartHigh((stockChartHigh) => [
+                        ...stockChartHigh,
+                        data[key]["high"],
+                    ]);
+                    setStockChartOpen((stockChartOpen) => [
+                        ...stockChartOpen,
+                        data[key]["open"],
+                    ]);
+                    setStockChartLow((stockChartLow) => [
+                        ...stockChartLow,
+                        data[key]["low"],
                     ]);
                 }
             });
@@ -72,18 +99,109 @@ function Stock({ stockSymbol }) {
     // });
 
     stockChartXValues.slice(-1);
+
+    var trace1 = {
+  
+  x: stockChartXValues, 
+  
+  close: stockChartYValues, 
+  
+  decreasing: {line: {color: '#FF0000'}}, 
+  
+  high: stockChartHigh, 
+  
+  increasing: {line: {color: '#00d719'}}, 
+  
+  line: {color: '#00d719'}, 
+  
+  low: stockChartLow, 
+  
+  open: stockChartOpen, 
+  
+  type: 'candlestick', 
+  xaxis: 'x', 
+  yaxis: 'y'
+};
+
+var data = [trace1];
+
+var layout = {
+  dragmode: 'zoom', 
+  margin: {
+    r: 10, 
+    t: 25, 
+    b: 40, 
+    l: 60
+  }, 
+  showlegend: false, 
+  xaxis: {
+    autorange: true, 
+    // rangeslider: {range: ['2022-01-17 12:00', '2022-12-10 12:00']}, 
+    title: 'Date', 
+    type: 'date'
+  }, 
+  yaxis: {
+    autorange: true, 
+    type: 'linear'
+  },
+  
+//   annotations: [
+//     {
+//       x: '2017-01-31',
+//       y: 0.9,
+//       xref: 'x',
+//       yref: 'paper',
+//       text: 'largest movement',
+//       font: {color: 'magenta'},
+//       showarrow: true,
+//       xanchor: 'right',
+//       ax: -20,
+//       ay: 0
+//     }
+//   ],
+  
+//   shapes: [
+//       {
+//           type: 'rect',
+//           xref: 'x',
+//           yref: 'paper',
+//           x0: '2022-01-31',
+//           y0: 0,
+//           x1: '2022-02-01',
+//           y1: 1,
+//           fillcolor: '#d3d3d3',
+//           opacity: 0.2,
+//           line: {
+//               width: 0
+//           }
+//       }
+//     ]
+};
+
+    // Plotly.newPlot('myDiv', data, layout);
+    
     // setTimeout('getStockRequest', 1000);
     return (
         <div className="stock">
             <h4>{stockSymbol}</h4>
-            <Plot
+            
+
+             <Plot
+                className="stockPlot"
+                data={data}
+                layout={layout}
+            /> 
+
+
+
+            {/* <Plot
                 className="stockPlot"
                 data={[
                     {
                         x: stockChartXValues,
                         y: stockChartYValues,
-                        type: "scatter",
-                        mode: "lines+markers",
+                        type: "candlestick",
+                        // mode: "lines+markers",
                         marker: { color: "#00ac14" },
                     },
                 ]}
@@ -96,7 +214,7 @@ function Stock({ stockSymbol }) {
                     xaxis: { title: "TIME" },
                     yaxis: { title: "COST" },
                 }}
-            />
+            /> */}
         </div>
     );
 }
