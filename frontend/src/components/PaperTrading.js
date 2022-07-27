@@ -137,7 +137,6 @@ function PaperTrading() {
 
     return (
         <div className="papertrading">
-            <Sidebar />
             <div className="trading">
                 <div>
                     <div className="searchHeader">

@@ -10,8 +10,6 @@ import Clock from "./Clock";
 const Alarmpage = () => {
     return (
         <div className="alarmpage">
-            <Sidebar />
-
             <div className="alarm">
                 <div className="alarmHeader">
                     <Clock></Clock>

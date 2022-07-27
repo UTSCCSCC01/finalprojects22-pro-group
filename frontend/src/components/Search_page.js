@@ -42,7 +42,6 @@ function Search_page() {
     };
     return (
         <div className="flex_container">
-            <Sidebar />
             <div className="search_component">
                 <div className="searchHeader">
                     <Clock></Clock>

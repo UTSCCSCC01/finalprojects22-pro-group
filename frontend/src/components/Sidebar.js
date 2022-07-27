@@ -16,7 +16,7 @@ function Sidebar() {
     const showSidebar = () => setSidebar(!sidebar);
 
     return (
-        <div className="Sidebar">
+        <div className={sidebar ? "test_1" : "test_2"}>
             <div className="logo" onClick={showSidebar}>
                 {sidebar ? "Proview" : "P"}
             </div>

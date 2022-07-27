@@ -1,10 +1,9 @@
 .chat_page {
-    display: flex;
-    height: 100vh;
+    /* display: flex; */
+    height: 90vh;
 }
 
 .chat_container {
-    flex: 0.8;
     margin-top: 30px;
     width: 100%;
 }
@@ -19,7 +18,7 @@
 }
 
 .flex_container {
-    display: flex;
+    /* display: flex; */
 }
 
 .chat_body {

@@ -35,13 +35,17 @@ function Stock({ stockSymbol }) {
         const response = await fetch(sandbox)
             .then((response) => {
                 console.log(response.status);
+                // console.log(response);
                 if (response.status === 429) {
                     // console.log("here");
                     sleep(200).then(() => getStockRequest(stockSymbol));
+                    // return;
                 }
                 return response.json();
             })
             .then((data) => {
+                setStockChartXValues([]);
+                setStockChartYValues([]);
                 for (const key in data) {
                     //console.log(data[key]["date"]);
                     setStockChartXValues((stockChartXValues) => [
@@ -76,27 +80,29 @@ function Stock({ stockSymbol }) {
     return (
         <div className="stock">
             <h4>{stockSymbol}</h4>
-            <Plot
-                className="stockPlot"
-                data={[
-                    {
-                        x: stockChartXValues,
-                        y: stockChartYValues,
-                        type: "scatter",
-                        mode: "lines+markers",
-                        marker: { color: "#00ac14" },
-                    },
-                ]}
-                layout={{
-                    width: 720,
-                    height: 500,
-                    title: { stockSymbol },
-                    plot_bgcolor: "#f3f4f6",
-                    paper_bgcolor: "#f3f4f6",
-                    xaxis: { title: "TIME" },
-                    yaxis: { title: "COST" },
-                }}
-            />
+            <div className="plot">
+                <Plot
+                    className="stockPlot"
+                    data={[
+                        {
+                            x: stockChartXValues,
+                            y: stockChartYValues,
+                            type: "scatter",
+                            mode: "lines+markers",
+                            marker: { color: "#00ac14" },
+                        },
+                    ]}
+                    layout={{
+                        width: 720,
+                        height: 500,
+                        title: { stockSymbol },
+                        plot_bgcolor: "#f3f4f6",
+                        paper_bgcolor: "#f3f4f6",
+                        xaxis: { title: "TIME" },
+                        yaxis: { title: "COST" },
+                    }}
+                />
+            </div>
         </div>
     );
 }
