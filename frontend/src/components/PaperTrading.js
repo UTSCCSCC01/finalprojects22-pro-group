@@ -5,8 +5,11 @@ import Sidebar from "./Sidebar";
 import "./PaperTrading.css";
 import Stock from "./Stock";
 import StockTag from "./StockTag";
+import TAlert from "./alert";
 
 function PaperTrading() {
+    const [flag, setFlag] = useState(true);
+    const [watchList, setWatchList] = useState([]);
     const [balance, setBalance] = useState(100000);
     const [input, setInput] = useState("");
 
@@ -15,6 +18,8 @@ function PaperTrading() {
     const [price, setPrice] = useState(0);
     const [stock, setStock] = useState("");
     const [stockArray, setStockArray] = useState([]);
+    const [list, setList] = useState(true);
+    const [hotlist, setHotlist] = useState([]);
 
     useEffect(() => {
         setCost(amount * price);
@@ -22,28 +27,8 @@ function PaperTrading() {
 
     useEffect(() => {
         getPrice();
+        // });
     }, [amount, stock]);
-
-    const buybutton = (e) => {
-        fetch("http://localhost:5050/bot/", {
-            method: "GET",
-            credentials: "include",
-        })
-            .then((response) => {
-                console.log("response");
-
-                console.log(response);
-                return response.json();
-            })
-            .then((data) => {
-                console.log("data");
-
-                console.log(data);
-            })
-            .catch((error) => {
-                console.log("login needed");
-            });
-    };
 
     const API_KEY = "V59N2LFKMSXQWONN";
     const sandboxToken = "Tpk_245594011ed142fca35e0d76758e1d33";
@@ -66,6 +51,52 @@ function PaperTrading() {
                 setPrice(data);
             });
     };
+
+    useEffect(() => {
+        const getHotlist = async () => {
+            const check1 = localStorage.getItem("stockHotlist");
+            if (check1 !== null) {
+                setHotlist([]);
+                for (const key in JSON.parse(check1)) {
+                    setHotlist((hotlist) => [
+                        ...hotlist,
+                        JSON.parse(check1)[key]["symbol"],
+                    ]);
+                }
+            } else {
+                var axios = require("axios").default;
+                var options = {
+                    method: "GET",
+                    url: "https://yfapi.net/v1/finance/trending/us",
+
+                    headers: {
+                        // "x-api-key": "mqGwUbeB2K1t2FFNFFXaV8mXEPBry3hX7rGo1R0n",
+                        "x-api-key": "RIFrduAEmH4ZWA5CdBpylaV31kKt8wUT2stzO3cs",
+                    },
+                };
+                axios
+                    .request(options)
+                    .then(function (response) {
+                        localStorage.setItem(
+                            "stockHotlist",
+                            JSON.stringify(
+                                response.data["finance"]["result"][0]["quotes"]
+                            )
+                        );
+                        // setStockHotlist([]);
+                        setHotlist(
+                            JSON.stringify(
+                                response.data["finance"]["result"][0]["quotes"]
+                            )
+                        );
+                    })
+                    .catch(function (error) {
+                        console.error(error);
+                    });
+            }
+        };
+        getHotlist();
+    }, []);
 
     const buyLocalButton = async () => {
         if (balance - cost < 0) {
@@ -138,20 +169,72 @@ function PaperTrading() {
             });
     };
 
+    const handlePersonalWatchList = () => {
+        if (stock === "") {
+            TAlert("Input is invalid!");
+            return;
+        }
+        fetch("http://localhost:5050/api/addWatchList", {
+            method: "POST",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ stockname: stock }),
+        })
+            .then((response) => {
+                console.log("success");
+                setFlag(!flag);
+                return response.json();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    useEffect(() => {
+        const getList = () => {
+            fetch("http://localhost:5050/api/getWatchList", {
+                method: "GET",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+            })
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    if (data.list) {
+                        setWatchList(data.list);
+                        // console.log(watchList);
+                    }
+                })
+                .catch((error) => {
+                    console.log("error occured in login fetch");
+                });
+        };
+
+        getList();
+    }, [flag, list]);
+
     const tradeTag = () => {
         return (
-            <div>
-                <StockTag stockSymbol={stock} position="a" />
-                <div>Cost: {cost}</div>
-                <input
-                    className="amount_input"
-                    value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
-                    placeholder="Set Amount"
-                />
-                <button className="buy_stock" onClick={buyLocalButton}>
-                    buy stock
-                </button>
+            <div className="tradeTag">
+                <div className="tradeTag_left">
+                    <h2>{stock ? stock.toUpperCase() : "stock"}</h2>
+                </div>
+                <div className="tradeTag_middle">
+                    <div>Price: {price}</div>
+                    <div>Your Cost: {cost}</div>
+                </div>
+                <div className="tradeTag_right">
+                    <input
+                        className="amount_input"
+                        value={amount}
+                        onChange={(e) => setAmount(e.target.value)}
+                        placeholder="Set Amount"
+                    />
+                    <button className="buy_stock" onClick={buyLocalButton}>
+                        buy stock
+                    </button>
+                </div>
             </div>
         );
     };
@@ -166,19 +249,99 @@ function PaperTrading() {
         );
     });
 
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+        let counter = count;
+        const interval = setInterval(() => {
+            if (counter >= (list ? watchList : hotlist).length) {
+                clearInterval(interval);
+            } else {
+                setCount((count) => count + 1);
+                counter++; // local variable that this closure will see
+            }
+        }, 1000);
+        return () => clearInterval(interval);
+    }, [watchList]);
+
+    let watchingList = (list ? watchList : hotlist)
+        .slice(0, count)
+        .map((item) => {
+            return (
+                <div className="table_element" onClick={() => setStock(item)}>
+                    <StockTag stockSymbol={item} position="a" />
+                </div>
+            );
+        });
+
+    // let stockHotlist = hotlist.slice(0, count).map((item) => {
+    //     return (
+    //         <div className="table_element" onClick={() => setStock(item)}>
+    //             <StockTag stockSymbol={item} position="a" />
+    //         </div>
+    //     );
+    // })
+
     const left = () => {
         return (
             <div>
+                <h3> Start Your Trading </h3>
                 <input
                     className="stock_input"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Search stock to buy"
                 />
-                <div>My Balance: {balance}</div>
-                <button className="buy_stock" onClick={() => setStock(input)}>
-                    Search
-                </button>
+                <div className="trade_buttons">
+                    <button
+                        className="buy_stock"
+                        onClick={() => setStock(input)}
+                    >
+                        Search
+                    </button>
+                    <button
+                        className="buy_stock"
+                        onClick={handlePersonalWatchList}
+                    >
+                        Add
+                    </button>
+                </div>
+                {listTitle()}
+                <div className="trading_watchList">
+                    <h3> My Watch List </h3>
+                    <div className="watchList_white">
+                        <div className="table_header">
+                            <StockTag stockSymbol={"Stock"} position="t" />
+                        </div>
+
+                        {watchingList}
+                    </div>
+                </div>
+                {/* <h4>
+                    My Balance: <br /> {balance}
+                </h4> */}
+                {/* Hot List */}
+            </div>
+        );
+    };
+
+    const listTitle = () => {
+        return (
+            <div className="listTitle">
+                <div
+                    className={
+                        list ? "listTitle_watch active" : "listTitle_watch"
+                    }
+                    onClick={() => setList(true)}
+                >
+                    WatchList
+                </div>
+                <div
+                    className={list ? "listTitle_hot" : "listTitle_hot active"}
+                    onClick={() => setList(false)}
+                >
+                    HotList
+                </div>
             </div>
         );
     };
@@ -191,8 +354,7 @@ function PaperTrading() {
                 </div>
                 <div className="overall">
                     <div className="left_side">
-                        <span> watch list / hot list </span>
-                        {left()}
+                        <div className="left_side_content">{left()}</div>
                     </div>
                     <div className="middle_side">
                         {tradeTag()}
@@ -204,46 +366,6 @@ function PaperTrading() {
                         {myStocks}
                     </div>
                 </div>
-                {/* 
-                <div className="search">
-                    <input
-                        className="stock_input"
-                        value={stock}
-                        onChange={(e) => setStock(e.target.value)}
-                        placeholder="Search stock to buy"
-                    />
-                    <input
-                        className="amount_input"
-                        value={amount}
-                        onChange={(e) => setAmount(e.target.value)}
-                        placeholder="Set Amount"
-                    />
-                </div>
-
-                <button className="buy_stock" onClick={buyLocalButton}>
-                    buy stock
-                </button>
-                <div className="detail">
-                    <div>Your Stock: {stock}</div>
-                    <div>Current price: {price}</div>
-                    <div>Your cost: {cost}</div>
-                    <div>Bought:</div>
-
-                    {stockArray.map((item, index) => {
-                        return (
-                            <div key={item.symbol} className="mystock">
-                                <div>
-                                    {item.symbol}: {item.amount}
-                                </div>
-                            </div>
-                        );
-                    })}
-                    <div>Balance: {balance}</div>
-                </div> */}
-
-                {/* <div>Buy stock from IBKR</div>
-
-                <button onClick={buybutton}>buy stock</button>*/}
             </div>
         </div>
     );
