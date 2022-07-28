@@ -17,10 +17,6 @@
     width: 100%;
 }
 
-.flex_container {
-    /* display: flex; */
-}
-
 .chat_body {
     flex: 0.8;
 }

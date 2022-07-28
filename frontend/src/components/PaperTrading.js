@@ -3,9 +3,12 @@ import { useEffect, useState } from "react";
 
 import Sidebar from "./Sidebar";
 import "./PaperTrading.css";
+import Stock from "./Stock";
+import StockTag from "./StockTag";
 
 function PaperTrading() {
     const [balance, setBalance] = useState(100000);
+    const [input, setInput] = useState("");
 
     const [cost, setCost] = useState(0);
     const [amount, setAmount] = useState("");
@@ -135,27 +138,86 @@ function PaperTrading() {
             });
     };
 
+    const tradeTag = () => {
+        return (
+            <div>
+                <StockTag stockSymbol={stock} position="a" />
+                <div>Cost: {cost}</div>
+                <input
+                    className="amount_input"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                    placeholder="Set Amount"
+                />
+                <button className="buy_stock" onClick={buyLocalButton}>
+                    buy stock
+                </button>
+            </div>
+        );
+    };
+
+    const myStocks = stockArray.map((item, index) => {
+        return (
+            <div key={item.symbol} className="mystock">
+                <div>
+                    {item.symbol}: {item.amount}
+                </div>
+            </div>
+        );
+    });
+
+    const left = () => {
+        return (
+            <div>
+                <input
+                    className="stock_input"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder="Search stock to buy"
+                />
+                <div>My Balance: {balance}</div>
+                <button className="buy_stock" onClick={() => setStock(input)}>
+                    Search
+                </button>
+            </div>
+        );
+    };
+
     return (
         <div className="papertrading">
             <div className="trading">
-                <div>
-                    <div className="searchHeader">
-                        <h3>Buy stock from Proview account</h3>
+                <div className="searchHeader">
+                    <h3>ProView PaperTrading</h3>
+                </div>
+                <div className="overall">
+                    <div className="left_side">
+                        <span> watch list / hot list </span>
+                        {left()}
                     </div>
-                    <div className="search">
-                        <input
-                            className="stock_input"
-                            value={stock}
-                            onChange={(e) => setStock(e.target.value)}
-                            placeholder="Search stock to buy"
-                        />
-                        <input
-                            className="amount_input"
-                            value={amount}
-                            onChange={(e) => setAmount(e.target.value)}
-                            placeholder="Set Amount"
-                        />
+                    <div className="middle_side">
+                        {tradeTag()}
+
+                        <Stock stockSymbol={stock} />
                     </div>
+                    <div className="right_side">
+                        <span> History and Revenue </span>
+                        {myStocks}
+                    </div>
+                </div>
+                {/* 
+                <div className="search">
+                    <input
+                        className="stock_input"
+                        value={stock}
+                        onChange={(e) => setStock(e.target.value)}
+                        placeholder="Search stock to buy"
+                    />
+                    <input
+                        className="amount_input"
+                        value={amount}
+                        onChange={(e) => setAmount(e.target.value)}
+                        placeholder="Set Amount"
+                    />
                 </div>
 
                 <button className="buy_stock" onClick={buyLocalButton}>
@@ -177,7 +239,7 @@ function PaperTrading() {
                         );
                     })}
                     <div>Balance: {balance}</div>
-                </div>
+                </div> */}
 
                 {/* <div>Buy stock from IBKR</div>
 

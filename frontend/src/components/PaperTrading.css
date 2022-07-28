@@ -4,8 +4,22 @@
 
 .trading {
     text-align: center;
-    margin-top: 30px;
+    margin-top: 20px;
 }
+
+.overall {
+    display: flex;
+}
+.left_side {
+    flex: 0.2;
+}
+.middle_side {
+    flex: 0.6;
+}
+.right_side {
+    flex: 0.2;
+}
+
 /* .search {
   text-align: center;
 } */
