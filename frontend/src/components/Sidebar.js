@@ -8,6 +8,7 @@ import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import SearchIcon from "@mui/icons-material/Search";
 import AlarmIcon from "@mui/icons-material/Alarm";
 import ShowChartIcon from "@mui/icons-material/ShowChart";
+import SchoolIcon from '@mui/icons-material/School';
 import "./Sidebar.css";
 
 function Sidebar() {
@@ -32,7 +33,9 @@ function Sidebar() {
                 <SidebarOpt Icon={PeopleIcon} text="Community" />
                 <SidebarOpt Icon={PeopleIcon} text="Group" />
                 <SidebarOpt Icon={ShowChartIcon} text="Trading" />
+                <SidebarOpt Icon={SchoolIcon} text="Tutorial" />
                 <SidebarOpt Icon={LogoutIcon} text="Logout" />
+                
             </div>
         </div>
     );

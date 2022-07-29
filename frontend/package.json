@@ -25,6 +25,7 @@
     "react-alert-template-basic": "^1.0.2",
     "react-bootstrap": "^2.4.0",
     "react-dom": "^18.1.0",
+    "react-player": "^2.10.1",
     "react-plotly.js": "^2.5.1",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",

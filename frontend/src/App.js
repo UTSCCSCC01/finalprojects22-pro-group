@@ -14,6 +14,7 @@ import Community from "./components/Community";
 import PaperTrading from "./components/PaperTrading";
 import Sidebar from "./components/Sidebar";
 import StockFeed from "./components/StockFeed";
+import TutorialPage from "./components/TutorialPage";
 
 import Login from "./components/Login.js";
 import Register from "./components/Register.js";
@@ -45,6 +46,7 @@ function App() {
                     <Route path="/group" element={<GroupPage />} />
                     <Route path="/community" element={<Community />} />
                     <Route path="/papertrading" element={<PaperTrading />} />
+                    <Route path="/tutorial" element={<TutorialPage />} />
                 </Route>
                 <Route path="/" element={<Login />} />
                 <Route path="/login" element={<Login />} />
