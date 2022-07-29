@@ -63,49 +63,7 @@ function Stock({ stockSymbol }) {
                     ]);
                 }
             });
-
-        // const response = await fetch(sandbox)
-        //     .then((response) => {
-        //         console.log(response.status);
-        //         // console.log(response);
-        //         if (response.status === 429) {
-        //             // console.log("here");
-        //             sleep(200).then(() => getStockRequest(stockSymbol));
-        //             // return;
-        //         }
-        //         return response.json();
-        //     })
-        //     .then((data) => {
-        //         setStockChartXValues([]);
-        //         setStockChartYValues([]);
-        //         for (const key in data) {
-        //             //console.log(data[key]["date"]);
-        //             setStockChartXValues((stockChartXValues) => [
-        //                 ...stockChartXValues,
-        //                 data[key]["date"],
-        //             ]);
-        //             setStockChartYValues((stockChartYValues) => [
-        //                 ...stockChartYValues,
-        //                 data[key]["close"],
-        //             ]);
-        //         }
-        //     });
     };
-    // const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&output_size=compact&apikey=${API_KEY}`;
-
-    // const response = await fetch(url);
-    // await response.json().then((data) => {
-    //     for (const key in data["Time Series (Daily)"]) {
-    //         setStockChartXValues((stockChartXValues) => [
-    //             ...stockChartXValues,
-    //             key,
-    //         ]);
-    //         setStockChartYValues((stockChartYValues) => [
-    //             ...stockChartYValues,
-    //             data["Time Series (Daily)"][key]["1. open"],
-    //         ]);
-    //     }
-    // });
 
     stockChartXValues.slice(-1);
     // setTimeout('getStockRequest', 1000);

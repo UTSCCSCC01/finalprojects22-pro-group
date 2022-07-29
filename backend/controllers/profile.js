@@ -12,19 +12,20 @@ const updateAvatar = async (req, res) => {
         const { newAvatar } = req.body;
         // console.log(req.body);
         // console.log(newAvatar);
-        console.log(id);
+        // console.log(newAvatar);
 
         User.findOneAndUpdate(
             { _id: id },
             { $set: { photo: newAvatar } },
             function (error, success) {
                 if (error) {
-                    console.log(error);
+                    // console.log(error);
                 } else {
-                    console.log(success);
+                    // console.log(success);
                 }
             }
         );
+        // res.set("Access-Control-Allow-Origin", "http://localhost:3000");
         return res.status(200).send("success");
     } catch (error) {
         return res.status(500).send("error of add_photo");
@@ -44,12 +45,14 @@ const getAvatar = async (req, res) => {
         // console.log(newAvatar);
         console.log(id);
         const user_data = await User.findById(id);
+        // console.log(user_data.photo);
 
         return res.status(200).json({ avatar: user_data.photo });
     } catch (error) {
         return res.status(500).send("error of add_photo");
     }
 };
+
 module.exports = {
     updateAvatar,
     getAvatar,

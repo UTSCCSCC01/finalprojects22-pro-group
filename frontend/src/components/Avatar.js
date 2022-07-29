@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import FileBase64 from "react-file-base64";
 import axios from "axios";
+import "./Avatar.css";
 var Buffer = require("buffer/").Buffer;
 
 const Avatar = () => {
@@ -14,13 +15,14 @@ const Avatar = () => {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },
-            body: { newAvatar },
+            body: JSON.stringify({ newAvatar: newAvatar }),
         })
             .then((response) => {
                 // get the item
                 return response.json();
             })
             .catch((error) => {
+                console.log(error);
                 console.log("error");
             });
 
@@ -32,7 +34,7 @@ const Avatar = () => {
         fetch("http://localhost:5050/api/getAvatar", {
             method: "GET",
             credentials: "include",
-            headers: { "Content-Type": "application/json" },
+            // headers: { "Content-Type": "application/json" },
         })
             .then((response) => {
                 // get the item
@@ -42,14 +44,15 @@ const Avatar = () => {
             .then((data) => {
                 // var Buffer = require("buffer/").Buffer;
                 // console.log(Buffer.from(data.avatar).toString("base64"));
-                // setNewAvatar(data.avatar);
+                setNewAvatar(data.avatar);
 
                 // setNewAvatar(Buffer.from(data.avatar).toString("base64"));
-                setNewAvatar(
-                    `data:image/jpg;base64,${Buffer.from(data.avatar).toString(
-                        "base64"
-                    )}`
-                );
+                // setNewAvatar(
+                //     `data:image/png;base64,${Buffer.from(data.avatar).toString(
+                //         "base64"
+                //     )}`
+                // );
+                console.log(newAvatar);
                 // setNewAvatar(Buffer.from(data.avatar).toString("base64"));
             })
             .catch((error) => {
@@ -75,8 +78,8 @@ const Avatar = () => {
                 </div>
             </form>
             <img
-                className="activator"
-                style={{ width: "100%", height: 300 }}
+                className="avatar_photo"
+                // style={{ width: 50, height: 50 }}
                 // src={`data:image/jpg;base64,${newAvatar}`}
                 src={newAvatar}
             />

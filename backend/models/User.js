@@ -42,7 +42,7 @@ const UserSchema = new mongoose.Schema({
     },
 
     photo: {
-        type: Buffer,
+        type: String,
     },
 });
 

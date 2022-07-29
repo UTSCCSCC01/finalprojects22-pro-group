@@ -461,9 +461,9 @@ function PaperTrading() {
                 <HistoryTag stockSymbol={"e"} position={hlist ? "sh" : "hh"} />
                 {(hlist ? stockArray : historyList)
                     .slice(0, count)
-                    .map((item) => {
+                    .map((item, index) => {
                         return (
-                            <div key={item} className="historyElement">
+                            <div key={index} className="historyElement">
                                 <HistoryTag
                                     stockSymbol={item}
                                     position={hlist ? "s" : "h"}
