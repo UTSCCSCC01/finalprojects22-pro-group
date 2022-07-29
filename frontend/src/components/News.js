@@ -17,7 +17,7 @@ const News = () => {
 
     useEffect(() => {
         const getArticles = async () => {
-            const response = await axios.get(`https://newsapi.org/v2/everything?q=stockmarket&apiKey=2794e262e99e427d92f32dbeb4bdaccd`)
+            const response = await axios.get(`https://newsapi.org/v2/everything?q=finance&apiKey=2794e262e99e427d92f32dbeb4bdaccd`)
             setArticles(response.data.articles)
             console.log(response)
         }
