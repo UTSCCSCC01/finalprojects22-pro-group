@@ -114,6 +114,24 @@ function AutoTrade() {
         setStock("");
         setAmount(0);
     };
+  
+      const sellstock = () => {
+        fetch("http://localhost:5050/api/sellstock", {
+            method: "POST",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                stock,
+                price: cost,
+                amount: parseInt(amount),
+            }),
+        }).catch((error) => {
+            console.log("error occured in selling stock");
+        });
+
+        setSoldArray("");
+        setAmount(0);
+    };
 
     const getBalance = async () => {
         fetch("http://localhost:5050/api/getBalance", {
@@ -193,7 +211,17 @@ function AutoTrade() {
                             </div>
                         );
                     })}
-                    <div>Sold:</div>
+            <div>Sold:</div>
+            
+                    {soldArray.map((item, index) => {
+                        return (
+                            <div key={item.symbol} className="mystock">
+                                <div>
+                                    {item.symbol}: {item.amount}
+                                </div>
+                            </div>
+                        );
+                    })}
                     <div>Balance: {balance}</div>
                 </div>
 
