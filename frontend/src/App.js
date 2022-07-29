@@ -14,6 +14,7 @@ import Community from "./components/Community";
 import PaperTrading from "./components/PaperTrading";
 import Sidebar from "./components/Sidebar";
 import StockFeed from "./components/StockFeed";
+import Profile from "./components/Profile";
 
 import Login from "./components/Login.js";
 import Register from "./components/Register.js";
@@ -44,6 +45,7 @@ function App() {
                     <Route path="/chat" element={<ChatPage />} />
                     <Route path="/group" element={<GroupPage />} />
                     <Route path="/community" element={<Community />} />
+                    <Route path="/profile" element={<Profile />} />
                     <Route path="/papertrading" element={<PaperTrading />} />
                 </Route>
                 <Route path="/" element={<Login />} />

@@ -37,10 +37,13 @@ const UserSchema = new mongoose.Schema({
         type: Array,
     },
 
-    watchList:{
-        type:Array
-    }
+    watchList: {
+        type: Array,
+    },
 
+    photo: {
+        type: Buffer,
+    },
 });
 
 UserSchema.pre("save", async function () {

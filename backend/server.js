@@ -8,8 +8,7 @@ const authRouter = require("./routes/authRouter");
 const msgRouter = require("./routes/msgRouter");
 const groupRouter = require("./routes/groupRouter");
 const stockRouter = require("./routes/stockRouter");
-const bot = require("./routes/bot");
-
+const profileRouter = require("./routes/profileRouter");
 
 const notFound = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
@@ -40,14 +39,13 @@ app.use(
 // routers
 app.use("/api/", authRouter);
 app.use("/api/", stockRouter);
-app.use("/bot/", bot);
 
 app.use("/api/", msgRouter);
 app.use("/api/", groupRouter);
 
 app.use("/api/", stockRouter);
-app.use("/bot/", bot);
 
+app.use("/api/", profileRouter);
 
 // set up error
 app.use(notFound);
