@@ -60,7 +60,7 @@ function StockTag({ stockSymbol, position }) {
             }
         };
         getData();
-    }, []);
+    }, [stockSymbol]);
 
     return (
         <div>

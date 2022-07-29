@@ -6,9 +6,11 @@ import "./PaperTrading.css";
 import Stock from "./Stock";
 import StockTag from "./StockTag";
 import TAlert from "./alert";
+import HistoryTag from "./HistoryTag";
 
 function PaperTrading() {
     const [flag, setFlag] = useState(true);
+    const [flag2, setFlagTwo] = useState(true);
     const [watchList, setWatchList] = useState([]);
     const [balance, setBalance] = useState(100000);
     const [input, setInput] = useState("");
@@ -20,6 +22,9 @@ function PaperTrading() {
     const [stockArray, setStockArray] = useState([]);
     const [list, setList] = useState(true);
     const [hotlist, setHotlist] = useState([]);
+
+    const [historyList, setHistory] = useState([]);
+    const [hlist, setHList] = useState(true);
 
     useEffect(() => {
         setCost(amount * price);
@@ -53,6 +58,7 @@ function PaperTrading() {
     };
 
     useEffect(() => {
+        setHotlist([]);
         const getHotlist = async () => {
             const check1 = localStorage.getItem("stockHotlist");
             if (check1 !== null) {
@@ -98,75 +104,145 @@ function PaperTrading() {
         getHotlist();
     }, []);
 
-    const buyLocalButton = async () => {
+    const buyLocalButton = () => {
         if (balance - cost < 0) {
             alert("not enough funds");
         } else {
-            setStockArray([...stockArray, stock]);
-            await buystock();
+            // setStockArray([...stockArray, stock]);
+            buystock();
         }
 
-        getBalance();
-        getStocksBought();
+        // getBalance();
+        // getStocksBought();
     };
 
     useEffect(() => {
+        const getBalance = async () => {
+            fetch("http://localhost:5050/api/getBalance", {
+                method: "GET",
+                credentials: "include",
+                // headers: { "Content-Type": "application/json" },
+                // body: JSON.stringify({ stock, price: cost, amount: 1 }),
+            })
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    setBalance(data.balance);
+                })
+                .catch((error) => {
+                    console.log("error occured in buying stock");
+                });
+        };
+
+        const getStocksBought = async () => {
+            fetch("http://localhost:5050/api/getBought", {
+                method: "GET",
+                credentials: "include",
+                // headers: { "Content-Type": "application/json" },
+                // body: JSON.stringify({ stock, price: cost, amount: 1 }),
+            })
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    setStockArray(data.stocks);
+                })
+                .catch((error) => {
+                    console.log("error occured in buying stock");
+                });
+        };
+
+        const getHistory = async () => {
+            fetch("http://localhost:5050/api/gethistory", {
+                method: "GET",
+                credentials: "include",
+                // headers: { "Content-Type": "application/json" },
+                // body: JSON.stringify({ stock, price: cost, amount: 1 }),
+            })
+                .then((response) => {
+                    return response.json();
+                })
+                .then((data) => {
+                    console.log(data.history);
+                    setHistory(data.history);
+                })
+                .catch((error) => {
+                    console.log("error occured in buying stock");
+                });
+        };
+
         getBalance();
         getStocksBought();
-    }, [stock]);
+        getHistory();
+    }, [flag2, hlist]);
+
+    const sellLocalButton = () => {
+        // setStockArray([...stockArray, stock]);
+        sellstock();
+        // getBalance();
+        // getStocksBought();
+    };
+
+    // useEffect(() => {
+    //     getBalance();
+    //     getStocksBought();
+    // }, [stock]);
 
     const buystock = () => {
+        console.log(stock);
+        console.log(amount);
+        console.log(price);
         fetch("http://localhost:5050/api/buystock", {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 stock,
-                price: cost,
+                price,
                 amount: parseInt(amount),
             }),
-        }).catch((error) => {
-            console.log("error occured in buying stock");
-        });
+        })
+            .then((response) => {
+                setFlagTwo(!flag2);
+                return;
+            })
+            .catch((error) => {
+                console.log("error occured in buying stock");
+            });
 
-        setStock("");
+        // setStock("");
+
         setAmount(0);
     };
 
-    const getBalance = async () => {
-        fetch("http://localhost:5050/api/getBalance", {
-            method: "GET",
+    const sellstock = () => {
+        console.log(stock);
+        console.log(amount);
+        console.log(price);
+        fetch("http://localhost:5050/api/sellstock", {
+            method: "POST",
             credentials: "include",
-            // headers: { "Content-Type": "application/json" },
-            // body: JSON.stringify({ stock, price: cost, amount: 1 }),
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                stock: stock.toUpperCase(),
+                price: price,
+                amount: parseInt(amount),
+            }),
         })
             .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                setBalance(data.balance);
+                if (response.status === 429) {
+                    TAlert("No enough stock to sell!");
+                }
+                setFlagTwo(!flag2);
+                return;
             })
             .catch((error) => {
-                console.log("error occured in buying stock");
+                console.log("error occured in selling stock");
             });
-    };
 
-    const getStocksBought = async () => {
-        fetch("http://localhost:5050/api/getBought", {
-            method: "GET",
-            credentials: "include",
-            // headers: { "Content-Type": "application/json" },
-            // body: JSON.stringify({ stock, price: cost, amount: 1 }),
-        })
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                setStockArray(data.stocks);
-            })
-            .catch((error) => {
-                console.log("error occured in buying stock");
-            });
+        // setStock("");
+        setAmount(0);
     };
 
     const handlePersonalWatchList = () => {
@@ -191,6 +267,7 @@ function PaperTrading() {
     };
 
     useEffect(() => {
+        setWatchList([]);
         const getList = () => {
             fetch("http://localhost:5050/api/getWatchList", {
                 method: "GET",
@@ -232,22 +309,25 @@ function PaperTrading() {
                         placeholder="Set Amount"
                     />
                     <button className="buy_stock" onClick={buyLocalButton}>
-                        buy stock
+                        Buy
+                    </button>
+                    <button className="buy_stock" onClick={sellLocalButton}>
+                        Sell
                     </button>
                 </div>
             </div>
         );
     };
 
-    const myStocks = stockArray.map((item, index) => {
-        return (
-            <div key={item.symbol} className="mystock">
-                <div>
-                    {item.symbol}: {item.amount}
-                </div>
-            </div>
-        );
-    });
+    // const myStocks = stockArray.map((item, index) => {
+    //     return (
+    //         <div key={item.symbol} className="mystock">
+    //             <div>
+    //                 {item.symbol}: {item.amount}
+    //             </div>
+    //         </div>
+    //     );
+    // });
 
     const [count, setCount] = useState(0);
 
@@ -264,15 +344,24 @@ function PaperTrading() {
         return () => clearInterval(interval);
     }, [watchList]);
 
-    let watchingList = (list ? watchList : hotlist)
-        .slice(0, count)
-        .map((item) => {
-            return (
-                <div className="table_element" onClick={() => setStock(item)}>
-                    <StockTag stockSymbol={item} position="a" />
-                </div>
-            );
-        });
+    let watchingList = () => {
+        // clear the watchlist
+        return (
+            <>
+                {(list ? watchList : hotlist).slice(0, count).map((item) => {
+                    return (
+                        <div
+                            key={item}
+                            className="table_element"
+                            onClick={() => setStock(item)}
+                        >
+                            <StockTag stockSymbol={item} position="a" />
+                        </div>
+                    );
+                })}
+            </>
+        );
+    };
 
     // let stockHotlist = hotlist.slice(0, count).map((item) => {
     //     return (
@@ -314,13 +403,12 @@ function PaperTrading() {
                             <StockTag stockSymbol={"Stock"} position="t" />
                         </div>
 
-                        {watchingList}
+                        {watchingList()}
                     </div>
                 </div>
                 {/* <h4>
                     My Balance: <br /> {balance}
                 </h4> */}
-                {/* Hot List */}
             </div>
         );
     };
@@ -346,6 +434,75 @@ function PaperTrading() {
         );
     };
 
+    const historyTitle = () => {
+        return (
+            <div className="listTitle">
+                <div
+                    className={
+                        hlist ? "listTitle_watch active" : "listTitle_watch"
+                    }
+                    onClick={() => setHList(true)}
+                >
+                    My Stocks
+                </div>
+                <div
+                    className={hlist ? "listTitle_hot" : "listTitle_hot active"}
+                    onClick={() => setHList(false)}
+                >
+                    History
+                </div>
+            </div>
+        );
+    };
+
+    const listOfHistory = () => {
+        return (
+            <>
+                <HistoryTag stockSymbol={"e"} position={hlist ? "sh" : "hh"} />
+                {(hlist ? stockArray : historyList)
+                    .slice(0, count)
+                    .map((item) => {
+                        return (
+                            <div key={item} className="historyElement">
+                                <HistoryTag
+                                    stockSymbol={item}
+                                    position={hlist ? "s" : "h"}
+                                />
+                            </div>
+                        );
+                    })}
+            </>
+        );
+    };
+
+    const right = () => {
+        return (
+            <div>
+                {historyTitle()}
+                <div className="trading_watchList">
+                    <h3> History </h3>
+                    <div className="watchList_white">
+                        <div className="table_header">
+                            {/* <HistoryTag
+                                stockSymbol="not use"
+                                position={hlist ? "sh" : "hh"}
+                            /> */}
+                            {/* {hlist ? (
+                                <HistoryTag position="sh" />
+                            ) : (
+                                <HistoryTag position="hh" />
+                            )} */}
+                        </div>
+                        {listOfHistory()}
+                    </div>
+                </div>
+                <h4>
+                    My Balance: <br /> {balance}
+                </h4>
+            </div>
+        );
+    };
+
     return (
         <div className="papertrading">
             <div className="trading">
@@ -363,7 +520,7 @@ function PaperTrading() {
                     </div>
                     <div className="right_side">
                         <span> History and Revenue </span>
-                        {myStocks}
+                        {right()}
                     </div>
                 </div>
             </div>
