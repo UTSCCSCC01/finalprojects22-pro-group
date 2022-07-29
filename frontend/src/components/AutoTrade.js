@@ -12,7 +12,7 @@ function AutoTrade() {
     const [price, setPrice] = useState(0);
     const [stock, setStock] = useState("");
     const [stockArray, setStockArray] = useState([]);
-    const [diff, setDiff] = useState();
+    const [diff, setDiff] = useState(0);
     const [soldArray, setSoldArray] = useState([]);
 
     useEffect(() => {
@@ -66,7 +66,7 @@ function AutoTrade() {
           .then((data) => {
             var difference = data[data.length - 2]['high'] - data[data.length - 3]['high'];
                         console.log(difference);
-            setDiff(difference);
+            // setDiff(difference);
             console.log(data[data.length - 2]['high']);
             setPrice(data[data.length - 2]['high']);
             });
@@ -87,7 +87,12 @@ function AutoTrade() {
 
         getBalance();
         getStocksBought(); }
-      else { console.log("less"); }
+    else {
+      console.log("less");
+                  setSoldArray([...soldArray, stock]);
+            // await sellstock();
+
+    }
       //if difference <0, old is bigger than new, stock is going down, we want sell
 
   };
