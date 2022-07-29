@@ -39,12 +39,23 @@ const getAvatar = async (req, res) => {
             return res.status(401).send("No auth");
         }
         const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
-        console.log("here");
+        const email = req.query.email;
+        console.log(email);
+        // if (email != undefined) {
+        //     const user_data = await User.findOne({ email });
+        // } else {
+        //     const user_data = await User.findById(id);
+        // }
+
+        const user_data =
+            email != undefined
+                ? await User.findOne({ email })
+                : await User.findById(id);
         // const { newAvatar } = req.body;
         // console.log(req.body);
         // console.log(newAvatar);
-        console.log(id);
-        const user_data = await User.findById(id);
+        // console.log(id);
+
         // console.log(user_data.photo);
 
         return res.status(200).json({ avatar: user_data.photo });

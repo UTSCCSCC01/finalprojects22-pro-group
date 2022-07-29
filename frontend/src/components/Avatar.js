@@ -4,7 +4,7 @@ import axios from "axios";
 import "./Avatar.css";
 var Buffer = require("buffer/").Buffer;
 
-const Avatar = () => {
+const Avatar = ({ email }) => {
     const [newAvatar, setNewAvatar] = useState("");
 
     const handleSubmit = async (e) => {
@@ -31,7 +31,11 @@ const Avatar = () => {
     };
 
     useEffect(() => {
-        fetch("http://localhost:5050/api/getAvatar", {
+        let url = "http://localhost:5050/api/getAvatar";
+        if (email != undefined) {
+            url = "http://localhost:5050/api/getAvatar?email=" + email;
+        }
+        fetch(url, {
             method: "GET",
             credentials: "include",
             // headers: { "Content-Type": "application/json" },
