@@ -19,7 +19,6 @@ function GroupPage() {
 
     return (
         <div className="chat_page">
-            <Sidebar />
             <div className="chat_component">
                 <div className="chatHeader">
                     <h3> Group Chat</h3>
