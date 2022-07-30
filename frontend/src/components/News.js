@@ -26,6 +26,9 @@ const News = () => {
     }, [])
     return (
         <div>
+            <div className="header">
+                <h3> News</h3>
+            </div>
             {articles.map(article => {
                 return(
                     <NewsItem 
