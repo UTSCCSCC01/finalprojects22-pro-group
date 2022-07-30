@@ -20,7 +20,6 @@ import Register from "./components/Register.js";
 import Reset from "./components/Reset.js";
 import News from "./components/News.js";
 import { Outlet } from "react-router-dom";
-import AutoTrade from "./components/AutoTrade";
 
 function App() {
     const SidebarLayout = () => (
@@ -49,7 +48,6 @@ function App() {
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/papertrading" element={<PaperTrading />} />
                     <Route path="/news" element={<News />} />
-                    <Route path="/autoTrade" element={<AutoTrade />} />
                 </Route>
                 <Route path="/" element={<Login />} />
                 <Route path="/login" element={<Login />} />

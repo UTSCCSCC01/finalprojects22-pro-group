@@ -35,7 +35,6 @@ function Sidebar() {
                 <SidebarOpt Icon={PeopleIcon} text="Group" />
                 <SidebarOpt Icon={ShowChartIcon} text="Trading" />
                 <SidebarOpt Icon={NewspaperIcon} text="News" />
-                <SidebarOpt Icon={PsychologyIcon} text="autoTrade" />
                 <SidebarOpt Icon={LogoutIcon} text="Logout" />
             </div>
         </div>

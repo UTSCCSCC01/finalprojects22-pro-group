@@ -27,7 +27,7 @@ function PaperTrading() {
     const [hlist, setHList] = useState(true);
     const [autotrading, setAutotrading] = useState(false);
     const [flashing, setFlash] = useState(false);
-    const [autotrade_amount, setAutoTradeAmount] = useState(0);
+    const [autotrade_amount, setAutoTradeAmount] = useState("");
 
     useEffect(() => {
         setCost(amount * price);
@@ -528,7 +528,6 @@ function PaperTrading() {
 
             const getAutoData = async () => {
                 if (!stock) return;
-                setAmount(autotrade_amount);
                 fetch(intraday)
                     .then((response) => {
                         if (response.status === 429) {
@@ -607,14 +606,14 @@ function PaperTrading() {
 
     const autoTradePart = () => {
         return (
-            <div>
+            <div className="autotrade">
                 <h3>Auto Trade</h3>
                 <div>
                     <input
-                        className="autoTrade_input"
+                        className="amount_input"
                         value={autotrade_amount}
                         onChange={(e) => setAutoTradeAmount(e.target.value)}
-                        placeholder="Set an autoTrade amount"
+                        placeholder="Set an Auto Trade amount"
                     />
                     <button
                         className={
