@@ -1,7 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
 
-import Sidebar from "./Sidebar";
 import "./AutoTrade.css";
 
 function AutoTrade() {
@@ -49,13 +48,12 @@ function AutoTrade() {
     const realToken = "pk_0e6314b0afd047f3bb2da2517debc3a0";
     const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  
-      const getPrice = async () => {
+    const getPrice = async () => {
         if (!stock) return;
-      const real = `https://cloud.iexapis.com/stable/stock/${stock}/price?token=${realToken}`;
-      const sandbox = `https://sandbox.iexapis.com/stable/stock/${stock}/price?token=${sandboxToken}`;
-      const intraday=`https://sandbox.iexapis.com/stable/stock/${stock}/intraday-prices?token=${sandboxToken}`
-      const response = await fetch(intraday)
+        const real = `https://cloud.iexapis.com/stable/stock/${stock}/price?token=${realToken}`;
+        const sandbox = `https://sandbox.iexapis.com/stable/stock/${stock}/price?token=${sandboxToken}`;
+        const intraday = `https://sandbox.iexapis.com/stable/stock/${stock}/intraday-prices?token=${sandboxToken}`;
+        const response = await fetch(intraday)
             .then((response) => {
                 if (response.status === 429) {
                     // console.log("here");
@@ -63,39 +61,39 @@ function AutoTrade() {
                 }
                 return response.json();
             })
-          .then((data) => {
-            var difference = data[data.length - 2]['high'] - data[data.length - 3]['high'];
-                        console.log(difference);
-            // setDiff(difference);
-            console.log(data[data.length - 2]['high']);
-            setPrice(data[data.length - 2]['high']);
+            .then((data) => {
+                var difference =
+                    data[data.length - 2]["high"] -
+                    data[data.length - 3]["high"];
+                console.log(difference);
+                // setDiff(difference);
+                console.log(data[data.length - 2]["high"]);
+                setPrice(data[data.length - 2]["high"]);
             });
     };
-  const algostock = async () => {
-            console.log("stock");
+    const algostock = async () => {
+        console.log("stock");
 
-      console.log(stock);
+        console.log(stock);
 
-      //if difference >0, new is bigger than old, stock is going up, we want to buy
-    if (diff >= 0) {
-      if (balance - cost < 0) {
-            alert("not enough funds");
+        //if difference >0, new is bigger than old, stock is going up, we want to buy
+        if (diff >= 0) {
+            if (balance - cost < 0) {
+                alert("not enough funds");
+            } else {
+                setStockArray([...stockArray, stock]);
+                await buystock();
+            }
+
+            getBalance();
+            getStocksBought();
         } else {
-            setStockArray([...stockArray, stock]);
-            await buystock();
-        }
-
-        getBalance();
-        getStocksBought(); }
-    else {
-      console.log("less");
-                  setSoldArray([...soldArray, stock]);
+            console.log("less");
+            setSoldArray([...soldArray, stock]);
             // await sellstock();
-
-    }
-      //if difference <0, old is bigger than new, stock is going down, we want sell
-
-  };
+        }
+        //if difference <0, old is bigger than new, stock is going down, we want sell
+    };
 
     useEffect(() => {
         getBalance();
@@ -119,8 +117,8 @@ function AutoTrade() {
         setStock("");
         setAmount(0);
     };
-  
-      const sellstock = () => {
+
+    const sellstock = () => {
         fetch("http://localhost:5050/api/sellstock", {
             method: "POST",
             credentials: "include",
@@ -176,7 +174,6 @@ function AutoTrade() {
 
     return (
         <div className="autotrade">
-            <Sidebar />
             <div className="trading">
                 <div>
                     <div className="searchHeader">
@@ -196,11 +193,11 @@ function AutoTrade() {
                             placeholder="Set Amount"
                         />
                     </div>
-          </div>
-          
-                 <button className="algo_stock" onClick={algostock}>
-                     use algorithm on stock
-                 </button>
+                </div>
+
+                <button className="algo_stock" onClick={algostock}>
+                    use algorithm on stock
+                </button>
                 <div className="detail">
                     <div>Your Stock: {stock}</div>
                     <div>Current price: {price}</div>
@@ -216,8 +213,8 @@ function AutoTrade() {
                             </div>
                         );
                     })}
-            <div>Sold:</div>
-            
+                    <div>Sold:</div>
+
                     {soldArray.map((item, index) => {
                         return (
                             <div key={item.symbol} className="mystock">
@@ -229,12 +226,9 @@ function AutoTrade() {
                     })}
                     <div>Balance: {balance}</div>
                 </div>
-
-
             </div>
         </div>
     );
 }
 
 export default AutoTrade;
-

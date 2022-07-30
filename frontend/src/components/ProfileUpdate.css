@@ -55,9 +55,10 @@
         inset -4px -4px 5px rgba(0, 0, 0, 0.05), 0 50px 40px rgba(0, 0, 0, 0.05);
 }
 
-.my_information p {
-    /* text-align: left; */
-}
+/* .my_information p {
+    text-align: left;
+} */
+
 .h3_profile_top {
     font-style: italic;
     margin-bottom: 10px;

@@ -133,35 +133,6 @@ const buyStock = async (req, res) => {
         res.status(400).send("Cannot buy stock!");
     }
 };
-const sellStock = async (req, res) => {
-    try {
-        console.log("selling stock");
-        const cookietoken = req.cookies["token"];
-        if (!cookietoken) {
-            console.log("no cookie");
-            // redirect to login page
-            return res.send("No auth");
-        }
-        const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
-        if (!id) {
-            // console.log("jwt");
-
-            res.status(400).send("No auth");
-        }
-
-        const { stock, price, amount } = req.body;
-        if (!stock || !price || !amount) {
-            res.status(400).send("Need balance, stock, price and amount");
-            return;
-        }
-
-        const trade = await Trade.findOne({ uid: id });
-        var stocks = trade.stocks;
-        // console.log(stocks);
-        // Update Balance
-        // console.log(typeof price);
-        // console.log(typeof amount);
-
 
 const sellStock = async (req, res) => {
     try {
@@ -199,7 +170,6 @@ const sellStock = async (req, res) => {
         function isStock(stocks) {
             return stocks.symbol === stock;
         }
-
 
         // if not found, cannot sell
         const found = stocks.find(isStock);
@@ -287,14 +257,12 @@ const sellStock = async (req, res) => {
             }
         );
 
-
         res.status(200).send("success");
     } catch (error) {
         console.log(error);
         res.status(400).send("Cannot buy stock!");
     }
 };
-
 
 const getBalance = async (req, res) => {
     try {
@@ -348,7 +316,6 @@ const getBought = async (req, res) => {
     }
 };
 
-
 const getHistory = async (req, res) => {
     try {
         console.log("getting stock");
@@ -379,4 +346,3 @@ const getHistory = async (req, res) => {
 };
 
 module.exports = { buyStock, sellStock, getBalance, getBought, getHistory };
-
