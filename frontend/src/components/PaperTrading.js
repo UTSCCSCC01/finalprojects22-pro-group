@@ -340,7 +340,7 @@ function PaperTrading() {
                 setCount((count) => count + 1);
                 counter++; // local variable that this closure will see
             }
-        }, 1000);
+        }, 700);
         return () => clearInterval(interval);
     }, [watchList]);
 
@@ -461,9 +461,9 @@ function PaperTrading() {
                 <HistoryTag stockSymbol={"e"} position={hlist ? "sh" : "hh"} />
                 {(hlist ? stockArray : historyList)
                     .slice(0, count)
-                    .map((item) => {
+                    .map((item, index) => {
                         return (
-                            <div key={item} className="historyElement">
+                            <div key={index} className="historyElement">
                                 <HistoryTag
                                     stockSymbol={item}
                                     position={hlist ? "s" : "h"}

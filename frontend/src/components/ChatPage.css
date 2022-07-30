@@ -21,15 +21,8 @@
     /* display: flex; */
 }
 
-.chat_body {
-    flex: 0.8;
-}
-
 .friend_list {
-    flex: 0.2;
-}
-
-.friend_list {
+    flex: 0.25;
     margin-right: 25px;
 }
 
