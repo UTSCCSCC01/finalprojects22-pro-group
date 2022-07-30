@@ -55,6 +55,25 @@ function StockFeed() {
         return <Stock key={stockSymbol} stockSymbol={stockSymbol} />;
     });
 
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+        let counter = count;
+        const interval = setInterval(() => {
+            if (counter >= watchList.length) {
+                clearInterval(interval);
+            } else {
+                setCount((count) => count + 1);
+                counter++; // local variable that this closure will see
+            }
+        }, 1000);
+        return () => clearInterval(interval);
+    }, [watchList]);
+
+    let playersDraftedList = watchList.slice(0, count).map((stockSymbol) => {
+        return <Stock key={stockSymbol} stockSymbol={stockSymbol} />;
+    });
+
     return (
         <div className="feed">
             <div className="feedHeader">
@@ -63,9 +82,11 @@ function StockFeed() {
             {/* <SearchBox/> */}
             <div className="watchList_flex">
                 <div className="watch_list">
-                    {watchList.map((stockSymbol) => (
+                    {playersDraftedList}
+
+                    {/* {watchList.map((stockSymbol) => (
                         <Stock key={stockSymbol} stockSymbol={stockSymbol} />
-                    ))}
+                    ))} */}
                 </div>
                 <div className="watch">
                     <WatchList className="WatchList" />

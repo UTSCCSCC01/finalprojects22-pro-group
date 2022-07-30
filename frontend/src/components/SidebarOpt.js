@@ -52,8 +52,8 @@ function SidebarOpt({ text, Icon, func }) {
 
     return (
         <button className="sidebarOption" onClick={handleClick}>
-            <Icon />
-            <h2>{text}</h2>
+            <Icon className="icon" />
+            <h2 className="iconText">{text}</h2>
         </button>
     );
 }

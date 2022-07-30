@@ -19,7 +19,7 @@ function Stock({ stockSymbol }) {
     useEffect(() => {
         setStockChartXValues([]);
         setStockChartYValues([]);
-        console.log(stockSymbol);
+        // console.log(stockSymbol);
         getStockRequest(stockSymbol);
     }, [stockSymbol]);
     // const [StockSymbol, setStockSymbol] = useState("FB");
@@ -38,18 +38,29 @@ function Stock({ stockSymbol }) {
         if (!stockSymbol) return;
         const real = `https://cloud.iexapis.com/stable/stock/${stockSymbol}/chart/3m?token=${realToken}`;
         const sandbox = `https://sandbox.iexapis.com/stable/stock/${stockSymbol}/chart/3m?token=${sandboxToken}`;
-        const response = await fetch(sandbox)
+        // back off function
+        const response = await fetch(sandbox, {
+            retryDelay: function (attempt) {
+                return Math.pow(2, attempt) * 1000; // 1000, 2000, 4000
+            },
+        })
             .then((response) => {
-                console.log(response.status);
+                // console.log(response.status);
+                // console.log(response);
                 if (response.status === 429) {
                     // console.log("here");
                     sleep(200).then(() => getStockRequest(stockSymbol));
+                    // return;
                 }
                 return response.json();
             })
             .then((data) => {
-                                    console.log(data);
 
+                               //     console.log(data);
+
+
+                setStockChartXValues([]);
+                setStockChartYValues([]);
                 for (const key in data) {
                     console.log(data[key]);
                     console.log(data[key]["date"]);
@@ -81,6 +92,33 @@ function Stock({ stockSymbol }) {
                     ]);
                 }
             });
+
+        // const response = await fetch(sandbox)
+        //     .then((response) => {
+        //         console.log(response.status);
+        //         // console.log(response);
+        //         if (response.status === 429) {
+        //             // console.log("here");
+        //             sleep(200).then(() => getStockRequest(stockSymbol));
+        //             // return;
+        //         }
+        //         return response.json();
+        //     })
+        //     .then((data) => {
+        //         setStockChartXValues([]);
+        //         setStockChartYValues([]);
+        //         for (const key in data) {
+        //             //console.log(data[key]["date"]);
+        //             setStockChartXValues((stockChartXValues) => [
+        //                 ...stockChartXValues,
+        //                 data[key]["date"],
+        //             ]);
+        //             setStockChartYValues((stockChartYValues) => [
+        //                 ...stockChartYValues,
+        //                 data[key]["close"],
+        //             ]);
+        //         }
+        //     });
     };
     // const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${stockSymbol}&output_size=compact&apikey=${API_KEY}`;
 
@@ -194,7 +232,9 @@ var layout = {
 
 
 
-            {/* <Plot
+            {/* 
+            <div className="plot">
+            <Plot
                 className="stockPlot"
                 data={[
                     {
@@ -214,7 +254,9 @@ var layout = {
                     xaxis: { title: "TIME" },
                     yaxis: { title: "COST" },
                 }}
-            /> */}
+            />
+            </div> */}
+
         </div>
     );
 }

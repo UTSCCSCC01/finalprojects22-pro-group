@@ -7,7 +7,6 @@ import "./Community.css";
 function Community() {
     return (
         <div className="community">
-            <Sidebar />
             <div className="community_component">
                 <div className="hotHeader">
                     <h3> Create or find groups </h3>

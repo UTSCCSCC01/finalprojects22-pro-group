@@ -1,10 +1,8 @@
 .flex_container {
-    display: flex;
     height: 100vh;
 }
 
 .search_component {
-    flex: 0.8;
     margin-top: 30px;
 }
 
