@@ -41,6 +41,7 @@
 }
 .left_side {
     flex: 0.2;
+    padding-top: 10px;
     width: 0;
     height: 90%;
     background-color: #f3f4f6;
@@ -64,6 +65,7 @@
     width: 0;
 }
 .right_side {
+    padding-top: 10px;
     flex: 0.2;
     width: 0;
     height: 90%;

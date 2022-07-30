@@ -57,7 +57,9 @@ function HistoryTag({ stockSymbol, position }) {
                         return response.json();
                     })
                     .then((data) => {
-                        setWorth(data * stockSymbol.amount);
+                        setWorth(
+                            parseFloat(data * stockSymbol.amount).toFixed(2)
+                        );
                     });
 
                 // setWorth("");

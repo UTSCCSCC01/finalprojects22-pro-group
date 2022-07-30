@@ -8,7 +8,7 @@ import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import SearchIcon from "@mui/icons-material/Search";
 import AlarmIcon from "@mui/icons-material/Alarm";
 import ShowChartIcon from "@mui/icons-material/ShowChart";
-import SchoolIcon from '@mui/icons-material/School';
+import SchoolIcon from "@mui/icons-material/School";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
 import "./Sidebar.css";
 import PsychologyIcon from "@mui/icons-material/Psychology";
@@ -27,6 +27,8 @@ function Sidebar() {
             <div className={sidebar ? "nav-menu active" : "nav-menu"}>
                 <SidebarOpt Icon={HomeIcon} text="Home" />
                 <SidebarOpt Icon={PersonIcon} text="Profile" />
+                <SidebarOpt Icon={SchoolIcon} text="Tutorial" />
+                <SidebarOpt Icon={NewspaperIcon} text="News" />
                 <SidebarOpt Icon={LocalFireDepartmentIcon} text="HotList" />
                 <SidebarOpt Icon={SearchIcon} text="Search" />
                 <SidebarOpt Icon={AlarmIcon} text="Alarm" />
@@ -35,8 +37,6 @@ function Sidebar() {
                 <SidebarOpt Icon={PeopleIcon} text="Community" />
                 <SidebarOpt Icon={PeopleIcon} text="Group" />
                 <SidebarOpt Icon={ShowChartIcon} text="Trading" />
-                <SidebarOpt Icon={SchoolIcon} text="Tutorial" />
-                <SidebarOpt Icon={NewspaperIcon} text="News" />
                 <SidebarOpt Icon={LogoutIcon} text="Logout" />
             </div>
         </div>

@@ -505,7 +505,7 @@ function PaperTrading() {
                     </div>
                 </div>
                 <h4>
-                    My Balance: <br /> {balance}
+                    My Balance: <br /> {parseFloat(balance).toFixed(2)}
                 </h4>
             </div>
         );

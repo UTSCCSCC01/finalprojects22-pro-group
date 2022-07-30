@@ -1,6 +1,6 @@
-/* .feed {
+.feed {
     margin-top: 30px;
-} */
+}
 
 .feedHeader {
     background-color: rgb(195, 232, 186);
@@ -8,8 +8,8 @@
     position: sticky;
     top: 0px;
     z-index: 99;
-    border-bottom-left-radius: 40px;
-    border-bottom-right-radius: 40px;
+    width: 100%;
+
     /* width: 85vw; */
 }
 
