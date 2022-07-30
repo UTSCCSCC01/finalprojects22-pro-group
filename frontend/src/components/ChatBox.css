@@ -63,10 +63,13 @@
 }
 
 .message-sent {
+    /* inline-size: 40vw; */
+    overflow-wrap: break-word;
     background-color: aquamarine;
     float: right;
     width: fit-content;
-    margin-right: 10px;
+    max-width: 40vw;
+    margin-right: 15px;
     padding: 10px;
     border-radius: 10px;
 
@@ -75,12 +78,26 @@
 }
 
 .message-received {
+    overflow-wrap: break-word;
+
+    margin-left: 15px;
     background-color: rgb(255, 179, 98);
     float: left;
     width: fit-content;
+    max-width: 40vw;
     padding: 10px;
     border-radius: 10px;
 
     box-shadow: inset 4px 4px 5px rgba(0, 0, 0, 0.05),
         inset -4px -4px 5px rgba(0, 0, 0, 0.05), 0 50px 40px rgba(0, 0, 0, 0.05);
+}
+
+.msgTag-sent {
+    display: flex;
+    float: right;
+}
+
+.msgTag-received {
+    display: flex;
+    float: left;
 }
