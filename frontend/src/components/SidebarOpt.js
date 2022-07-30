@@ -47,6 +47,9 @@ function SidebarOpt({ text, Icon, func }) {
          }else if (text === "News") {
             navigate("/news");
         }
+        else if (text === "autoTrade") {
+            navigate("/autoTrade");
+        }
     };
 
     return (

@@ -1,11 +1,70 @@
 .papertrading {
-    height: 100vh;
+    height: 100%;
 }
 
 .trading {
     text-align: center;
-    margin-top: 30px;
+    margin-top: 20px;
 }
+
+.tradeTag {
+    margin-left: 10px;
+    text-align: left;
+    display: flex;
+}
+
+.tradeTag_left {
+    flex: 0.15;
+}
+
+.tradeTag_middle {
+    flex: 0.2;
+    font-size: large;
+}
+
+.tradeTag_right {
+    flex: 0.65;
+}
+
+.overall {
+    height: 93vh;
+    display: flex;
+}
+.left_side {
+    flex: 0.2;
+    width: 0;
+    background-color: #f3f4f6;
+    border-radius: 30px;
+    box-shadow: -15px -15px 15px rgba(255, 255, 255, 0.5),
+        15px 15px 15px rgba(0, 0, 0, 0.05),
+        inset 4px 4px 5px rgba(255, 255, 255, 0.8),
+        inset -4px -4px 5px rgba(0, 0, 0, 0.05), 0 50px 40px rgba(0, 0, 0, 0.05);
+}
+
+.left_side_content {
+    padding: 20px;
+    margin: 5px;
+    margin-top: 10px;
+}
+.middle_side {
+    padding-top: 10px;
+    padding-left: 60px;
+    padding-right: 60px;
+    flex: 0.6;
+    width: 0;
+}
+.right_side {
+    flex: 0.2;
+    width: 0;
+    background-color: #f3f4f6;
+    border-radius: 30px;
+    box-shadow: -15px -15px 15px rgba(255, 255, 255, 0.5),
+        15px 15px 15px rgba(0, 0, 0, 0.05),
+        inset 4px 4px 5px rgba(255, 255, 255, 0.8),
+        inset -4px -4px 5px rgba(0, 0, 0, 0.05), 0 50px 40px rgba(0, 0, 0, 0.05);
+    margin-right: 30px;
+}
+
 /* .search {
   text-align: center;
 } */
@@ -29,6 +88,8 @@
     border: 1px solid lightblue;
     border-radius: 5px;
     margin: 10px;
+    width: 80%;
+    align-self: center;
 }
 
 .amount_input {
@@ -54,24 +115,6 @@
         inset 4px 4px 5px rgba(255, 255, 255, 0.8),
         inset -4px -4px 5px rgba(0, 0, 0, 0.05), 0 50px 40px rgba(0, 0, 0, 0.05);
 }
-.detail {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 0px;
-    padding: 20px;
-    margin: 10px;
-    background: #f3f4f6;
-    margin-left: 70px;
-    margin-right: 70px;
-
-    border-radius: 20px;
-
-    box-shadow: -15px -15px 15px rgba(255, 255, 255, 0.5),
-        15px 15px 15px rgba(0, 0, 0, 0.05),
-        inset 4px 4px 5px rgba(255, 255, 255, 0.8),
-        inset -4px -4px 5px rgba(0, 0, 0, 0.05), 0 50px 40px rgba(0, 0, 0, 0.05);
-}
 
 .mystock {
     width: fit-content;
@@ -86,4 +129,77 @@
         15px 15px 15px rgba(0, 0, 0, 0.05),
         inset 4px 4px 5px rgba(255, 255, 255, 0.8),
         inset -4px -4px 5px rgba(0, 0, 0, 0.05), 0 50px 40px rgba(0, 0, 0, 0.05);
+}
+
+.trading_watchList {
+    margin-top: 0px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+
+    box-shadow: inset 4px 4px 5px rgba(0, 0, 0, 0.1),
+        inset -4px -4px 5px rgba(0, 0, 0, 0.1), 0 50px 40px rgba(0, 0, 0, 0.05);
+    /* max-width: 20vw; */
+}
+
+.watchList_white {
+    overflow-x: scroll;
+    white-space: nowrap;
+}
+
+.table_header {
+    font-size: larger;
+    font-weight: bold;
+    padding: 5px;
+    text-align: start;
+}
+.table_element {
+    font-size: large;
+    padding: 5px;
+    padding-bottom: 10px;
+    text-align: start;
+    /* font-style: italic; */
+}
+
+.listTitle {
+    margin-top: 20px;
+    display: flex;
+    cursor: pointer;
+
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.listTitle_watch {
+    flex: 0.5;
+    background-color: #f3f4f6;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.listTitle_hot {
+    flex: 0.5;
+    background-color: #f3f4f6;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.listTitle_watch.active {
+    flex: 0.5;
+    background-color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+    box-shadow: inset 4px 4px 5px rgba(0, 0, 0, 0.1),
+        inset -4px -4px 5px rgba(0, 0, 0, 0.1), 0 50px 40px rgba(0, 0, 0, 0.05);
+}
+
+.listTitle_hot.active {
+    flex: 0.5;
+    background-color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+    box-shadow: inset 4px 4px 5px rgba(0, 0, 0, 0.1),
+        inset -4px -4px 5px rgba(0, 0, 0, 0.1), 0 50px 40px rgba(0, 0, 0, 0.05);
 }
