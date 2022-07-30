@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
+
 const {
     buyStock,
     sellStock,
@@ -11,6 +12,7 @@ const {
 
 router.route("/buystock").post(buyStock);
 router.route("/sellstock").post(sellStock);
+
 router.route("/getBalance").get(getBalance);
 router.route("/getBought").get(getBought);
 router.route("/getHistory").get(getHistory);
