@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./ChatBox.css";
 import TAlert from "./alert";
-
+import Avatar from "./Avatar";
 function ChatBox({ email, groupId }) {
     const [msgs, setMsgs] = useState([]);
     const [message, setInputMsg] = useState("");
@@ -93,8 +93,15 @@ function ChatBox({ email, groupId }) {
         return (
             <div key={index} className="msgline">
                 <div>{!msg.isMe && msg.username}</div>
-                <div className={`message-${msg.isMe ? "sent" : "received"}`}>
-                    {msg.message}
+
+                <div className={`msgTag-${msg.isMe ? "sent" : "received"}`}>
+                    {!msg.isMe && <Avatar email={email ? email : msg.email} />}
+                    <div
+                        className={`message-${msg.isMe ? "sent" : "received"}`}
+                    >
+                        {msg.message}
+                    </div>
+                    {msg.isMe && <Avatar email={msg.email} />}
                 </div>
             </div>
         );

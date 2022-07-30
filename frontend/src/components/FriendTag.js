@@ -1,6 +1,7 @@
 import React from "react";
 import "./FriendTag.css";
 import { useNavigate, useLocation } from "react-router-dom";
+import Avatar from "./Avatar";
 
 function FriendTag({ name, email, button }) {
     const navigate = useNavigate();
@@ -64,9 +65,14 @@ function FriendTag({ name, email, button }) {
     return (
         <div className="friendTag">
             <div className="info">
-                <span>Username: {name}</span>
-                <br />
-                <span>Email: {email}</span>
+                <div className="info_avatar">
+                    <Avatar email={email} />
+                </div>
+                <div className="info_name_email">
+                    <span>Username: {name}</span>
+                    <br />
+                    <span>Email: {email}</span>
+                </div>
             </div>
             <button className="button_div" onClick={handleButton}>
                 {button}

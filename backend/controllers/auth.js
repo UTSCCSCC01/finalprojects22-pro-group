@@ -1,5 +1,5 @@
 const { User } = require("../models/User");
-const { Trade} = require("../models/Trade");
+const { Trade } = require("../models/Trade");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const { StatusCodes } = require("http-status-codes");
@@ -15,19 +15,19 @@ const user_list = async (req, res) => {
 
 const register = async (req, res) => {
     try {
-        const {username, email, password} = req.body;
+        const { username, email, password } = req.body;
         const user = await User.create({
             name: username,
             email: email,
             password: password,
         });
-        const thisUser = await User.findOne({email})
+        const thisUser = await User.findOne({ email });
         var uid = thisUser._id.toString();
         Trade.create({
-            uid:uid,
+            uid: uid,
             stocks: [],
             balance: 100000.0,
-        })
+        });
         console.log("register success");
         const token = user.createJWT();
         res.cookie("token", token, {
@@ -465,26 +465,23 @@ const reject_friend = async (req, res) => {
 };
 
 const add_to_personal_watchlist = async (req, res) => {
-
     try {
         const cookietoken = req.cookies["token"];
-            if (!cookietoken) {
-                return res.status(400).send("No auth");
-            }
+        if (!cookietoken) {
+            return res.status(400).send("No auth");
+        }
         const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
-        const{ stockname } = req.body;
-        console.log(1111111)
-        console.log(stockname)
-        console.log(req.body)
+        const { stockname } = req.body;
+        console.log(1111111);
+        console.log(stockname);
+        console.log(req.body);
 
         if (!id || !stockname) {
             return res.status(400).send("Please provide correct Information");
         }
 
         const my_id = await User.findById(id);
-        if (
-            my_id.watchList.includes(stockname)
-        ) {
+        if (my_id.watchList.includes(stockname)) {
             return res.status(400).send("already in watch list");
         }
 
@@ -495,17 +492,15 @@ const add_to_personal_watchlist = async (req, res) => {
                 if (error) {
                     console.log(error);
                 } else {
-                    console.log(success); 
+                    console.log(success);
                 }
             }
         );
 
-        return res.status(200).send("add successful")
+        return res.status(200).send("add successful");
     } catch (error) {
-        
-        return res.status(400).send("can't add to watchlist")
+        return res.status(400).send("can't add to watchlist");
     }
-    
 };
 
 const get_watchlist = async (req, res) => {
@@ -519,7 +514,7 @@ const get_watchlist = async (req, res) => {
         console.log(id);
         const user_data = await User.findById(id);
         const watchList_array = user_data.watchList;
-       // const result_array = [];
+        // const result_array = [];
 
         // for (let i = 0; i < friend_array.length; i++) {
         //     var temp = await User.findById(friend_array[i]);
@@ -539,18 +534,18 @@ const get_watchlist = async (req, res) => {
     }
 };
 
-const delete_from_personal_watchlist = async(req, res) =>{
+const delete_from_personal_watchlist = async (req, res) => {
     try {
         const cookietoken = req.cookies["token"];
-            if (!cookietoken) {
-                return res.status(400).send("No auth");
-            }
+        if (!cookietoken) {
+            return res.status(400).send("No auth");
+        }
         const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
         const { stockname } = req.body;
-        console.log(11111111)
-        console.log(req.body)
-        console.log(id)
-        console.log(stockname)
+        console.log(11111111);
+        console.log(req.body);
+        console.log(id);
+        console.log(stockname);
 
         //if (!id || !stockname) {
         //    return res.status(400).send("Please provide correct Information");
@@ -568,16 +563,158 @@ const delete_from_personal_watchlist = async(req, res) =>{
                 if (error) {
                     console.log(error);
                 } else {
-                    console.log(success); 
+                    console.log(success);
                 }
             }
         );
 
-        return res.status(200).send("delete successful")
+        return res.status(200).send("delete successful");
     } catch (error) {
-        
-        return res.status(400).send("can't delete from watchlist")
+        return res.status(400).send("can't delete from watchlist");
     }
+};
+
+const getUserInfo = async (req, res) => {
+    try {
+        const cookietoken = req.cookies["token"];
+        if (!cookietoken) {
+            return res.status(400).send("No auth");
+        }
+        const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
+        const user_data = await User.findById(id);
+        return res.status(200).json({
+            username: user_data.name,
+            email: user_data.email,
+            phone_number: user_data.phone_number,
+            biology: user_data.biology,
+        });
+    } catch (error) {
+        return res.status(500).send("cannot get User Info");
+    }
+};
+
+const changeUserInfo = async (req, res) => {
+    try {
+        const cookietoken = req.cookies["token"];
+        if (!cookietoken) {
+            return res.status(400).send("No auth");
+        }
+        const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
+
+        let { username, phone_number, biology } = req.body;
+        console.log(req.body);
+        const user_data = await User.findById(id);
+        if (username === "") {
+            username = user_data.name;
+        }
+        if (phone_number === "") {
+            phone_number = user_data.phone_number;
+        }
+        if (biology === "") {
+            biology = user_data.biology;
+        }
+        User.findOneAndUpdate(
+            { _id: id },
+            {
+                $set: {
+                    name: username,
+                    phone_number: phone_number,
+                    biology: biology,
+                },
+            },
+            function (error, success) {
+                if (error) {
+                    console.log(error);
+                }
+            }
+        );
+
+        return res.status(200).send("change success!");
+    } catch (error) {
+        return res.status(500).send("cannot get User Info");
+    }
+};
+
+const resetAccount = async (req, res) => {
+    try {
+        const cookietoken = req.cookies["token"];
+        if (!cookietoken) {
+            return res.status(400).send("No auth");
+        }
+        const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
+        if (!id) {
+            res.status(400).send("No auth");
+            return;
+        }
+
+        Trade.findOneAndUpdate(
+            { uid: id },
+            { $set: { balance: 100000 } },
+            function (error, success) {
+                if (error) {
+                    console.log(error);
+                }
+            }
+        );
+        Trade.findOneAndUpdate(
+            { uid: id },
+            {
+                $unset: { history: 1 },
+            },
+            function (error, success) {
+                if (error) {
+                    console.log(error);
+                }
+            }
+        );
+
+        Trade.findOneAndUpdate(
+            { uid: id },
+            {
+                $unset: { stocks: 1 },
+            },
+            function (error, success) {
+                if (error) {
+                    console.log(error);
+                }
+            }
+        );
+        return res.status(200).send("reset success!");
+    } catch (error) {
+        return res.status(500).send("cannot get User Info");
+    }
+};
+
+const self_reset_password = async (req, res) => {
+    const { password } = req.body;
+    if (password.length < 6) {
+        return res.status(400).send("Please provide email and password!");
+    }
+    const cookietoken = req.cookies["token"];
+    if (!cookietoken) {
+        return res.status(400).send("No auth");
+    }
+    const { id } = jwt.verify(cookietoken, process.env.JWT_SECRET);
+    const user_data = await User.findById(id);
+
+    const salt = await bcrypt.genSalt(10);
+    var hash_pass = await bcrypt.hash(password, salt);
+
+    const update = { password: hash_pass };
+    await User.findOneAndUpdate({ _id: id }, update, {
+        new: true,
+    });
+    res.status(200).send("end");
+
+    // const token = user.createJWT();
+    // res.cookie("token", token, {
+    //     maxAge: process.env.TOKEN_EXPIRY,
+    //     httpOnly: false,
+    // })
+    //     .status(200)
+    //     .send(user);
+
+    // console.log("end");
 };
 
 module.exports = {
@@ -597,4 +734,8 @@ module.exports = {
     add_to_personal_watchlist,
     get_watchlist,
     delete_from_personal_watchlist,
+    getUserInfo,
+    changeUserInfo,
+    resetAccount,
+    self_reset_password,
 };

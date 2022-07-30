@@ -5,7 +5,6 @@ import Stock from "./components/Stock";
 
 import Alarmpage from "./components/Alarmpage.js";
 import StockList from "./components/StockList.js";
-import Home from "./components/Home";
 import Friends from "./components/Friends";
 import Search_page from "./components/Search_page";
 import ChatPage from "./components/ChatPage";
@@ -15,10 +14,12 @@ import PaperTrading from "./components/PaperTrading";
 import Sidebar from "./components/Sidebar";
 import StockFeed from "./components/StockFeed";
 import TutorialPage from "./components/TutorialPage";
+import Profile from "./components/Profile";
 
 import Login from "./components/Login.js";
 import Register from "./components/Register.js";
 import Reset from "./components/Reset.js";
+import News from "./components/News.js";
 import { Outlet } from "react-router-dom";
 
 function App() {
@@ -45,8 +46,10 @@ function App() {
                     <Route path="/chat" element={<ChatPage />} />
                     <Route path="/group" element={<GroupPage />} />
                     <Route path="/community" element={<Community />} />
+                    <Route path="/profile" element={<Profile />} />
                     <Route path="/papertrading" element={<PaperTrading />} />
                     <Route path="/tutorial" element={<TutorialPage />} />
+                    <Route path="/news" element={<News />} />
                 </Route>
                 <Route path="/" element={<Login />} />
                 <Route path="/login" element={<Login />} />
