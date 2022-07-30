@@ -1,0 +1,19 @@
+.StockConcept{
+    display: flex;
+}
+.StockText{
+    flex: 0.5;
+}
+.StockVideo{
+    flex: 0.5;
+}
+
+.StockMarketConcept{
+    display: flex;
+}
+.StockMarketText{
+    flex: 0.5;
+}
+.StockMarketVideo{
+    flex: 0.5;
+}
