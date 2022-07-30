@@ -1,5 +1,8 @@
 .StockConcept{
     display: flex;
+    border-radius: 25px;
+    background-color: aquamarine;
+    padding: 10px;
 }
 .StockText{
     flex: 0.5;
@@ -10,10 +13,49 @@
 
 .StockMarketConcept{
     display: flex;
+    border-radius: 25px;
+    background-color: rgb(85, 223, 113);
+    padding: 10px;
 }
 .StockMarketText{
     flex: 0.5;
 }
 .StockMarketVideo{
+    flex: 0.5;
+}
+
+.ChooseStockConcept{
+    display: flex;
+    border-radius: 25px;
+    background-color: rgb(54, 226, 166);
+}
+.ChooseStockText{
+    flex: 0.5;
+}
+.ChooseStockVideo{
+    flex: 0.5;
+}
+
+.ReadStockConcept{
+    display: flex;
+    border-radius: 25px;
+    background-color: rgb(119, 229, 241);
+}
+.ReadStockText{
+    flex: 0.5;
+}
+.ReadStockVideo{
+    flex: 0.5;
+}
+
+.InvestConcept{
+    display: flex;
+    border-radius: 25px;
+    background-color: rgb(115, 189, 242);
+}
+.InvestText{
+    flex: 0.5;
+}
+.InvestVideo{
     flex: 0.5;
 }
