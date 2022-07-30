@@ -340,7 +340,7 @@ function PaperTrading() {
                 setCount((count) => count + 1);
                 counter++; // local variable that this closure will see
             }
-        }, 1000);
+        }, 700);
         return () => clearInterval(interval);
     }, [watchList]);
 

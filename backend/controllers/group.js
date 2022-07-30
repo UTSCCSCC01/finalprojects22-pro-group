@@ -182,6 +182,7 @@ const getGroupMsg = async (req, res) => {
             // console.log(temp);
             var user = await User.findById(temp.uid);
             var username = user.name;
+            // var emi
             msgs.push({
                 message: temp.message,
                 username: username,

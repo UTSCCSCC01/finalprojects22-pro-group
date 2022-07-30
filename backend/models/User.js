@@ -29,6 +29,7 @@ const UserSchema = new mongoose.Schema({
     friend_out: {
         type: Array,
     },
+
     friend_in: {
         type: Array,
     },
@@ -43,6 +44,14 @@ const UserSchema = new mongoose.Schema({
 
     photo: {
         type: String,
+    },
+    phone_number: {
+        type: String,
+        default: "Not Set Yet",
+    },
+    biology: {
+        type: String,
+        default: "Not Set Yet",
     },
 });
 
