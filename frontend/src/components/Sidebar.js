@@ -8,8 +8,9 @@ import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import SearchIcon from "@mui/icons-material/Search";
 import AlarmIcon from "@mui/icons-material/Alarm";
 import ShowChartIcon from "@mui/icons-material/ShowChart";
+import NewspaperIcon from '@mui/icons-material/Newspaper';
 import "./Sidebar.css";
-
+import PsychologyIcon from '@mui/icons-material/Psychology';
 function Sidebar() {
     const [sidebar, setSidebar] = useState(true);
 
@@ -21,6 +22,7 @@ function Sidebar() {
                 {sidebar ? "Proview" : "P"}
             </div>
             <br />
+
             <div className={sidebar ? "nav-menu active" : "nav-menu"}>
                 <SidebarOpt Icon={HomeIcon} text="Home" />
                 <SidebarOpt Icon={PersonIcon} text="Profile" />
@@ -32,7 +34,13 @@ function Sidebar() {
                 <SidebarOpt Icon={PeopleIcon} text="Community" />
                 <SidebarOpt Icon={PeopleIcon} text="Group" />
                 <SidebarOpt Icon={ShowChartIcon} text="Trading" />
+
+                <SidebarOpt Icon={NewspaperIcon} text="News" />
+
+                <SidebarOpt Icon={PsychologyIcon} text="autoTrade" />
+
                 <SidebarOpt Icon={LogoutIcon} text="Logout" />
+
             </div>
         </div>
     );

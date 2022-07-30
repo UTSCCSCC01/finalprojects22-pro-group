@@ -20,7 +20,7 @@ class OptionsTradingBot():
         Buys Put contracts after 2 consecutive red candles
     """
 
-    def __init__():
+    def __init__(inputSymbol):
         # goto keyword
         try:
             global ib, account
@@ -41,7 +41,7 @@ class OptionsTradingBot():
         # contract2 = Option("TSLA", 20220624,
         #                    690, 'P', 'SMART')
 
-        contract3 = Stock(symbol='TSLA', exchange='SMART', currency='USD')
+        contract3 = Stock(symbol=inputSymbol, exchange='SMART', currency='USD')
 
         #contract4 = Future('ES', '20220617', 'GLOBEX')
 
