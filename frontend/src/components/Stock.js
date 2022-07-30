@@ -132,7 +132,7 @@ function Stock({ stockSymbol }) {
         showlegend: false,
         xaxis: {
             autorange: true,
-            // rangeslider: {range: ['2022-01-17 12:00', '2022-12-10 12:00']},
+            rangeslider: { range: ["2022-05-17 12:00", "2022-8-10 12:00"] },
             title: "Date",
             type: "date",
         },
@@ -140,8 +140,8 @@ function Stock({ stockSymbol }) {
             autorange: true,
             type: "linear",
         },
-        width: 720,
-        height: 500,
+        // width: 720,
+        // height: 500,
 
         //   annotations: [
         //     {

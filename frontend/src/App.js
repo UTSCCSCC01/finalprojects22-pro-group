@@ -5,7 +5,6 @@ import Stock from "./components/Stock";
 
 import Alarmpage from "./components/Alarmpage.js";
 import StockList from "./components/StockList.js";
-import Home from "./components/Home";
 import Friends from "./components/Friends";
 import Search_page from "./components/Search_page";
 import ChatPage from "./components/ChatPage";

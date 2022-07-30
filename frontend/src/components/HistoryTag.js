@@ -9,6 +9,8 @@ function HistoryTag({ stockSymbol, position }) {
     const [amount, setAmount] = useState("");
     const [time, setTime] = useState("");
     const [is_buy, setIsBuy] = useState("");
+    const [worth, setWorth] = useState("");
+    const [cost, setCost] = useState("");
 
     useEffect(() => {
         // const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -30,23 +32,45 @@ function HistoryTag({ stockSymbol, position }) {
                 setPrice(stockSymbol.price);
                 setTime(stockSymbol.time);
                 setIsBuy(stockSymbol.is_buy.toString());
+                setCost("");
+                setWorth("");
             } else if (position === "hh") {
-                setStock("stock");
-                setAmount("amount");
-                setPrice("price");
-                setTime("time");
-                setIsBuy("is_buy");
+                setStock("Stock");
+                setAmount("Amount");
+                setPrice("Price");
+                setTime("Time");
+                setIsBuy("Is_buy");
+                setCost("");
+                setWorth("");
             } else if (position === "s") {
                 setStock(stockSymbol.symbol);
                 setAmount(stockSymbol.amount);
+                setCost(stockSymbol.cost);
+                const sandboxToken = "Tpk_245594011ed142fca35e0d76758e1d33";
+                const sandbox = `https://sandbox.iexapis.com/stable/stock/${stockSymbol.symbol}/price?token=${sandboxToken}`;
+                const response = await fetch(sandbox)
+                    .then((response) => {
+                        // if (response.status === 429) {
+                        //     // console.log("here");
+                        //     sleep(200).then(() => getPrice());
+                        // }
+                        return response.json();
+                    })
+                    .then((data) => {
+                        setWorth(data * stockSymbol.amount);
+                    });
+
+                // setWorth("");
                 setPrice("");
                 setTime("");
                 setIsBuy("");
                 // setPrice(stockSymbol.price);
             } else {
                 // "sh"
-                setStock("stock");
-                setAmount("amount");
+                setStock("Stock");
+                setAmount("Amount");
+                setCost("Total Cost");
+                setWorth("Worth");
                 setPrice("");
                 setTime("");
                 setIsBuy("");
@@ -58,11 +82,30 @@ function HistoryTag({ stockSymbol, position }) {
     return (
         <div>
             <div className="border_2">
-                <span className="st1">{stock}</span>
+                {position === "hh" || position === "h" ? (
+                    <>
+                        <span className="st1">{stock}</span>
+                        <span className="st3">{amount}</span>
+                        <span className="st2">{price}</span>
+                        <span className="st4">{is_buy}</span>
+                        <span className="st5">{time}</span>
+                    </>
+                ) : (
+                    <>
+                        <span className="st1">{stock}</span>
+                        <span className="st3">{amount}</span>
+                        <span className="st1">{cost}</span>
+                        <span className="st1">{worth}</span>
+                    </>
+                )}
+                {/* if s/h show corresponding stuff */}
+                {/* <span className="st1">{stock}</span>
                 <span className="st3">{amount}</span>
                 <span className="st2">{price}</span>
                 <span className="st4">{is_buy}</span>
                 <span className="st5">{time}</span>
+                <span className="st1">{cost}</span>
+                <span className="st1">{worth}</span> */}
             </div>
         </div>
     );

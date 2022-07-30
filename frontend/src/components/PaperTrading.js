@@ -25,6 +25,9 @@ function PaperTrading() {
 
     const [historyList, setHistory] = useState([]);
     const [hlist, setHList] = useState(true);
+    const [autotrading, setAutotrading] = useState(false);
+    const [flashing, setFlash] = useState(false);
+    const [autotrade_amount, setAutoTradeAmount] = useState(0);
 
     useEffect(() => {
         setCost(amount * price);
@@ -198,7 +201,7 @@ function PaperTrading() {
             credentials: "include",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                stock,
+                stock: stock.toUpperCase(),
                 price,
                 amount: parseInt(amount),
             }),
@@ -397,7 +400,7 @@ function PaperTrading() {
                 </div>
                 {listTitle()}
                 <div className="trading_watchList">
-                    <h3> My Watch List </h3>
+                    {list ? <h3> My Watch List </h3> : <h3> Hot List </h3>}
                     <div className="watchList_white">
                         <div className="table_header">
                             <StockTag stockSymbol={"Stock"} position="t" />
@@ -458,12 +461,17 @@ function PaperTrading() {
     const listOfHistory = () => {
         return (
             <>
-                <HistoryTag stockSymbol={"e"} position={hlist ? "sh" : "hh"} />
+                <div className="table_header">
+                    <HistoryTag
+                        stockSymbol={"e"}
+                        position={hlist ? "sh" : "hh"}
+                    />
+                </div>
                 {(hlist ? stockArray : historyList)
                     .slice(0, count)
                     .map((item, index) => {
                         return (
-                            <div key={index} className="historyElement">
+                            <div key={index} className="table_element">
                                 <HistoryTag
                                     stockSymbol={item}
                                     position={hlist ? "s" : "h"}
@@ -480,7 +488,7 @@ function PaperTrading() {
             <div>
                 {historyTitle()}
                 <div className="trading_watchList">
-                    <h3> History </h3>
+                    {hlist ? <h3> My Stock </h3> : <h3> History </h3>}
                     <div className="watchList_white">
                         <div className="table_header">
                             {/* <HistoryTag
@@ -503,6 +511,124 @@ function PaperTrading() {
         );
     };
 
+    const flash = () => {
+        setFlash(true);
+        sleep(500).then(() => {
+            setFlash(false);
+        });
+    };
+
+    useEffect(() => {
+        if (!autotrading) return;
+        const interval = setInterval(() => {
+            let autoprice = 0;
+
+            const sandboxToken = "Tpk_245594011ed142fca35e0d76758e1d33";
+            const intraday = `https://sandbox.iexapis.com/stable/stock/${stock}/intraday-prices?token=${sandboxToken}`;
+
+            const getAutoData = async () => {
+                if (!stock) return;
+                setAmount(autotrade_amount);
+                fetch(intraday)
+                    .then((response) => {
+                        if (response.status === 429) {
+                            // console.log("here");
+                            sleep(200).then(() => getAutoData());
+                        }
+                        return response.json();
+                    })
+                    .then((data) => {
+                        var difference =
+                            data[data.length - 2]["high"] -
+                            data[data.length - 3]["high"];
+                        // console.log(difference);
+                        // setDiff(difference);
+                        // console.log(data[data.length - 2]["high"]);
+                        autoprice = data[data.length - 2]["high"];
+                        if (difference >= 0) {
+                            console.log(parseInt(autotrade_amount));
+                            console.log(stock);
+                            console.log(autoprice);
+                            fetch("http://localhost:5050/api/buystock", {
+                                method: "POST",
+                                credentials: "include",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({
+                                    stock: stock.toUpperCase(),
+                                    price: autoprice,
+                                    amount: parseInt(autotrade_amount),
+                                }),
+                            })
+                                .then((response) => {
+                                    setFlagTwo(!flag2);
+                                    return;
+                                })
+                                .catch((error) => {
+                                    console.log(
+                                        "error occured in buying stock"
+                                    );
+                                });
+                        } else {
+                            console.log("less");
+                            console.log(parseInt(autotrade_amount));
+                            console.log(stock);
+                            console.log(price);
+                            fetch("http://localhost:5050/api/sellstock", {
+                                method: "POST",
+                                credentials: "include",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({
+                                    stock: stock.toUpperCase(),
+                                    price: autoprice,
+                                    amount: parseInt(autotrade_amount),
+                                }),
+                            })
+                                .then((response) => {
+                                    if (response.status === 429) {
+                                        TAlert("No enough stock to sell!");
+                                    }
+                                    setFlagTwo(!flag2);
+                                    return;
+                                })
+                                .catch((error) => {
+                                    console.log(
+                                        "error occured in selling stock"
+                                    );
+                                });
+                        }
+                        flash();
+                    });
+            };
+            getAutoData();
+        }, 5000);
+
+        return () => clearInterval(interval);
+    });
+
+    const autoTradePart = () => {
+        return (
+            <div>
+                <h3>Auto Trade</h3>
+                <div>
+                    <input
+                        className="autoTrade_input"
+                        value={autotrade_amount}
+                        onChange={(e) => setAutoTradeAmount(e.target.value)}
+                        placeholder="Set an autoTrade amount"
+                    />
+                    <button
+                        className={
+                            flashing ? "algo_stock active" : "algo_stock"
+                        }
+                        onClick={() => setAutotrading(!autotrading)}
+                    >
+                        {autotrading ? "Stop AutoTrade" : "Start AutoTrade"}
+                    </button>
+                </div>
+            </div>
+        );
+    };
+
     return (
         <div className="papertrading">
             <div className="trading">
@@ -517,10 +643,13 @@ function PaperTrading() {
                         {tradeTag()}
 
                         <Stock stockSymbol={stock} />
+                        {autoTradePart()}
                     </div>
                     <div className="right_side">
-                        <span> History and Revenue </span>
-                        {right()}
+                        <div className="right_side_content">
+                            <h3> My stock and History</h3>
+                            {right()}
+                        </div>
                     </div>
                 </div>
             </div>

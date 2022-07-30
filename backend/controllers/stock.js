@@ -35,7 +35,6 @@ const buyStock = async (req, res) => {
         // Update Balance
         // console.log(typeof price);
         // console.log(typeof amount);
-
         var new_balance = trade.balance - price * amount;
         if (new_balance < 0) {
             res.status(404).send("Cannot buy");
@@ -78,10 +77,11 @@ const buyStock = async (req, res) => {
         }
 
         const found = stocks.find(isStock);
-        // console.log(found);
+        console.log(found);
 
         //stock is in the array
         if (found != undefined) {
+            var new_cost = found.cost + price * amount;
             var new_amount = found.amount + amount;
             // console.log(found.amount);
             // console.log(new_amount);
@@ -99,7 +99,13 @@ const buyStock = async (req, res) => {
             Trade.findOneAndUpdate(
                 { uid: id },
                 {
-                    $push: { stocks: { symbol: stock, amount: new_amount } },
+                    $push: {
+                        stocks: {
+                            symbol: stock,
+                            amount: new_amount,
+                            cost: new_cost,
+                        },
+                    },
                 },
                 function (error, success) {
                     if (error) {
@@ -109,6 +115,7 @@ const buyStock = async (req, res) => {
             );
         } else {
             var new_amount = amount;
+            var new_cost = price * amount;
             Trade.findOneAndUpdate(
                 { uid: id },
                 {
@@ -116,6 +123,7 @@ const buyStock = async (req, res) => {
                         stocks: {
                             symbol: stock.toUpperCase(),
                             amount: new_amount,
+                            cost: new_cost,
                         },
                     },
                 },
@@ -194,6 +202,7 @@ const sellStock = async (req, res) => {
                     }
                 );
             } else {
+                var cost = found.cost;
                 var new_amount = found.amount - amount;
                 // console.log(found.amount);
                 // console.log(new_amount);
@@ -212,7 +221,11 @@ const sellStock = async (req, res) => {
                     { uid: id },
                     {
                         $push: {
-                            stocks: { symbol: stock, amount: new_amount },
+                            stocks: {
+                                symbol: stock,
+                                amount: new_amount,
+                                cost: cost,
+                            },
                         },
                     },
                     function (error, success) {
@@ -337,7 +350,7 @@ const getHistory = async (req, res) => {
             res.status(404).send("No trade for this user");
         }
         const history = trade.history.reverse();
-        console.log(history);
+        // console.log(history);
         res.status(200).send(JSON.stringify({ history }));
     } catch (error) {
         console.log(error);
