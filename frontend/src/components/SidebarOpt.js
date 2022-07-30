@@ -44,6 +44,8 @@ function SidebarOpt({ text, Icon, func }) {
             navigate("/community");
         } else if (text === "Trading") {
             navigate("/papertrading");
+         }else if (text === "News") {
+            navigate("/news");
         }
         else if (text === "autoTrade") {
             navigate("/autoTrade");

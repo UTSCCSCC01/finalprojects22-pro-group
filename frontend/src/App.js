@@ -18,6 +18,7 @@ import StockFeed from "./components/StockFeed";
 import Login from "./components/Login.js";
 import Register from "./components/Register.js";
 import Reset from "./components/Reset.js";
+import News from "./components/News.js"
 import { Outlet } from "react-router-dom";
 
 function App() {
@@ -45,6 +46,8 @@ function App() {
                     <Route path="/group" element={<GroupPage />} />
                     <Route path="/community" element={<Community />} />
                     <Route path="/papertrading" element={<PaperTrading />} />
+                    <Route path="/news" element={<News />} />
+
                 </Route>
                 <Route path="/" element={<Login />} />
                 <Route path="/login" element={<Login />} />
