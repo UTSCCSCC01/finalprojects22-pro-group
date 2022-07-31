@@ -5,9 +5,6 @@ import { useNavigate } from "react-router-dom";
 import "./StockListComponent.css";
 
 function StockListComponent() {
-    const navigate = useNavigate();
-    const [stockChartXValues, setStockChartXValues] = useState([]);
-    const [stockChartYValues, setStockChartYValues] = useState([]);
     const [stockHotlist, setStockHotlist] = useState([]);
 
     // const [StockSymbol, setStockSymbol] = useState("FB");
@@ -43,6 +40,7 @@ function StockListComponent() {
 
         //--------------------------------------------//
         if (check1 !== null) {
+            setStockHotlist([]);
             for (const key in JSON.parse(check1)) {
                 setStockHotlist((stockHotlist) => [
                     ...stockHotlist,
@@ -59,16 +57,18 @@ function StockListComponent() {
                 headers: {
                     // "x-api-key": "mqGwUbeB2K1t2FFNFFXaV8mXEPBry3hX7rGo1R0n",
                     "x-api-key": "RIFrduAEmH4ZWA5CdBpylaV31kKt8wUT2stzO3cs",
+                    // ZHITAO
+                    // "x-api-key": "fHFncNPNkBav6MzqUJiUF6cpAVLBfWWi9MCpqPyR",
                 },
             };
 
             axios
                 .request(options)
                 .then(function (response) {
-                    console.log(
-                        response.data["finance"]["result"][0]["quotes"]
-                    );
-                    console.log(response.data);
+                    // console.log(
+                    //     response.data["finance"]["result"][0]["quotes"]
+                    // );
+                    // console.log(response.data);
 
                     localStorage.setItem(
                         "stockHotlist",
@@ -76,6 +76,7 @@ function StockListComponent() {
                             response.data["finance"]["result"][0]["quotes"]
                         )
                     );
+                    // setStockHotlist([]);
                     setStockHotlist(
                         JSON.stringify(
                             response.data["finance"]["result"][0]["quotes"]
@@ -88,30 +89,9 @@ function StockListComponent() {
         }
     };
 
-    const logoutbutton = () => {
-        fetch("http://localhost:5050/api/logout", {
-            method: "GET",
-            credentials: "include",
-        })
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                if (data.name) {
-                    console.log("navigate to stock");
-                    navigate("/login");
-                }
-            })
-            .catch((error) => {
-                console.log("error occured in logout fetch");
-            });
-    };
-
     useEffect(() => {
         getStockHotlist();
     }, []);
-
-    stockChartXValues.slice(-1);
 
     return (
         <div className="whole">

@@ -29,6 +29,7 @@ const UserSchema = new mongoose.Schema({
     friend_out: {
         type: Array,
     },
+
     friend_in: {
         type: Array,
     },
@@ -37,10 +38,21 @@ const UserSchema = new mongoose.Schema({
         type: Array,
     },
 
-    watchList:{
-        type:Array
-    }
+    watchList: {
+        type: Array,
+    },
 
+    photo: {
+        type: String,
+    },
+    phone_number: {
+        type: String,
+        default: "Not Set Yet",
+    },
+    biology: {
+        type: String,
+        default: "Not Set Yet",
+    },
 });
 
 UserSchema.pre("save", async function () {

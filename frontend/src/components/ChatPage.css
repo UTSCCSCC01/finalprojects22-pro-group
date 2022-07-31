@@ -1,6 +1,5 @@
 .chat_page {
-    display: flex;
-    height: 100vh;
+    height: 90vh;
 }
 
 .chat_container {
@@ -19,23 +18,16 @@
 }
 
 .flex_container {
-    display: flex;
-}
-
-.chat_body {
-    flex: 0.8;
+    /* display: flex; */
 }
 
 .friend_list {
-    flex: 0.2;
-}
-
-.friend_list {
+    flex: 0.25;
     margin-right: 25px;
 }
 
 .chat_component {
-    flex: 0.8;
+    flex: 1;
     margin-top: 30px;
 }
 

@@ -165,6 +165,29 @@
     -   This is the component that show the time on every page
     -   It can show users the time of different time zone
 
--   StockBot
+
+-   ProfileUpdate
+
+    -   Allow users to update their information to the database
+
+-   AvatarUpload
+
+    -   Allow users to update their avatar to the database
+
+-   News page
+
+    -   Show financial news that can help users get the reference to make the decision.
+
+-   News Item
+
+    -   Show the recent financial news in an appealing page to help users to make their decision. It will also update every day. 
+
+-   Tutorial page
+
+    -   Provide users concept of stock and stock market. Teach users how to use our website to add stock to their personal watchlist and do paper trading.
+
+-   AutoTrade
+
     -   Allows users to trade a stock using a proprietary algorithm
-    -   Use in next sprint
+    -   Allows users to take a profit 
+    -   Will automatically buy and sell stock

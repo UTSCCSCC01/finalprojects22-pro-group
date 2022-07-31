@@ -1,5 +1,5 @@
 .community {
-    display: flex;
+    /* display: flex; */
 
     height: 100vh;
 }
@@ -22,7 +22,7 @@
 
 .community_component {
     margin-top: 30px;
-    flex: 0.8;
+    /* flex: 1; */
 }
 
 .list1 {
