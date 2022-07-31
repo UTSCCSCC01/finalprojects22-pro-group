@@ -29,7 +29,7 @@ function HistoryTag({ stockSymbol, position }) {
             if (position === "h") {
                 setStock(stockSymbol.stock);
                 setAmount(stockSymbol.amount);
-                setPrice(stockSymbol.price);
+                setPrice(parseFloat(stockSymbol.price).toFixed(2));
                 setTime(stockSymbol.time);
                 setIsBuy(stockSymbol.is_buy.toString());
                 setCost("");
@@ -45,7 +45,7 @@ function HistoryTag({ stockSymbol, position }) {
             } else if (position === "s") {
                 setStock(stockSymbol.symbol);
                 setAmount(stockSymbol.amount);
-                setCost(stockSymbol.cost);
+                setCost(parseFloat(stockSymbol.cost).toFixed(2));
                 const sandboxToken = "Tpk_245594011ed142fca35e0d76758e1d33";
                 const sandbox = `https://sandbox.iexapis.com/stable/stock/${stockSymbol.symbol}/price?token=${sandboxToken}`;
                 const response = await fetch(sandbox)

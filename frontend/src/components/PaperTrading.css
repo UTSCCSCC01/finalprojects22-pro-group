@@ -160,7 +160,23 @@
     /* max-width: 20vw; */
 }
 
+.trading_historyList {
+    margin-top: 0px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+
+    box-shadow: inset 4px 4px 5px rgba(0, 0, 0, 0.1),
+        inset -4px -4px 5px rgba(0, 0, 0, 0.1), 0 50px 40px rgba(0, 0, 0, 0.05);
+    /* max-width: 20vw; */
+}
+
 .watchList_white {
+    overflow: scroll;
+    white-space: nowrap;
+    max-height: 50vh;
+}
+.historyList_white {
     overflow: scroll;
     white-space: nowrap;
     max-height: 50vh;

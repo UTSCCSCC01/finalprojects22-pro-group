@@ -487,9 +487,9 @@ function PaperTrading() {
         return (
             <div>
                 {historyTitle()}
-                <div className="trading_watchList">
+                <div className="trading_historyList">
                     {hlist ? <h3> My Stock </h3> : <h3> History </h3>}
-                    <div className="watchList_white">
+                    <div className="historyList_white">
                         <div className="table_header">
                             {/* <HistoryTag
                                 stockSymbol="not use"
