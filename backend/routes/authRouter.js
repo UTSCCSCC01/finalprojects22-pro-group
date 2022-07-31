@@ -22,6 +22,11 @@ const {
     add_friends,
     accept_friend,
     reject_friend,
+
+    getUserInfo,
+    changeUserInfo,
+    resetAccount,
+    self_reset_password,
 } = require("../controllers/auth");
 
 // sprint 1 apis
@@ -45,5 +50,11 @@ router.route("/rejectf").post(reject_friend);
 
 // sprint 2 apis
 router.route("/reset").post(reset_password);
+
+router.route("/getUserInfo").get(getUserInfo);
+router.route("/changeUserInfo").post(changeUserInfo);
+
+router.route("/resetAccount").get(resetAccount);
+router.route("/selfReset").post(self_reset_password);
 
 module.exports = router;

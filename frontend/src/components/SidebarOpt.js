@@ -44,13 +44,19 @@ function SidebarOpt({ text, Icon, func }) {
             navigate("/community");
         } else if (text === "Trading") {
             navigate("/papertrading");
+        } else if (text === "Tutorial") {
+            navigate("/tutorial");
+        } else if (text === "Profile") {
+            navigate("/profile");
+        } else if (text === "News") {
+            navigate("/news");
         }
     };
 
     return (
         <button className="sidebarOption" onClick={handleClick}>
-            <Icon />
-            <h2>{text}</h2>
+            <Icon className="icon" />
+            <h2 className="iconText">{text}</h2>
         </button>
     );
 }

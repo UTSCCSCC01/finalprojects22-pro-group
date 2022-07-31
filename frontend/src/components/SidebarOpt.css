@@ -11,6 +11,7 @@
     padding-bottom: 8px;
     padding-top: 10px;
     margin-bottom: 2px;
+    margin-right: 20px;
 }
 
 .sidebarOption:hover {
@@ -25,3 +26,10 @@
     font-size: 20px;
     margin-right: 20px;
 }
+
+/* .icon {
+    width: 100%;
+}
+.icon:hover {
+    width: 50%;
+} */

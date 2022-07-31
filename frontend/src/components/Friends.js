@@ -38,7 +38,6 @@ function Friends() {
 
     return (
         <div className="friends">
-            <Sidebar />
             <div className="friends_container">
                 <div className="friendsHeader">
                     <h3> Friends</h3>
