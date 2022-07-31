@@ -468,7 +468,7 @@ function PaperTrading() {
                     />
                 </div>
                 {(hlist ? stockArray : historyList)
-                    .slice(0, count)
+                    .slice(0, 12)
                     .map((item, index) => {
                         return (
                             <div key={index} className="table_element">
