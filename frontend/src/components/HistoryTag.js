@@ -13,7 +13,7 @@ function HistoryTag({ stockSymbol, position }) {
     const [cost, setCost] = useState("");
 
     useEffect(() => {
-        // const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+        const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
         const getData = async () => {
             // if (position === "t") {
             //     setPrice("Avg Price");
@@ -32,28 +32,29 @@ function HistoryTag({ stockSymbol, position }) {
                 setPrice(parseFloat(stockSymbol.price).toFixed(2));
                 setTime(stockSymbol.time);
                 setIsBuy(stockSymbol.is_buy.toString());
-                setCost("");
-                setWorth("");
+                // setCost("");
+                // setWorth("");
             } else if (position === "hh") {
                 setStock("Stock");
                 setAmount("Amount");
                 setPrice("Price");
                 setTime("Time");
                 setIsBuy("Is_buy");
-                setCost("");
-                setWorth("");
+                // setCost("");
+                // setWorth("");
             } else if (position === "s") {
                 setStock(stockSymbol.symbol);
                 setAmount(stockSymbol.amount);
                 setCost(parseFloat(stockSymbol.cost).toFixed(2));
                 const sandboxToken = "Tpk_245594011ed142fca35e0d76758e1d33";
                 const sandbox = `https://sandbox.iexapis.com/stable/stock/${stockSymbol.symbol}/price?token=${sandboxToken}`;
-                const response = await fetch(sandbox)
+                const getWorth = await fetch(sandbox)
                     .then((response) => {
-                        // if (response.status === 429) {
-                        //     // console.log("here");
-                        //     sleep(200).then(() => getPrice());
-                        // }
+                        if (response.status === 429) {
+                            // console.log("here");
+                            sleep(200).then(() => getWorth());
+                            
+                        }
                         return response.json();
                     })
                     .then((data) => {

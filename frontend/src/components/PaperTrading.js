@@ -333,6 +333,7 @@ function PaperTrading() {
     // });
 
     const [count, setCount] = useState(0);
+    const [count2, setCount2] = useState(0);
 
     useEffect(() => {
         let counter = count;
@@ -346,6 +347,19 @@ function PaperTrading() {
         }, 700);
         return () => clearInterval(interval);
     }, [watchList]);
+
+    useEffect(() => {
+        let counter = count2;
+        const interval = setInterval(() => {
+            if (counter >= (hlist ? stockArray : historyList).length) {
+                clearInterval(interval);
+            } else {
+                setCount2((count2) => count2 + 1);
+                counter++; // local variable that this closure will see
+            }
+        }, 700);
+        return () => clearInterval(interval);
+    }, [stockArray]);
 
     let watchingList = () => {
         // clear the watchlist
@@ -468,7 +482,7 @@ function PaperTrading() {
                     />
                 </div>
                 {(hlist ? stockArray : historyList)
-                    .slice(0, 12)
+                    .slice(0, count2)
                     .map((item, index) => {
                         return (
                             <div key={index} className="table_element">
