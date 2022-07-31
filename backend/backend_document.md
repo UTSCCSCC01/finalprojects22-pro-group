@@ -103,3 +103,24 @@
     -   localhost:5050/api/findGroup
 -   Post: Get Group Name
     -   localhost:5050/api/getGroupName
+
+## End Points for Sprint 4
+
+-   Post: Update avatar
+    -   localhost:5050/api/updateAvatar
+-   Get: Get Avatar
+    -   localhost:5050/api/getAvatar
+-   Post: Sell stock
+    -   localhost:5050/api/sellstock
+-   Get: Get Bought
+    -   localhost:5050/api/getBought
+-   Get: Get History
+    -   localhost:5050/api/getHistory
+- Get: Get User Info
+    - localhost: 5050/api/getUserInfo
+- Post: Change User Info
+  - localhost: 5050/api/changeUserInfo
+- Get: Reset Account paper trading history
+  - localhost: 5050/api/resetAccount
+- Post: Reset Password after logged in
+  - localhost: 5050/api/selfReset
