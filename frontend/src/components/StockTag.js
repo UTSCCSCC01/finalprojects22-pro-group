@@ -64,16 +64,20 @@ function StockTag({ stockSymbol, position }) {
 
     return (
         <div>
-            <div className="border_2">
-                <span className="st1">{stockSymbol}</span>
-                <span className="st2">{price}</span>
-                <span className="st3">{volume}</span>
-                <span className="st4">{w52High}</span>
-                <span className="st5">{w52Low}</span>
-                <span className="st7">{change}</span>
-                <span className="st8">{low}</span>
-                <span className="st9">{open}</span>
-            </div>
+            {price === "" || price === null ? (
+                <div className="nothing"> </div>
+            ) : (
+                <div className="border_2">
+                    <span className="st77">{stockSymbol}</span>
+                    <span className="st77">{price}</span>
+                    <span className="st77">{volume}</span>
+                    <span className="st77">{w52High}</span>
+                    <span className="st77">{w52Low}</span>
+                    <span className="st77">{change}</span>
+                    <span className="st77">{low}</span>
+                    <span className="st77">{open}</span>
+                </div>
+            )}
         </div>
     );
 }

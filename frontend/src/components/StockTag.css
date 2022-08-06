@@ -12,6 +12,11 @@
 .st1 {
     width: 120px;
 }
+.st77 {
+    width: 160px;
+    padding: 5px;
+    padding-bottom: 10px;
+}
 .st2 {
     width: 120px;
 }
@@ -37,4 +42,8 @@
 
 .border {
     border: 0px;
+}
+
+.nothing{
+    padding: 0;
 }
