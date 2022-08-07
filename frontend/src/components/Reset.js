@@ -106,9 +106,7 @@ function Reset() {
                             margin="normal"
                             required
                             fullWidth
-                            id="email"
                             label="Email Address"
-                            name="email"
                             autoFocus
                         />
                         <TextField
@@ -117,10 +115,8 @@ function Reset() {
                             margin="normal"
                             required
                             fullWidth
-                            name="origin password"
                             label="Origin Password"
                             type="password"
-                            id="origin password"
                         />
                         <TextField
                             value={password}
@@ -128,10 +124,8 @@ function Reset() {
                             margin="normal"
                             required
                             fullWidth
-                            name="password"
                             label="New Password"
                             type="password"
-                            id="password"
                         />
                         <Button
                             type="button"

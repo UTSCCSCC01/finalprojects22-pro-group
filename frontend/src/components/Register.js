@@ -95,9 +95,7 @@ function Register() {
                             margin="normal"
                             required
                             fullWidth
-                            id="username"
                             label="Name"
-                            name="name"
                             autoComplete="name"
                             autoFocus
                         />
@@ -106,9 +104,7 @@ function Register() {
                             onChange={(e) => setEmail(e.target.value)}
                             required
                             fullWidth
-                            id="email"
                             label="Email Address"
-                            name="email"
                             autoComplete="email"
                         />
                         <TextField
@@ -117,10 +113,8 @@ function Register() {
                             margin="normal"
                             required
                             fullWidth
-                            name="password"
                             label="Password"
                             type="password"
-                            id="password"
                             autoComplete="current-password"
                         />
                         <Button

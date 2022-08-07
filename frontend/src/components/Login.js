@@ -110,10 +110,8 @@ function Login() {
                             margin="normal"
                             required
                             fullWidth
-                            name="password"
                             label="Password"
                             type="password"
-                            id="password"
                         />
                         <Button
                             type="button"
