@@ -78,59 +78,37 @@ function Reset() {
     return (
         <Grid container component="main" sx={{ height: "100vh" }}>
             <CssBaseline />
-            <Grid
-                item
-                xs={false}
-                sm={4}
-                md={7}
-                sx={{
-                    backgroundColor: (t) =>
-                        t.palette.mode === "light"
-                            ? t.palette.grey[50]
-                            : t.palette.grey[900],
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                }}
-            />
             <img src={hpi} alt="home_image" className="Login-img" />
             <Grid
                 item
-                xs={12}
-                sm={8}
-                md={5}
+                md={4}
                 component={Paper}
-                elevation={6}
                 square
             >
                 <Box
                     sx={{
-                        my: 8,
-                        mx: 4,
+                        my: 15,
+                        mx: 10,
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
                     }}
                 >
-                    <Typography component="h1" variant="h5">
+                    <Typography component="h1">
                         Reset Password
                     </Typography>
                     <Box
-                        component="form"
-                        //noValidate
                         sx={{ mt: 1 }}
-                        //onSubmit={reset_button}
                     >
                         <TextField
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            //onChange={(e) => setEmail(e.target.value)}
                             margin="normal"
                             required
                             fullWidth
                             id="email"
                             label="Email Address"
                             name="email"
-                            //autoComplete="email"
                             autoFocus
                         />
                         <TextField
@@ -143,7 +121,6 @@ function Reset() {
                             label="Origin Password"
                             type="password"
                             id="origin password"
-                            //autoComplete="current-password"
                         />
                         <TextField
                             value={password}
@@ -155,14 +132,13 @@ function Reset() {
                             label="New Password"
                             type="password"
                             id="password"
-                            //autoComplete="current-password"
                         />
                         <Button
                             type="button"
                             onClick={reset_button}
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
+                            sx={{ mt: 1, mb: 3 }}
                         >
                             Reset Password
                         </Button>
@@ -172,7 +148,7 @@ function Reset() {
                             onClick={() => navigate("/login")}
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
+                            sx={{ mt: 1, mb: 3 }}
                         >
                             Back to Login
                         </Button>
@@ -181,7 +157,7 @@ function Reset() {
                             onClick={() => navigate("/register")}
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
+                            sx={{ mt: 1, mb: 3 }}
                         >
                             Back to Register
                         </Button>

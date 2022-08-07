@@ -67,50 +67,27 @@ function Register() {
     return (
         <Grid container component="main" sx={{ height: "100vh" }}>
             <CssBaseline />
-            <Grid
-                item
-                xs={false}
-                sm={4}
-                md={7}
-                sx={{
-                    // backgroundImage:
-                    //     "url(https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg?cs=srgb&dl=pexels-energepiccom-159888.jpg&fm=jpg)",
-                    // backgroundRepeat: "no-repeat",
-                    backgroundColor: (t) =>
-                        t.palette.mode === "light"
-                            ? t.palette.grey[50]
-                            : t.palette.grey[900],
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                }}
-            />
             <img src={hpi} alt="home_image" className="Login-img" />
             <Grid
                 item
-                xs={12}
-                sm={8}
-                md={5}
+                md={4}
                 component={Paper}
-                elevation={6}
                 square
             >
                 <Box
                     sx={{
-                        my: 8,
-                        mx: 4,
+                        my: 15,
+                        mx: 10,
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
                     }}
                 >
-                    <Typography component="h1" variant="h5">
+                    <Typography component="h1">
                         Register
                     </Typography>
                     <Box
-                        component="form"
-                        noValidate
                         sx={{ mt: 1 }}
-                        //onSubmit={registerbutton}
                     >
                         <TextField
                             value={username}
@@ -127,7 +104,6 @@ function Register() {
                         <TextField
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            margin="normal"
                             required
                             fullWidth
                             id="email"
@@ -152,7 +128,7 @@ function Register() {
                             onClick={registerbutton}
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
+                            sx={{ mt: 1, mb: 3 }}
                         >
                             Register An Account
                         </Button>
@@ -162,7 +138,7 @@ function Register() {
                             onClick={() => navigate("/login")}
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
+                            sx={{ mt: 1, mb: 3 }}
                         >
                             Go to Login
                         </Button>
